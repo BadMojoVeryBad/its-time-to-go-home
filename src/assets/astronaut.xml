@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:62f41ca343f2c7a7b122e0a16c00b17c:c271287335d47758ea2df51980f4027c:a5b49791306f34d5e381b8451d90d941$ -->
+<!--Format:
+n  => name of the SubTexture
+x  => SubTexture x pos in texture
+y  => SubTexture y pos in texture
+w  => SubTexture width (may be trimmed)
+h  => SubTexture height (may be trimmed)
+pX => x pos of the pivot point (relative to SubTexture width)
+pY => y pos of the pivot point (relative to SubTexture height)
+oX => SubTexture's x-corner offset (only available if trimmed)
+oY => SubTexture's y-corner offset (only available if trimmed)
+oW => SubTexture's original width (only available if trimmed)
+oH => SubTexture's original height (only available if trimmed)
+r => 'y' only set if SubTexture is rotated
+with polygon mode enabled:
+vertices   => points in SubTexture coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => SubTexture triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="astronaut.png" width="16" height="704">
+    <SubTexture name="info-marker0000" x="0" y="0" width="16" height="32"/>
+    <SubTexture name="info-marker0001" x="0" y="32" width="16" height="32"/>
+    <SubTexture name="info-marker0002" x="0" y="64" width="16" height="32"/>
+    <SubTexture name="info-marker0003" x="0" y="96" width="16" height="32"/>
+    <SubTexture name="info-marker0004" x="0" y="128" width="16" height="32"/>
+    <SubTexture name="info-marker0005" x="0" y="160" width="16" height="32"/>
+    <SubTexture name="info-marker0006" x="0" y="192" width="16" height="32"/>
+    <SubTexture name="info-marker0007" x="0" y="224" width="16" height="32"/>
+    <SubTexture name="info-marker0008" x="0" y="256" width="16" height="32"/>
+    <SubTexture name="info-marker0009" x="0" y="288" width="16" height="32"/>
+    <SubTexture name="info-marker0010" x="0" y="320" width="16" height="32"/>
+    <SubTexture name="info-marker0011" x="0" y="352" width="16" height="32"/>
+    <SubTexture name="info-marker0012" x="0" y="384" width="16" height="32"/>
+    <SubTexture name="info-marker0013" x="0" y="416" width="16" height="32"/>
+    <SubTexture name="info-marker0014" x="0" y="448" width="16" height="32"/>
+    <SubTexture name="info-marker0015" x="0" y="480" width="16" height="32"/>
+    <SubTexture name="Untitled-10000" x="0" y="512" width="16" height="32"/>
+    <SubTexture name="Untitled-10001" x="0" y="544" width="16" height="32"/>
+    <SubTexture name="Untitled-10002" x="0" y="576" width="16" height="32"/>
+    <SubTexture name="Untitled-10003" x="0" y="608" width="16" height="32"/>
+    <SubTexture name="Untitled-10004" x="0" y="640" width="16" height="32"/>
+    <SubTexture name="Untitled-10005" x="0" y="672" width="16" height="32"/>
+</TextureAtlas>

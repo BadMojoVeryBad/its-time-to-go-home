@@ -5,3 +5,4 @@ build/
 dist/
 
 *.sublime-workspace
+*.code-workspace

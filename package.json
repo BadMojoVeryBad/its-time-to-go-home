@@ -1,7 +1,7 @@
 {
-  "name": "phaser-electron-typescript-parcel",
+  "name": "its-time-to-go-home",
   "version": "1.0.0",
-  "description": "phaser electron typescript parcel template",
+  "description": "A game by Haydn Smith",
   "main": "build/main.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
@@ -10,31 +10,27 @@
     "download-phaser-typedef": "download --out typings https://raw.githubusercontent.com/photonstorm/phaser/master/types/phaser.d.ts",
     "build": "rimraf build && parcel build src/main.ts src/index.html --public-url ./ -d build --out-file=main --target=electron",
     "watch": "rimraf build && parcel watch src/main.ts src/index.html --public-url ./ -d build --out-file=main --target=electron",
-    "app": "cross-env ELECTRON_DEBUG=false electron build/main.js",
+    "app": "cross-env ELECTRON_DEBUG=true electron build/main.js",
     "debug": "cross-env ELECTRON_DEBUG=vscode electron --remote-debugging-port=9223 build/main.js",
-    "dist": "yarn build && electron-builder"
+    "dist": "yarn build && electron-builder",
+    "lint": "node_modules/tslint/bin/tslint -c tslint.json 'src/**/*.ts'"
   },
-  "homepage": "https://github.com/distantcam/phaser-electron-typescript-parcel",
+  "homepage": "https://github.com/Twitchedy/phaser-starter",
   "bugs": {
-    "url": "https://github.com/distantcam/phaser-electron-typescript-parcel/issues"
+    "url": "https://github.com/Twitchedy/phaser-starter"
   },
   "build": {
-    "appId": "parcel.electron",
+    "appId": "its.time.to.go.home",
     "mac": {
-      "category": "your.app.category.type"
+      "category": "haydn.smith.game"
     },
     "files": [
       "build/*"
     ]
   },
-  "keywords": [
-    "phaser",
-    "electron"
-  ],
-  "author": "distantcam",
-  "license": "MIT",
+  "author": "twitchedy",
   "dependencies": {
-    "phaser": "^3.22.0"
+    "phaser": "3.18.0"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
@@ -49,5 +45,8 @@
     "rimraf": "^3.0.1",
     "tslint": "^5.20.1",
     "typescript": "^3.7.5"
+  },
+  "resolutions": {
+    "deasync": "0.1.16"
   }
 }
