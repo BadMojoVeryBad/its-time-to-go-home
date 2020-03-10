@@ -52,3 +52,5 @@ Run this command to bundle code in production mode
 # Create executables
 $ yarn dist
 ```
+
+node app.js "../../../Haydns Game/ttgh-spritesheet.atlas" "../../../Haydns Game/src/src/assets/ttgh-spritesheet.xml"

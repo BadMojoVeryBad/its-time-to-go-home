@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
 
 // Let electron reloads by itself
@@ -14,6 +14,7 @@ let mainWindow: Electron.BrowserWindow | null;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    title: 'It\'s Time to Go Home',
     width: 400,
     height: 300,
     resizable: true,
@@ -69,4 +70,7 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 app.on('browser-window-created',function(e, window) {
   window.setMenu(null);
+  window.setTitle('It\'s Time to go Home');
 });
+
+Menu.setApplicationMenu(new Menu());

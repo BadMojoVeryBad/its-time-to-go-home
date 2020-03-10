@@ -1,4 +1,3 @@
-import 'phaser';
 import { Marker } from  '../sprites/Marker';
 import { Player } from  '../sprites/Player';
 
@@ -49,7 +48,7 @@ export class MarkerController {
     }, this);
   }
 
-  addMarker (x:number, y:number, event:() => any) {
+  addMarker (x:number, y:number, event:(done:() => void) => any) {
     let marker = new Marker(this.scene, this.player, event);
     marker.setPos(x, y);
     this.markers.push(marker);

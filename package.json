@@ -1,5 +1,5 @@
 {
-  "name": "its-time-to-go-home",
+  "name": "game",
   "version": "1.0.0",
   "description": "A game by Haydn Smith",
   "main": "build/main.js",
@@ -20,9 +20,15 @@
     "url": "https://github.com/Twitchedy/phaser-starter"
   },
   "build": {
-    "appId": "its.time.to.go.home",
+    "appId": "haydn.smith.${name}",
+    "productName": "Time to Go Home",
+    "copyright": "Copyright © 2020 BadMojoVeryBad",
     "mac": {
-      "category": "haydn.smith.game"
+      "icon": "./icon.icns",
+      "category": "haydn.smith.${name}"
+    },
+    "win": {
+      "icon": "./icon.icns"
     },
     "files": [
       "build/*"
@@ -30,7 +36,8 @@
   },
   "author": "twitchedy",
   "dependencies": {
-    "phaser": "3.18.0"
+    "phaser": "3.18.0",
+    "phaser-animated-tiles": "^2.0.2"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",

@@ -1,9 +1,6 @@
-import 'phaser';
-
 export class Player extends Phaser.GameObjects.Container {
   private player!: Phaser.Physics.Matter.Sprite;
   private cursors!: Phaser.Input.Keyboard.CursorKeys;
-  private onFloor:boolean = false;
 
   private compoundBody!: any;
   private playerBody!: any;
@@ -14,6 +11,7 @@ export class Player extends Phaser.GameObjects.Container {
   constructor(scene: Phaser.Scene, ground:Phaser.Tilemaps.DynamicTilemapLayer) {
     super(scene);
     this.scene = scene;
+    scene.sys.updateList.add(this);
 
     // create the player sprite
     this.player = this.scene.matter.add.sprite(0, 0, 'player');
@@ -29,7 +27,7 @@ export class Player extends Phaser.GameObjects.Container {
       parts: [
         this.playerBody, this.floorSensor
       ],
-      friction: 0.01,
+      friction: 0,
       restitution: 0.05, // Prevent body from sticking against a wall
       render: {
         sprite: {
@@ -39,7 +37,7 @@ export class Player extends Phaser.GameObjects.Container {
     });
 
     this.player.setExistingBody(this.compoundBody)
-    this.player.setPosition(100, 550);
+    this.player.setPosition(300, 609);
     this.player.flipX = true;
     this.player.setScale(4);
     this.player.setFixedRotation();
@@ -55,6 +53,12 @@ export class Player extends Phaser.GameObjects.Container {
       key: 'idle',
       frames: this.scene.anims.generateFrameNames('player', { prefix: 'Untitled-1', start: 0, end: 0, zeroPad: 4 }),
       frameRate: 1,
+      repeat: -1
+    });
+    this.scene.anims.create({
+      key: 'jump',
+      frames: this.scene.anims.generateFrameNames('player', { prefix: 'astronaut-jump', start: 0, end: 2, zeroPad: 4 }),
+      frameRate: 12,
       repeat: -1
     });
 
@@ -92,36 +96,42 @@ export class Player extends Phaser.GameObjects.Container {
     });
   }
 
-  public updatePlayer() {
+  public preUpdate() {
+    let anim = 'idle';
+
     if (this.cursors.left!.isDown) // if the left arrow key is down
     {
       this.player.setVelocityX(-2); // move left
-      this.player.body
-      this.player.anims.play('walk', true); // play walk animation
+      anim = 'walk'; // play walk animation
       this.player.flipX = false; // flip the sprite to the left
     }
     else if (this.cursors.right!.isDown) // if the right arrow key is down
     {
       this.player.setVelocityX(2); // move right
-      this.player.anims.play('walk', true); // play walk animation
+      anim = 'walk'; // play walk animation
       this.player.flipX = true; // flip the sprite to the left
     } else {
       this.player.setVelocityX(0);
-      this.player.anims.play('idle', true);
+      anim = 'idle';
+    }
+
+    if (!this.isGrounded) {
+      anim = 'jump';
     }
 
     if ((this.cursors.space!.isDown || this.cursors.up!.isDown) && this.isGrounded)
     {
       this.player.setVelocityY(-7); // jump up
-      this.player.anims.play('idle', true);
-      this.onFloor = false;
+      anim = 'jump';
     }
 
     // If the player is on the ground and no input is given, it should not be moving.
-    if (!this.cursors.left!.isDown && !this.cursors.right!.isDown && this.isGrounded) {
-      this.player.setVelocityX(0);
-      this.player.setVelocityY(0);
-    }
+    // if (!this.cursors.left!.isDown && !this.cursors.right!.isDown && !this.cursors.space!.isDown && !this.cursors.up!.isDown && this.isGrounded) {
+    //   this.player.setVelocityX(0);
+    //   this.player.setVelocityY(0);
+    // }
+
+    this.player.anims.play(anim, true);
   }
 
   public getSprite() {

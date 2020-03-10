@@ -1,0 +1,102 @@
+import { SceneBase } from '../scenes/SceneBase';
+import { CutsceneAction } from './Cutscene/CutsceneAction';
+import { ActionFactory } from './Cutscene/ActionFactory';
+
+/**
+ * TODO:
+ *   Disable player controls when cutscene active.
+ *   Clean up letterbox code a bit.
+ *   Move player action.
+ */
+export class CutsceneController extends Phaser.GameObjects.Container {
+  private inCutscene: boolean = false;
+  private queue: Array<CutsceneAction> = [];
+  private topBar!: Phaser.GameObjects.Graphics;
+  private bottomBar!: Phaser.GameObjects.Graphics;
+
+  constructor (scene: SceneBase) {
+    super(scene);
+  }
+
+  public addAction (key: string, data: object) {
+    this.queue.push(ActionFactory.create(this.scene, key, data));
+  }
+
+  public async play () {
+    // Set flag so the rest of the game knows what's up.
+    this.inCutscene = true;
+
+    // Start 'cutscene mode'.
+    await this.openLetterbox();
+
+    // Play each queued action in order.
+    for (let i = 0; i < this.queue.length; i++) {
+      await this.queue[i].do();
+    }
+
+    // End 'cutscene mode'.
+    await this.closeLetterbox();
+
+    // Reset flag.
+    this.inCutscene = false;
+  }
+
+  private closeLetterbox () {
+    return new Promise(resolve => {
+      this.scene.tweens.add({
+        targets: this.topBar,
+        duration: 800,
+        ease: 'Quart.easeInOut',
+        y: 0 - this.scene.gameHeight / 4
+      });
+
+      this.scene.tweens.add({
+        targets: this.bottomBar,
+        duration: 800,
+        ease: 'Quart.easeInOut',
+        y: this.scene.gameHeight / 4
+      });
+
+      this.scene.cameras.main.zoomTo(1, 800, 'Quart.easeInOut');
+    });
+  }
+
+  private openLetterbox () {
+    return new Promise(resolve => {
+      let cam = this.scene.cameras.main;
+
+      this.topBar = this.scene.add.graphics();
+      this.topBar.setScrollFactor(0);
+      this.topBar.fillStyle(0x000000, 1);
+      this.topBar.fillRect(0, 0 - (this.scene.gameHeight / 4), this.scene.gameWidth, this.scene.gameHeight / 4);
+
+      this.bottomBar = this.scene.add.graphics();
+      this.bottomBar.setScrollFactor(0);
+      this.bottomBar.fillStyle(0x000000, 1);
+      this.bottomBar.fillRect(0, this.scene.gameHeight, this.scene.gameWidth, this.scene.gameHeight / 4);
+
+      this.scene.tweens.add({
+        targets: this.topBar,
+        duration: 800,
+        ease: 'Quart.easeInOut',
+        y: this.scene.gameHeight / 4
+      });
+
+      this.scene.tweens.add({
+        targets: this.bottomBar,
+        duration: 800,
+        ease: 'Quart.easeInOut',
+        y: 0 - (this.scene.gameHeight / 4),
+        onComplete: () => {
+          resolve();
+        }
+      });
+
+      cam.zoomTo(1.4, 800, 'Quart.easeInOut');
+    });
+  }
+
+  public isInCutscene () {
+    return this.isInCutscene;
+  }
+}

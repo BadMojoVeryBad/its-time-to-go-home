@@ -1,4 +1,3 @@
-import 'phaser';
 import { SceneBase } from '../scenes/SceneBase';
 
 export class TextPlate extends Phaser.GameObjects.Container {
@@ -11,6 +10,8 @@ export class TextPlate extends Phaser.GameObjects.Container {
   private foreground!:Phaser.GameObjects.BitmapText;
   private timer!:any;
   private timer2!:any;
+  private onClose:() => any = () => {};
+  private keyEvent!:Phaser.Input.Keyboard.KeyboardPlugin;
 
   constructor(scene: SceneBase, message: string) {
     super(scene)
@@ -19,7 +20,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.key = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 
     // On any keypress, close the plate.
-    scene.input.keyboard.on('keydown', (event:any) => {
+    this.keyEvent = scene.input.keyboard.on('keydown', (event:any) => {
       if (this.plateState === 'open') {
         if (this.timer) {
           this.timer.remove();
@@ -29,6 +30,9 @@ export class TextPlate extends Phaser.GameObjects.Container {
           this.timer2.remove();
         }
 
+        this.onClose();
+
+        this.keyEvent.removeListener('keydown');
         this.background.destroy();
         this.foreground.destroy();
         this.destroy();
@@ -51,6 +55,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
 
 
         if (this.currentMessage === this.message) {
+          this.plateState = 'open';
           this.timer2.remove();
           this.timer = scene.time.addEvent({
             delay: 500,
@@ -73,7 +78,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
   updateTextPlate() {
     // If state is opening, animate the text.
     if (this.plateState === 'opening') {
-      this.plateState = 'open'
+
     }
 
     // If the state is open, blink the cursor.
@@ -92,5 +97,9 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.foreground = this.scene.add.bitmapText(70, this.scene.gameHeight - 145, 'font', this.currentMessage);
     this.foreground.setScale(0.5);
     this.foreground.setScrollFactor(0);
+  }
+
+  setOnClose(closeFn:() => any) {
+    this.onClose = closeFn;
   }
 }
