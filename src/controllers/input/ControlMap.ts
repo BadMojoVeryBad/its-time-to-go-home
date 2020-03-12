@@ -2,9 +2,9 @@ import { Control } from '../InputController';
 
 export class ControlMap {
   private control: Control;
-  private inputs: Phaser.Input.Keyboard.Key[]
+  private inputs: Phaser.Input.Keyboard.Key[];
 
-  constructor (control: Control, ...inputs: Phaser.Input.Keyboard.Key[]) {
+  constructor(control: Control, ...inputs: Phaser.Input.Keyboard.Key[]) {
     this.inputs = inputs;
     this.control = control;
   }

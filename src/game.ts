@@ -1,12 +1,12 @@
 import 'phaser';
-import { MainScene } from './scenes/MainScene';
-import { LoadScene } from './scenes/LoadScene';
-import { PreloadScene } from './scenes/PreloadScene';
-import { MenuScene } from './scenes/MenuScene';
 import { CreditScene } from './scenes/CreditScene';
+import { LoadScene } from './scenes/LoadScene';
+import { MainScene } from './scenes/MainScene';
+import { MenuScene } from './scenes/MenuScene';
+import { PreloadScene } from './scenes/PreloadScene';
 
 const config: Phaser.Types.Core.GameConfig = {
-	type: Phaser.AUTO,
+  type: Phaser.AUTO,
   antialias: false,
   pixelart: true,
   width: 800,
@@ -15,10 +15,10 @@ const config: Phaser.Types.Core.GameConfig = {
     default: 'matter',
     matter: {
       gravity: 1,
-      debug: false
-    }
+      debug: false,
+    },
   },
-  scene: [ PreloadScene, CreditScene, LoadScene, MenuScene, MainScene ]
+  scene: [ PreloadScene, CreditScene, LoadScene, MenuScene, MainScene ],
 };
 
 const game = new Phaser.Game(config);

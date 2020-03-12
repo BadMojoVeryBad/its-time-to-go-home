@@ -4,8 +4,8 @@ export enum Control {
   Left,
   Right,
   Jump,
-  Activate
-};
+  Activate,
+}
 
 export class InputController extends Phaser.GameObjects.Container {
   private controls: ControlMap[] = [];
@@ -30,9 +30,9 @@ export class InputController extends Phaser.GameObjects.Container {
     this.controls.push(new ControlMap(Control.Activate, this.scene.input.keyboard.addKey(90), this.scene.input.keyboard.addKey(70)));
   }
 
-  public isPressed (control: Control) {
+  public isPressed(control: Control) {
     // For each input in this control.
-    let inputs = this.controls[control].getInputs();
+    const inputs = this.controls[control].getInputs();
 
     for (let i = 0; i < inputs.length; i++) {
       // If one key is pressed, return true.
@@ -45,34 +45,34 @@ export class InputController extends Phaser.GameObjects.Container {
     return false;
   }
 
-  public onPress (control: Control, fn: () => void) {
+  public onPress(control: Control, fn: () => void) {
     // Get control object.
-    let inputs = this.controls[control].getInputs();
+    const inputs = this.controls[control].getInputs();
 
     // For each key in this control.
     for (let i = 0; i < inputs.length; i++) {
       // Add function to event.
-      let input = inputs[i];
+      const input = inputs[i];
       input.on('down', fn);
     }
 
     // Return a reference to the event listeners
-    let reference = 'control.' + control.toString() + '.' + fn.toString();
+    const reference = 'control.' + control.toString() + '.' + fn.toString();
     this.customListeners[reference] = {
-      control: control,
-      function: fn
+      control,
+      function: fn,
     };
     return reference;
   }
 
-  public removeOnPress (reference: string) {
+  public removeOnPress(reference: string) {
     // Get control object.
-    let listener = this.customListeners[reference];
-    let inputs = this.controls[listener.control].getInputs();
+    const listener = this.customListeners[reference];
+    const inputs = this.controls[listener.control].getInputs();
 
     // For each key in this control.
     for (let i = 0; i < inputs.length; i++) {
-      let input = inputs[i];
+      const input = inputs[i];
 
       // Remove listener.
       input.removeListener('down', listener.function);
@@ -81,10 +81,10 @@ export class InputController extends Phaser.GameObjects.Container {
 
   public getControlString(control: Control) {
     // Get control/input map.
-    let controlMap = this.controls[control];
+    const controlMap = this.controls[control];
 
     // Get the primary input used for this control.
-    let primaryInput = controlMap.getPrimaryInput();
+    const primaryInput = controlMap.getPrimaryInput();
     return (primaryInput) ? String.fromCharCode(primaryInput.keyCode) : '[No Input]';
   }
 }

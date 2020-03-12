@@ -1,6 +1,6 @@
 import { SceneBase } from '../scenes/SceneBase';
-import { CutsceneAction } from './cutscene/CutsceneAction';
 import { ActionFactory } from './cutscene/ActionFactory';
+import { CutsceneAction } from './cutscene/CutsceneAction';
 
 /**
  * TODO:
@@ -9,20 +9,24 @@ import { ActionFactory } from './cutscene/ActionFactory';
  *   Move player action.
  */
 export class CutsceneController extends Phaser.GameObjects.Container {
+
+  public static isInCutscene() {
+    return this.inCutscene;
+  }
   private static inCutscene: boolean = false;
-  private queue: Array<CutsceneAction> = [];
+  private queue: CutsceneAction[] = [];
   private topBar!: Phaser.GameObjects.Graphics;
   private bottomBar!: Phaser.GameObjects.Graphics;
 
-  constructor (scene: SceneBase) {
+  constructor(scene: SceneBase) {
     super(scene);
   }
 
-  public addAction (key: string, data: object) {
+  public addAction(key: string, data: object) {
     this.queue.push(ActionFactory.create(this.scene, key, data));
   }
 
-  public async play () {
+  public async play() {
     // Set flag so the rest of the game knows what's up.
     CutsceneController.inCutscene = true;
 
@@ -41,13 +45,13 @@ export class CutsceneController extends Phaser.GameObjects.Container {
     CutsceneController.inCutscene = false;
   }
 
-  private closeLetterbox () {
-    return new Promise(resolve => {
+  private closeLetterbox() {
+    return new Promise((resolve) => {
       this.scene.tweens.add({
         targets: this.topBar,
         duration: 800,
         ease: 'Quart.easeInOut',
-        y: 0 - this.scene.gameHeight / 4
+        y: 0 - this.scene.gameHeight / 4,
       });
 
       this.scene.tweens.add({
@@ -57,16 +61,16 @@ export class CutsceneController extends Phaser.GameObjects.Container {
         y: this.scene.gameHeight / 4,
         onComplete: () => {
           resolve();
-        }
+        },
       });
 
       this.scene.cameras.main.zoomTo(1, 800, 'Quart.easeInOut');
     });
   }
 
-  private openLetterbox () {
-    return new Promise(resolve => {
-      let cam = this.scene.cameras.main;
+  private openLetterbox() {
+    return new Promise((resolve) => {
+      const cam = this.scene.cameras.main;
 
       this.topBar = this.scene.add.graphics();
       this.topBar.setScrollFactor(0);
@@ -82,7 +86,7 @@ export class CutsceneController extends Phaser.GameObjects.Container {
         targets: this.topBar,
         duration: 800,
         ease: 'Quart.easeInOut',
-        y: this.scene.gameHeight / 4
+        y: this.scene.gameHeight / 4,
       });
 
       this.scene.tweens.add({
@@ -92,14 +96,10 @@ export class CutsceneController extends Phaser.GameObjects.Container {
         y: 0 - (this.scene.gameHeight / 4),
         onComplete: () => {
           resolve();
-        }
+        },
       });
 
       cam.zoomTo(1.4, 800, 'Quart.easeInOut');
     });
-  }
-
-  public static isInCutscene () {
-    return this.inCutscene;
   }
 }

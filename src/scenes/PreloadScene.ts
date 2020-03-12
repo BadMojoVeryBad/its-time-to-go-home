@@ -1,17 +1,17 @@
-import { SceneBase } from "./SceneBase";
+import { SceneBase } from './SceneBase';
 
 import loaderPng from '../assets/loader.png';
 import logoPng from '../assets/studio-logo.png';
 
 export class PreloadScene extends SceneBase {
-  constructor () {
+  constructor() {
     super({
-      key: 'PreloadScene'
+      key: 'PreloadScene',
     });
   }
 
-  preload () {
-    let graphics = this.add.graphics();
+  public preload() {
+    const graphics = this.add.graphics();
     graphics.fillStyle(0x000000, 1);
     graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
 
@@ -22,6 +22,6 @@ export class PreloadScene extends SceneBase {
     // Go to next scene when loading is done.
     this.load.on('complete', () => {
       this.scene.start('CreditScene', {});
-    })
+    });
   }
 }

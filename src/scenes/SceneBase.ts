@@ -1,9 +1,9 @@
-import { InputController } from "../controllers/InputController";
+import { InputController } from '../controllers/InputController';
 
 export abstract class SceneBase extends Phaser.Scene {
   public inputController: InputController;
 
-  constructor (config: Phaser.Types.Scenes.SettingsConfig) {
+  constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
   }
 
@@ -22,16 +22,16 @@ export abstract class SceneBase extends Phaser.Scene {
 
   protected setupTransitionEvents(): void {
     // Fade in the scene.
-    this.events.on('create', (fromScene:Phaser.Scene) => {
-      let graphics = this.add.graphics();
+    this.events.on('create', (fromScene: Phaser.Scene) => {
+      const graphics = this.add.graphics();
       graphics.fillStyle(0x000000, 1);
       graphics.setScrollFactor(0);
       graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
       this.tweens.add({
         targets: graphics,
         duration: 600,
-        alpha: 0
-      })
+        alpha: 0,
+      });
     }, this);
   }
 

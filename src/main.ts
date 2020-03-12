@@ -5,7 +5,7 @@ import * as path from 'path';
 if (process.env.ELECTRON_DEBUG === 'true' || process.env.ELECTRON_DEBUG === 'vscode') {
   // tslint:disable-next-line:no-var-requires
   require('electron-reload')(__dirname, {
-    electron: path.join(process.cwd(), 'node_modules', '.bin', 'electron.cmd')
+    electron: path.join(process.cwd(), 'node_modules', '.bin', 'electron.cmd'),
 });
 }
 
@@ -68,7 +68,7 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
-app.on('browser-window-created',function(e, window) {
+app.on('browser-window-created', (e, window) => {
   window.setMenu(null);
   window.setTitle('It\'s Time to go Home');
 });

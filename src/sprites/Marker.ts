@@ -1,17 +1,17 @@
-import { Player } from './Player';
-import { SceneBase } from '../scenes/SceneBase';
 import { Control } from '../controllers/InputController';
+import { SceneBase } from '../scenes/SceneBase';
+import { Player } from './Player';
 
 export class Marker extends Phaser.GameObjects.Container {
+  protected scene: SceneBase;
   private marker!: Phaser.Physics.Matter.Sprite;
   private player!: Player;
-  private eventFn!: (done:() => void) => any;
-  private keyEvent!:Phaser.Input.Keyboard.KeyboardPlugin;
-  private isActive!:boolean;
-  private isActivated:boolean = false;
-  protected scene: SceneBase;
+  private eventFn!: (done: () => void) => any;
+  private keyEvent!: Phaser.Input.Keyboard.KeyboardPlugin;
+  private isActive!: boolean;
+  private isActivated: boolean = false;
 
-  constructor (scene: SceneBase, player: Player, event: (done:() => void) => any) {
+  constructor(scene: SceneBase, player: Player, event: (done: () => void) => any) {
     super(scene);
     this.scene = scene;
     this.player = player;
@@ -26,20 +26,20 @@ export class Marker extends Phaser.GameObjects.Container {
       key: 'info',
       frames: this.scene.anims.generateFrameNames('player', { prefix: 'info-marker', start: 0, end: 15, zeroPad: 4 }),
       frameRate: 12,
-      repeat: -1
+      repeat: -1,
     });
 
     this.scene.anims.create({
       key: 'info-highlighted',
       frames: this.scene.anims.generateFrameNames('player', { prefix: 'info-marker-highlighted', start: 0, end: 15, zeroPad: 4 }),
       frameRate: 12,
-      repeat: -1
+      repeat: -1,
     });
 
     // Collision.
     // @ts-ignore
-    let M = Phaser.Physics.Matter.Matter;
-    let sensor = M.Bodies.rectangle(0, 0, 16, 64, { isSensor: true, label: 'marker' });
+    const M = Phaser.Physics.Matter.Matter;
+    const sensor = M.Bodies.rectangle(0, 0, 16, 64, { isSensor: true, label: 'marker' });
     this.marker.setExistingBody(sensor);
     this.marker.setScale(4);
     this.marker.setIgnoreGravity(true);
@@ -55,11 +55,11 @@ export class Marker extends Phaser.GameObjects.Container {
     });
   }
 
-  setPos (x:number, y:number) {
+  public setPos(x: number, y: number) {
     this.marker.setPosition(x, y);
   }
 
-  setIsActive (isActive:boolean) {
+  public setIsActive(isActive: boolean) {
     this.isActive = isActive;
   }
 }
