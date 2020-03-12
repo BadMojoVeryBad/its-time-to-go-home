@@ -73,7 +73,7 @@ export class LoadScene extends SceneBase {
     this.load.on('complete', () => {
       this.cameras.main.fadeOut(600, 0, 0, 0, (camera:any, progress:number) => {
         if (progress === 1) {
-          this.scene.start('MainScene', {});
+          this.scene.start('MenuScene', {});
         }
       });
     })

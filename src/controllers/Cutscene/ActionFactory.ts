@@ -1,11 +1,13 @@
 import { WaitAction } from "./WaitAction";
 import { CutsceneAction } from "./CutsceneAction";
-import { MovePlayerAction } from "./MovePlayerAction";
+import { PlayerJumpAction } from "./PlayerJumpAction";
+import { PlayerRunToAction } from "./PlayerRunToAction";
 
 export class ActionFactory {
   private static actions: object = {
     'wait': WaitAction,
-    'movePlayer': MovePlayerAction
+    'playerJump': PlayerJumpAction,
+    'playerRunTo': PlayerRunToAction
   }
 
   public static create(scene: Phaser.Scene, key: string, data: object):CutsceneAction {

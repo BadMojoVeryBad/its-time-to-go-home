@@ -119,7 +119,13 @@ export class MainScene extends SceneBase {
 
       // 2. Add a bunch of actions for it to queue up.
       cutscene.addAction('wait', { duration: 1000 });
-      cutscene.addAction('movePlayer', { obj: this.player, y: -7 });
+      cutscene.addAction('playerJump', { player: this.player, direction: 'up' });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 50 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1000 });
+      cutscene.addAction('playerJump', { player: this.player, direction: 'up' });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1100 });
+      cutscene.addAction('playerJump', { player: this.player, direction: 'up' });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1200 });
       cutscene.addAction('wait', { duration: 1000 });
 
       // 3. When you're ready, start it and watch the

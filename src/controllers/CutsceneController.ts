@@ -9,7 +9,7 @@ import { ActionFactory } from './Cutscene/ActionFactory';
  *   Move player action.
  */
 export class CutsceneController extends Phaser.GameObjects.Container {
-  private inCutscene: boolean = false;
+  private static inCutscene: boolean = false;
   private queue: Array<CutsceneAction> = [];
   private topBar!: Phaser.GameObjects.Graphics;
   private bottomBar!: Phaser.GameObjects.Graphics;
@@ -24,7 +24,7 @@ export class CutsceneController extends Phaser.GameObjects.Container {
 
   public async play () {
     // Set flag so the rest of the game knows what's up.
-    this.inCutscene = true;
+    CutsceneController.inCutscene = true;
 
     // Start 'cutscene mode'.
     await this.openLetterbox();
@@ -38,7 +38,7 @@ export class CutsceneController extends Phaser.GameObjects.Container {
     await this.closeLetterbox();
 
     // Reset flag.
-    this.inCutscene = false;
+    CutsceneController.inCutscene = false;
   }
 
   private closeLetterbox () {
@@ -54,7 +54,10 @@ export class CutsceneController extends Phaser.GameObjects.Container {
         targets: this.bottomBar,
         duration: 800,
         ease: 'Quart.easeInOut',
-        y: this.scene.gameHeight / 4
+        y: this.scene.gameHeight / 4,
+        onComplete: () => {
+          resolve();
+        }
       });
 
       this.scene.cameras.main.zoomTo(1, 800, 'Quart.easeInOut');
@@ -96,7 +99,7 @@ export class CutsceneController extends Phaser.GameObjects.Container {
     });
   }
 
-  public isInCutscene () {
-    return this.isInCutscene;
+  public static isInCutscene () {
+    return this.inCutscene;
   }
 }
