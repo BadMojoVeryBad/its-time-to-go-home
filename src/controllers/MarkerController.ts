@@ -1,12 +1,13 @@
 import { Marker } from '../sprites/Marker';
 import { Player } from '../sprites/Player';
+import { SceneBase } from '../scenes/SceneBase';
 
 export class MarkerController {
-  private scene!: Phaser.Scene;
   private player!: Player;
   private markers: Marker[] = [];
+  protected scene: SceneBase;
 
-  constructor(scene: Phaser.Scene, player: Player) {
+  constructor(scene: SceneBase, player: Player) {
     this.scene = scene;
 
     this.scene.matter.world.on('collisionstart', (event: any) => {
@@ -35,7 +36,7 @@ export class MarkerController {
         if ((bodyA.label === 'astronaut' && bodyB.label === 'marker') || (bodyB.label === 'astronaut' && bodyA.label === 'marker')) {
           const marker: Phaser.Physics.Matter.Sprite = (bodyA.label === 'astronaut') ? bodyB.gameObject : bodyA.gameObject;
 
-          marker.parentContainer.setIsActive(false);
+          (marker.parentContainer as Marker).setIsActive(false);
 
           const frame = marker.anims.currentFrame.index;
           const newFrame = this.scene.anims.get('info').frames[frame];

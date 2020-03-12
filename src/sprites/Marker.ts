@@ -5,16 +5,13 @@ import { Player } from './Player';
 export class Marker extends Phaser.GameObjects.Container {
   protected scene: SceneBase;
   private marker!: Phaser.Physics.Matter.Sprite;
-  private player!: Player;
   private eventFn!: (done: () => void) => any;
-  private keyEvent!: Phaser.Input.Keyboard.KeyboardPlugin;
   private isActive!: boolean;
   private isActivated: boolean = false;
 
   constructor(scene: SceneBase, player: Player, event: (done: () => void) => any) {
     super(scene);
     this.scene = scene;
-    this.player = player;
     this.eventFn = event;
     this.marker = this.scene.matter.add.sprite(0, 0, 'player');
     this.marker.setDepth(100);
