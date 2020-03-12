@@ -1,4 +1,6 @@
 import { Player } from './Player';
+import { SceneBase } from '../scenes/SceneBase';
+import { Control } from '../controllers/InputController';
 
 export class Marker extends Phaser.GameObjects.Container {
   private marker!: Phaser.Physics.Matter.Sprite;
@@ -7,8 +9,9 @@ export class Marker extends Phaser.GameObjects.Container {
   private keyEvent!:Phaser.Input.Keyboard.KeyboardPlugin;
   private isActive!:boolean;
   private isActivated:boolean = false;
+  protected scene: SceneBase;
 
-  constructor (scene: Phaser.Scene, player: Player, event: (done:() => void) => any) {
+  constructor (scene: SceneBase, player: Player, event: (done:() => void) => any) {
     super(scene);
     this.scene = scene;
     this.player = player;
@@ -42,9 +45,7 @@ export class Marker extends Phaser.GameObjects.Container {
     this.marker.setIgnoreGravity(true);
     this.marker.play('info');
 
-    let key = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-
-    this.keyEvent = scene.input.keyboard.on('keydown-' + 'Z', (event:any) => {
+    this.scene.inputController.onPress(Control.Activate, () => {
       if (this.isActive && !this.isActivated) {
         this.isActivated = true;
         this.eventFn(() => {

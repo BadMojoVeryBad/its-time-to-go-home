@@ -1,4 +1,5 @@
 import { SceneBase } from "./SceneBase";
+import { Control } from "../controllers/InputController";
 
 export class MenuScene extends SceneBase {
   constructor () {
@@ -7,12 +8,9 @@ export class MenuScene extends SceneBase {
     })
   }
 
-  preload () {
-
-  }
-
   create () {
     this.setupTransitionEvents();
+    this.setupInputs();
 
     let spaceBg:Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'space-bg');
     spaceBg.setScale(1);
@@ -26,12 +24,12 @@ export class MenuScene extends SceneBase {
     bigStarsBg.setScale(1);
     bigStarsBg.setScrollFactor(0.15);
 
-    let text = this.add.bitmapText(this.gameWidth / 2, this.gameHeight / 2, 'font', 'Press any button to start.');
+    let text = this.add.bitmapText(this.gameWidth / 2, this.gameHeight / 2, 'font', 'Press ' + this.inputController.getControlString(Control.Activate) + ' to start.');
     text.setOrigin(0.5, 0.5);
     text.setScale(0.5);
     text.setScrollFactor(0);
 
-    this.input.keyboard.on('keydown', (event:any) => {
+    this.inputController.onPress(Control.Activate, () => {
       this.cameras.main.fadeOut(600, 0, 0, 0, (camera:any, progress:number) => {
         if (progress === 1) {
           this.scene.start('MainScene', {});

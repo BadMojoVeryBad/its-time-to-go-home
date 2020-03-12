@@ -1,4 +1,5 @@
 import { SceneBase } from '../scenes/SceneBase';
+import { Control } from '../controllers/InputController';
 
 export class TextPlate extends Phaser.GameObjects.Container {
   private message!:string;
@@ -12,7 +13,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
   private timer2!:any;
   private onClose:() => any = () => {};
   private keyEvent!:Phaser.Input.Keyboard.KeyboardPlugin;
-
+  protected scene: SceneBase;
   constructor(scene: SceneBase, message: string) {
     super(scene)
     this.scene = scene
@@ -20,7 +21,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.key = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 
     // On any keypress, close the plate.
-    this.keyEvent = scene.input.keyboard.on('keydown', (event:any) => {
+    let pressReference = this.scene.inputController.onPress(Control.Activate, () => {
       if (this.plateState === 'open') {
         if (this.timer) {
           this.timer.remove();
@@ -32,15 +33,11 @@ export class TextPlate extends Phaser.GameObjects.Container {
 
         this.onClose();
 
-        this.keyEvent.removeListener('keydown');
+        this.scene.inputController.removeOnPress(pressReference);
         this.background.destroy();
         this.foreground.destroy();
         this.destroy();
       }
-    });
-
-    scene.events.on('update', () => {
-      this.updateTextPlate();
     })
 
     this.timer2 = scene.time.addEvent({
@@ -73,18 +70,6 @@ export class TextPlate extends Phaser.GameObjects.Container {
       },
       loop: true
     });
-  }
-
-  updateTextPlate() {
-    // If state is opening, animate the text.
-    if (this.plateState === 'opening') {
-
-    }
-
-    // If the state is open, blink the cursor.
-    if (this.plateState === 'open') {
-
-    }
   }
 
   openPlate() {

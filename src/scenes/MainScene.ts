@@ -1,4 +1,5 @@
 import AnimatedTiles from 'phaser-animated-tiles/dist/AnimatedTiles.min.js';
+import { InputController } from "../controllers/InputController";
 
 import { SceneBase } from "./SceneBase";
 import { Player } from "../sprites/Player";
@@ -28,6 +29,7 @@ export class MainScene extends SceneBase {
 
   public create() {
     this.setupTransitionEvents();
+    this.setupInputs();
 
     // Make map for scene out of tiles.
     this.map = this.make.tilemap({key: 'map'});

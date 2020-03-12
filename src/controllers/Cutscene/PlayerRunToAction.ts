@@ -35,7 +35,6 @@ export class PlayerRunToAction extends CutsceneAction {
       this.player.moveLeft();
     }
 
-
     // If we hit the target, stop moving.
     if ((this.direction === 'right' && this.xTarget < this.player.getSprite().x) ||
     (this.direction === 'left' && this.xTarget > this.player.getSprite().x)) {

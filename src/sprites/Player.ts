@@ -1,16 +1,18 @@
 import { CutsceneController } from '../controllers/CutsceneController';
+import { Control } from '../controllers/InputController';
+import { SceneBase } from '../scenes/SceneBase';
 
 export class Player extends Phaser.GameObjects.Container {
   private player!: Phaser.Physics.Matter.Sprite;
-  private cursors!: Phaser.Input.Keyboard.CursorKeys;
   private compoundBody!: any;
   private playerBody!: any;
   private floorSensor!: any;
   private isGrounded: boolean = false;
   private position: any = { x: 0, y:0 };
   private actions: Array<string> = [];
+  protected scene: SceneBase;
 
-  constructor(scene: Phaser.Scene, ground:Phaser.Tilemaps.DynamicTilemapLayer) {
+  constructor(scene: SceneBase, ground:Phaser.Tilemaps.DynamicTilemapLayer) {
     super(scene);
     this.scene = scene;
     scene.sys.updateList.add(this);
@@ -64,9 +66,6 @@ export class Player extends Phaser.GameObjects.Container {
       repeat: -1
     });
 
-    // Inputs.
-    this.cursors = this.scene.input.keyboard.createCursorKeys();
-
     // Collisions.
     this.scene.matter.world.on('beforeupdate', (event:any) => {
       this.isGrounded = false;
@@ -92,10 +91,13 @@ export class Player extends Phaser.GameObjects.Container {
     });
 
     this.scene.matter.world.on('afterupdate', (event:any) => {
-      if (!this.isDoingAction('left') && !this.isDoingAction('right') && !this.isDoingAction('jump') && this.isGrounded) {
-        this.player.setPosition(this.position.x, this.position.y);
+      if (!this.isDoingAction('left') && !this.isDoingAction('right') && !this.isDoingAction('jump')) {
+        this.player.setPosition(this.position.x, this.player.y);
         this.player.setVelocityX(0);
-        this.player.setVelocityY(0);
+        if (this.isGrounded) {
+          this.player.setVelocityY(0);
+          this.player.setPosition(this.position.x, this.position.y);
+        }
       }
 
       // Reset actions.
@@ -107,14 +109,14 @@ export class Player extends Phaser.GameObjects.Container {
     // Do input.
     if (!CutsceneController.isInCutscene()) {
       // Left and right input.
-      if (this.cursors.left.isDown) {
+      if (this.scene.inputController.isPressed(Control.Left)) {
         this.moveLeft();
-      } else if (this.cursors.right.isDown) {
+      } else if (this.scene.inputController.isPressed(Control.Right)) {
         this.moveRight();
       }
 
       // Jump input.
-      if ((this.cursors.space.isDown || this.cursors.up.isDown) && this.isGrounded) {
+      if (this.scene.inputController.isPressed(Control.Jump) && this.isGrounded) {
         this.jump();
       }
     }

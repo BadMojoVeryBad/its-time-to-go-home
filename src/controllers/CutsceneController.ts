@@ -1,6 +1,6 @@
 import { SceneBase } from '../scenes/SceneBase';
-import { CutsceneAction } from './Cutscene/CutsceneAction';
-import { ActionFactory } from './Cutscene/ActionFactory';
+import { CutsceneAction } from './cutscene/CutsceneAction';
+import { ActionFactory } from './cutscene/ActionFactory';
 
 /**
  * TODO:

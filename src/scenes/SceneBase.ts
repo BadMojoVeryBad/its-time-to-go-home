@@ -1,4 +1,12 @@
+import { InputController } from "../controllers/InputController";
+
 export abstract class SceneBase extends Phaser.Scene {
+  public inputController: InputController;
+
+  constructor (config: Phaser.Types.Scenes.SettingsConfig) {
+    super(config);
+  }
+
   public get gameWidth(): number {
     return this.sys.game.config.width as number;
   }
@@ -25,5 +33,9 @@ export abstract class SceneBase extends Phaser.Scene {
         alpha: 0
       })
     }, this);
+  }
+
+  protected setupInputs(): void {
+    this.inputController = new InputController(this);
   }
 }
