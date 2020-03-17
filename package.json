@@ -21,7 +21,7 @@
   },
   "build": {
     "appId": "haydn.smith.${name}",
-    "productName": "Time to Go Home",
+    "productName": "Its Time to Go Home",
     "copyright": "Copyright © 2020 BadMojoVeryBad",
     "mac": {
       "icon": "./icon.icns",

@@ -54,3 +54,5 @@ $ yarn dist
 ```
 
 node app.js "../../../Haydns Game/ttgh-spritesheet.atlas" "../../../Haydns Game/src/src/assets/ttgh-spritesheet.xml"
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S71IFUZ)
