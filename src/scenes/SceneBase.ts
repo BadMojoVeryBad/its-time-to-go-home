@@ -1,7 +1,7 @@
 import { InputController } from '../controllers/InputController';
 
 export abstract class SceneBase extends Phaser.Scene {
-  public inputController: InputController;
+  public inputController!: InputController;
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -36,6 +36,9 @@ export abstract class SceneBase extends Phaser.Scene {
   }
 
   protected setupInputs(): void {
+    // Debug.
+    this.input.keyboard.on('keydown-' + 'R', () => { this.scene.restart(); });
+
     this.inputController = new InputController(this);
   }
 }

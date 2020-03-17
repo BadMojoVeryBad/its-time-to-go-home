@@ -1,7 +1,11 @@
 import { CutsceneAction } from './CutsceneAction';
 import { PlayerJumpAction } from './PlayerJumpAction';
 import { PlayerRunToAction } from './PlayerRunToAction';
+import { PlayerCrawlToAction } from './PlayerCrawlToAction';
 import { WaitAction } from './WaitAction';
+import { SetDepthAction } from './SetDepthAction';
+import { MoveCameraToAction } from './MoveCameraToAction';
+import { DrawTextAction } from './DrawTextAction';
 
 export class ActionFactory {
 
@@ -12,5 +16,9 @@ export class ActionFactory {
     wait: WaitAction,
     playerJump: PlayerJumpAction,
     playerRunTo: PlayerRunToAction,
+    playerCrawlTo: PlayerCrawlToAction,
+    setDepth: SetDepthAction,
+    moveCameraTo: MoveCameraToAction,
+    drawText: DrawTextAction
   };
 }

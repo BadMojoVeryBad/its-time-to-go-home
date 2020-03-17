@@ -49,22 +49,22 @@ export class CutsceneController extends Phaser.GameObjects.Container {
     return new Promise((resolve) => {
       this.scene.tweens.add({
         targets: this.topBar,
-        duration: 800,
-        ease: 'Quart.easeInOut',
+        duration: 1600,
+        ease: 'Quad.easeInOut',
         y: 0 - this.scene.gameHeight / 4,
       });
 
       this.scene.tweens.add({
         targets: this.bottomBar,
-        duration: 800,
-        ease: 'Quart.easeInOut',
+        duration: 1600,
+        ease: 'Quad.easeInOut',
         y: this.scene.gameHeight / 4,
         onComplete: () => {
           resolve();
         },
       });
 
-      this.scene.cameras.main.zoomTo(1, 800, 'Quart.easeInOut');
+      this.scene.cameras.main.zoomTo(1, 1600, 'Quad.easeInOut');
     });
   }
 
@@ -73,33 +73,35 @@ export class CutsceneController extends Phaser.GameObjects.Container {
       const cam = this.scene.cameras.main;
 
       this.topBar = this.scene.add.graphics();
+      this.topBar.setDepth(100);
       this.topBar.setScrollFactor(0);
       this.topBar.fillStyle(0x000000, 1);
       this.topBar.fillRect(0, 0 - (this.scene.gameHeight / 4), this.scene.gameWidth, this.scene.gameHeight / 4);
 
       this.bottomBar = this.scene.add.graphics();
+      this.bottomBar.setDepth(100);
       this.bottomBar.setScrollFactor(0);
       this.bottomBar.fillStyle(0x000000, 1);
       this.bottomBar.fillRect(0, this.scene.gameHeight, this.scene.gameWidth, this.scene.gameHeight / 4);
 
       this.scene.tweens.add({
         targets: this.topBar,
-        duration: 800,
-        ease: 'Quart.easeInOut',
+        duration: 1600,
+        ease: 'Quad.easeInOut',
         y: this.scene.gameHeight / 4,
       });
 
       this.scene.tweens.add({
         targets: this.bottomBar,
-        duration: 800,
-        ease: 'Quart.easeInOut',
+        duration: 1600,
+        ease: 'Quad.easeInOut',
         y: 0 - (this.scene.gameHeight / 4),
         onComplete: () => {
           resolve();
         },
       });
 
-      cam.zoomTo(1.4, 800, 'Quart.easeInOut');
+      cam.zoomTo(1.4, 1600, 'Quad.easeInOut');
     });
   }
 }

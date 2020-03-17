@@ -44,8 +44,22 @@ export class MainScene extends SceneBase {
     bigStarsBg.setScale(1);
     bigStarsBg.setScrollFactor(0.15);
 
+    // Earth.
+    this.anims.create({
+      key: 'earth',
+      frames: this.anims.generateFrameNames('player', { prefix: 'earth', start: 0, end: 26, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: -1,
+    });
+    const earth: Phaser.GameObjects.Sprite = this.add.sprite(150, 650, 'player');
+    earth.setOrigin(0.5, 0.5);
+    earth.setPosition(150 + 550, 600 + 300);
+    earth.play('earth');
+    earth.setScale(4);
+
+
     // Mountains.
-    const mountainsBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.map.widthInPixels * 2, (this.map.heightInPixels * 2) + this.gameHeight / 2.6, this.map.widthInPixels * 4, this.map.heightInPixels * 4, 'mountains-bg');
+    const mountainsBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.map.widthInPixels * 2, 1690, this.map.widthInPixels * 4, this.gameHeight, 'mountains-bg');
     mountainsBg.setScale(1);
     mountainsBg.setScrollFactor(0.2, 0.9);
 
@@ -56,7 +70,11 @@ export class MainScene extends SceneBase {
     background.setScale(4, 4);
 
     // Make the player object.
-    this.player = new Player(this, ground);
+    this.player = new Player(this);
+
+    // pre background
+    const prebackground: Phaser.Tilemaps.DynamicTilemapLayer = this.map.createDynamicLayer('prebackground', tilesheet, 0, 0);
+    prebackground.setScale(4, 4);
 
     // Display the tiles on the 'ground' tile layer.
     const ground: Phaser.Tilemaps.DynamicTilemapLayer = this.map.createDynamicLayer('ground', tilesheet, 0, 0);
@@ -95,43 +113,38 @@ export class MainScene extends SceneBase {
 
     // Create a new main camera that we can control.
     this.camera = new FollowCamera(this, this.player.getSprite(), 0, 0, this.gameWidth, this.gameHeight);
-    this.cameras.main.fadeIn(400);
+    this.cameras.main.scrollX = 150;
+    this.cameras.main.scrollY = 600;
 
     // Small craters.
-    const cratersSmallFg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.map.widthInPixels * 2, (this.map.heightInPixels * 2) + this.gameHeight * 1.1, this.map.widthInPixels * 12, this.map.heightInPixels * 4, 'craters-small-fg');
+    const cratersSmallFg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.map.widthInPixels * 2, 2440, this.map.widthInPixels * 12, this.gameHeight, 'craters-small-fg');
     cratersSmallFg.setScale(1);
     cratersSmallFg.setScrollFactor(1.4, 1.15);
 
     // Craters.
-    const cratersFg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.map.widthInPixels * 2, (this.map.heightInPixels * 2) + this.gameHeight * 1.25, this.map.widthInPixels * 12, this.map.heightInPixels * 4, 'craters-fg');
+    const cratersFg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.map.widthInPixels * 2, 2600, this.map.widthInPixels * 12, this.gameHeight, 'craters-fg');
     cratersFg.setScale(1);
     cratersFg.setScrollFactor(1.8, 1.2);
 
     // Start a cutscene.
-    this.time.delayedCall(1000, () => {
-      // How is a cutscene gonna work you ask? WELL:
-      // 1. Create a controller object.
-      const cutscene = new CutsceneController(this);
-
-      // 2. Add a bunch of actions for it to queue up.
-      cutscene.addAction('wait', { duration: 1000 });
-      cutscene.addAction('playerJump', { player: this.player, direction: 'up' });
-      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 50 });
-      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1000 });
-      cutscene.addAction('playerJump', { player: this.player, direction: 'up' });
-      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1100 });
-      cutscene.addAction('playerJump', { player: this.player, direction: 'up' });
-      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1200 });
-      cutscene.addAction('wait', { duration: 1000 });
-
-      // 3. When you're ready, start it and watch the
-      //    actions play out!
-      cutscene.play();
-
-    });
+    const cutscene = new CutsceneController(this);
+    cutscene.addAction('wait', { duration: 1600 });
+    cutscene.addAction('drawText', { text: 'It\'s Time', x: 150 + 200, y: 600 + 240 });
+    cutscene.addAction('drawText', { text: 'To Go', x: 150 + 200, y: 600 + 280 });
+    cutscene.addAction('drawText', { text: 'Home.', x: 150 + 200, y: 600 + 320 });
+    cutscene.addAction('wait', { duration: 3200 });
+    cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 0, yTarget: 0, follow: this.player.getSprite(), duration: 3200 });
+    cutscene.addAction('wait', { duration: 1600 });
+    cutscene.addAction('playerCrawlTo',  { player: this.player, xTarget: 691 });
+    cutscene.addAction('setDepth',  { object: prebackground, depth: -1 });
+    cutscene.addAction('wait', { duration: 400 });
+    cutscene.addAction('playerRunTo', { player: this.player, xTarget: 291 });
+    cutscene.addAction('wait', { duration: 1000 });
+    cutscene.play();
   }
 
   public update() {
     // All this stuff should be delegated to other classes.
   }
 }
+

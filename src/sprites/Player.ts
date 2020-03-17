@@ -12,7 +12,7 @@ export class Player extends Phaser.GameObjects.Container {
   private position: any = { x: 0, y: 0 };
   private actions: string[] = [];
 
-  constructor(scene: SceneBase, ground: Phaser.Tilemaps.DynamicTilemapLayer) {
+  constructor(scene: SceneBase) {
     super(scene);
     this.scene = scene;
     scene.sys.updateList.add(this);
@@ -41,7 +41,7 @@ export class Player extends Phaser.GameObjects.Container {
     });
 
     this.player.setExistingBody(this.compoundBody);
-    this.player.setPosition(300, 609);
+    this.player.setPosition(551, 1889);
     this.player.flipX = true;
     this.player.setScale(4);
     this.player.setFixedRotation();
@@ -62,6 +62,12 @@ export class Player extends Phaser.GameObjects.Container {
     this.scene.anims.create({
       key: 'jump',
       frames: this.scene.anims.generateFrameNames('player', { prefix: 'astronaut-jump', start: 0, end: 2, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'crawl',
+      frames: this.scene.anims.generateFrameNames('player', { prefix: 'astronaut-crawl', start: 0, end: 7, zeroPad: 4 }),
       frameRate: 12,
       repeat: -1,
     });
@@ -98,6 +104,17 @@ export class Player extends Phaser.GameObjects.Container {
         }
       }
 
+      // Figure out animation.
+      let anim = 'idle';
+      if (this.isGrounded && Math.abs(this.player.body.velocity.x) > 0.05 && this.isDoingAction('crawl')) {
+        anim = 'crawl';
+      } else if (this.isGrounded && Math.abs(this.player.body.velocity.x) > 0.05) {
+        anim = 'walk';
+      } else if (!this.isGrounded) {
+        anim = 'jump';
+      }
+      this.player.anims.play(anim, true);
+
       // Reset actions.
       this.actions = [];
     });
@@ -118,15 +135,6 @@ export class Player extends Phaser.GameObjects.Container {
         this.jump();
       }
     }
-
-    // Figure out animation.
-    let anim = 'idle';
-    if (this.isGrounded && Math.abs(this.player.body.velocity.x) > 0.05) {
-      anim = 'walk';
-    } else if (!this.isGrounded) {
-      anim = 'jump';
-    }
-    this.player.anims.play(anim, true);
   }
 
   public jump() {
@@ -143,6 +151,20 @@ export class Player extends Phaser.GameObjects.Container {
   public moveRight() {
     this.actions.push('right');
     this.player.setVelocityX(2);
+    this.player.flipX = true;
+  }
+
+  public crawlLeft() {
+    this.actions.push('left');
+    this.actions.push('crawl');
+    this.player.setVelocityX(-1);
+    this.player.flipX = false;
+  }
+
+  public crawlRight() {
+    this.actions.push('right');
+    this.actions.push('crawl');
+    this.player.setVelocityX(1);
     this.player.flipX = true;
   }
 
