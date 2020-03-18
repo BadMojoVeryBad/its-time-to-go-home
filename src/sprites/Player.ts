@@ -19,6 +19,7 @@ export class Player extends Phaser.GameObjects.Container {
 
     // create the player sprite
     this.player = this.scene.matter.add.sprite(0, 0, 'player');
+    this.player.setDepth(7);
     this.player.setBounce(0);
     this.player.name = 'player';
 
@@ -45,32 +46,6 @@ export class Player extends Phaser.GameObjects.Container {
     this.player.flipX = true;
     this.player.setScale(4);
     this.player.setFixedRotation();
-
-    // Animations.
-    this.scene.anims.create({
-      key: 'walk',
-      frames: this.scene.anims.generateFrameNames('player', { prefix: 'Untitled-1', start: 0, end: 5, zeroPad: 4 }),
-      frameRate: 12,
-      repeat: -1,
-    });
-    this.scene.anims.create({
-      key: 'idle',
-      frames: this.scene.anims.generateFrameNames('player', { prefix: 'Untitled-1', start: 0, end: 0, zeroPad: 4 }),
-      frameRate: 1,
-      repeat: -1,
-    });
-    this.scene.anims.create({
-      key: 'jump',
-      frames: this.scene.anims.generateFrameNames('player', { prefix: 'astronaut-jump', start: 0, end: 2, zeroPad: 4 }),
-      frameRate: 12,
-      repeat: -1,
-    });
-    this.scene.anims.create({
-      key: 'crawl',
-      frames: this.scene.anims.generateFrameNames('player', { prefix: 'astronaut-crawl', start: 0, end: 7, zeroPad: 4 }),
-      frameRate: 12,
-      repeat: -1,
-    });
 
     // Collisions.
     this.scene.matter.world.on('beforeupdate', (event: any) => {

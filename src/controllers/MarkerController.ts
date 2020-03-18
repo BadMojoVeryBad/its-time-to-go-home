@@ -49,9 +49,10 @@ export class MarkerController {
     }, this);
   }
 
-  public addMarker(x: number, y: number, event: (done: () => void) => any) {
+  public addMarker(x: number, y: number, event: (done: () => void) => any): Marker {
     const marker = new Marker(this.scene, this.player, event);
     marker.setPos(x, y);
     this.markers.push(marker);
+    return marker;
   }
 }

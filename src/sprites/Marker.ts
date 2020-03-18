@@ -14,23 +14,13 @@ export class Marker extends Phaser.GameObjects.Container {
     this.scene = scene;
     this.eventFn = event;
     this.marker = this.scene.matter.add.sprite(0, 0, 'player');
-    this.marker.setDepth(100);
+    this.setDepth(9);
 
     this.add(this.marker);
     scene.add.existing(this);
 
-    this.scene.anims.create({
-      key: 'info',
-      frames: this.scene.anims.generateFrameNames('player', { prefix: 'info-marker', start: 0, end: 15, zeroPad: 4 }),
-      frameRate: 12,
-      repeat: -1,
-    });
-
-    this.scene.anims.create({
-      key: 'info-highlighted',
-      frames: this.scene.anims.generateFrameNames('player', { prefix: 'info-marker-highlighted', start: 0, end: 15, zeroPad: 4 }),
-      frameRate: 12,
-      repeat: -1,
+    this.once('destroy', () => {
+      this.marker.destroy();
     });
 
     // Collision.

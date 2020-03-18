@@ -6,6 +6,8 @@ import { WaitAction } from './WaitAction';
 import { SetDepthAction } from './SetDepthAction';
 import { MoveCameraToAction } from './MoveCameraToAction';
 import { DrawTextAction } from './DrawTextAction';
+import { RemoveObjectAction } from './RemoveObjectAction';
+import { CustomAction } from './CustomAction';
 
 export class ActionFactory {
 
@@ -19,6 +21,8 @@ export class ActionFactory {
     playerCrawlTo: PlayerCrawlToAction,
     setDepth: SetDepthAction,
     moveCameraTo: MoveCameraToAction,
-    drawText: DrawTextAction
+    drawText: DrawTextAction,
+    removeObject: RemoveObjectAction,
+    customFunction: CustomAction
   };
 }

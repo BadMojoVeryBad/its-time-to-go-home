@@ -78,4 +78,49 @@ export class LoadScene extends SceneBase {
       });
     });
   }
+
+  public create () {
+    this.anims.create({
+      key: 'earth',
+      frames: this.anims.generateFrameNames('player', { prefix: 'earth', start: 0, end: 26, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'info',
+      frames: this.anims.generateFrameNames('player', { prefix: 'info-marker', start: 0, end: 15, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'info-highlighted',
+      frames: this.anims.generateFrameNames('player', { prefix: 'info-marker-highlighted', start: 0, end: 15, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'walk',
+      frames: this.anims.generateFrameNames('player', { prefix: 'Untitled-1', start: 0, end: 5, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'idle',
+      frames: this.anims.generateFrameNames('player', { prefix: 'Untitled-1', start: 0, end: 0, zeroPad: 4 }),
+      frameRate: 1,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'jump',
+      frames: this.anims.generateFrameNames('player', { prefix: 'astronaut-jump', start: 0, end: 2, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'crawl',
+      frames: this.anims.generateFrameNames('player', { prefix: 'astronaut-crawl', start: 0, end: 7, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+  }
 }
