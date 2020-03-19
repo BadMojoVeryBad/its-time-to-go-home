@@ -15,8 +15,6 @@ export class CutsceneController extends Phaser.GameObjects.Container {
   }
   private static inCutscene: boolean = false;
   private queue: CutsceneAction[] = [];
-  private topBar!: Phaser.GameObjects.Graphics;
-  private bottomBar!: Phaser.GameObjects.Graphics;
 
   constructor(scene: SceneBase) {
     super(scene);
@@ -30,78 +28,12 @@ export class CutsceneController extends Phaser.GameObjects.Container {
     // Set flag so the rest of the game knows what's up.
     CutsceneController.inCutscene = true;
 
-    // Start 'cutscene mode'.
-    await this.openLetterbox();
-
     // Play each queued action in order.
     for (let i = 0; i < this.queue.length; i++) {
       await this.queue[i].do();
     }
 
-    // End 'cutscene mode'.
-    await this.closeLetterbox();
-
     // Reset flag.
     CutsceneController.inCutscene = false;
-  }
-
-  private closeLetterbox() {
-    return new Promise((resolve) => {
-      this.scene.tweens.add({
-        targets: this.topBar,
-        duration: 1600,
-        ease: 'Quad.easeInOut',
-        y: 0 - this.scene.gameHeight / 4,
-      });
-
-      this.scene.tweens.add({
-        targets: this.bottomBar,
-        duration: 1600,
-        ease: 'Quad.easeInOut',
-        y: this.scene.gameHeight / 4,
-        onComplete: () => {
-          resolve();
-        },
-      });
-
-      this.scene.cameras.main.zoomTo(1, 1600, 'Quad.easeInOut');
-    });
-  }
-
-  private openLetterbox() {
-    return new Promise((resolve) => {
-      const cam = this.scene.cameras.main;
-
-      this.topBar = this.scene.add.graphics();
-      this.topBar.setDepth(100);
-      this.topBar.setScrollFactor(0);
-      this.topBar.fillStyle(0x000000, 1);
-      this.topBar.fillRect(0, 0 - (this.scene.gameHeight / 4), this.scene.gameWidth, this.scene.gameHeight / 4);
-
-      this.bottomBar = this.scene.add.graphics();
-      this.bottomBar.setDepth(100);
-      this.bottomBar.setScrollFactor(0);
-      this.bottomBar.fillStyle(0x000000, 1);
-      this.bottomBar.fillRect(0, this.scene.gameHeight, this.scene.gameWidth, this.scene.gameHeight / 4);
-
-      this.scene.tweens.add({
-        targets: this.topBar,
-        duration: 1600,
-        ease: 'Quad.easeInOut',
-        y: this.scene.gameHeight / 4,
-      });
-
-      this.scene.tweens.add({
-        targets: this.bottomBar,
-        duration: 1600,
-        ease: 'Quad.easeInOut',
-        y: 0 - (this.scene.gameHeight / 4),
-        onComplete: () => {
-          resolve();
-        },
-      });
-
-      cam.zoomTo(1.4, 1600, 'Quad.easeInOut');
-    });
   }
 }

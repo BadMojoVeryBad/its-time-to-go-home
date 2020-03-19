@@ -1,5 +1,6 @@
 import { Control } from '../controllers/InputController';
 import { SceneBase } from './SceneBase';
+import { CONST } from '../util/CONST';
 
 export class MenuScene extends SceneBase {
   constructor() {
@@ -12,16 +13,16 @@ export class MenuScene extends SceneBase {
     this.setupTransitionEvents();
     this.setupInputs();
 
-    const spaceBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'space-bg');
-    spaceBg.setScale(1);
+    const spaceBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'stars1');
+    spaceBg.setScale(CONST.SCALE);
     spaceBg.setScrollFactor(0.1);
 
-    const smallStarsBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'small-stars-bg');
-    smallStarsBg.setScale(1);
+    const smallStarsBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'stars2');
+    smallStarsBg.setScale(CONST.SCALE);
     smallStarsBg.setScrollFactor(0.125);
 
-    const bigStarsBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'big-stars-bg');
-    bigStarsBg.setScale(1);
+    const bigStarsBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'stars3');
+    bigStarsBg.setScale(CONST.SCALE);
     bigStarsBg.setScrollFactor(0.15);
 
     const text = this.add.bitmapText(this.gameWidth / 2, this.gameHeight / 2, 'font', 'Press ' + this.inputController.getControlString(Control.Activate) + ' to start.');

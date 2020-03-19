@@ -1,6 +1,7 @@
 import { Marker } from '../sprites/Marker';
 import { Player } from '../sprites/Player';
 import { SceneBase } from '../scenes/SceneBase';
+import { TextPlate } from '../sprites/TextPlate';
 
 export class MarkerController {
   private player!: Player;
@@ -54,5 +55,29 @@ export class MarkerController {
     marker.setPos(x, y);
     this.markers.push(marker);
     return marker;
+  }
+
+  public addMarkerWithTextPlate(x: number, y: number, message: string, emitOnClose: string | undefined): Marker {
+    const marker = new Marker(this.scene, this.player, (done: any) => {
+      const plate = new TextPlate(this.scene, message);
+      plate.openPlate();
+      plate.setOnClose(() => {
+        if (emitOnClose) {
+          this.scene.events.emit(emitOnClose);
+        }
+        done();
+      });
+    });
+    marker.setPos(x, y);
+    this.markers.push(marker);
+    return marker;
+  }
+
+  public getMarker (tiledId: number): Marker | undefined {
+    for (let i = 0; i < this.markers.length; i++) {
+      if (this.markers[i].getMarkerId() === tiledId) {
+        return this.markers[i];
+      }
+    }
   }
 }

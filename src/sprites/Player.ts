@@ -19,7 +19,7 @@ export class Player extends Phaser.GameObjects.Container {
 
     // create the player sprite
     this.player = this.scene.matter.add.sprite(0, 0, 'player');
-    this.player.setDepth(7);
+    this.player.setDepth(55);
     this.player.setBounce(0);
     this.player.name = 'player';
 

@@ -1,9 +1,7 @@
+// @ts-nocheck
+
 import 'phaser';
-import { CreditScene } from './scenes/CreditScene';
-import { LoadScene } from './scenes/LoadScene';
-import { MainScene } from './scenes/MainScene';
-import { MenuScene } from './scenes/MenuScene';
-import { PreloadScene } from './scenes/PreloadScene';
+import { SceneUtils } from './util/SceneUtils';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -14,11 +12,11 @@ const config: Phaser.Types.Core.GameConfig = {
   physics: {
     default: 'matter',
     matter: {
-      gravity: 1,
+      gravity: true,
       debug: false,
     },
   },
-  scene: [ PreloadScene, CreditScene, LoadScene, MenuScene, MainScene ],
+  scene: SceneUtils.getScenes(),
 };
 
 const game = new Phaser.Game(config);

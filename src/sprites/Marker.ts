@@ -8,13 +8,14 @@ export class Marker extends Phaser.GameObjects.Container {
   private eventFn!: (done: () => void) => any;
   private isActive!: boolean;
   private isActivated: boolean = false;
+  protected markerId: number = 0;
 
   constructor(scene: SceneBase, player: Player, event: (done: () => void) => any) {
     super(scene);
     this.scene = scene;
     this.eventFn = event;
     this.marker = this.scene.matter.add.sprite(0, 0, 'player');
-    this.setDepth(9);
+    this.setDepth(100);
 
     this.add(this.marker);
     scene.add.existing(this);
@@ -48,5 +49,13 @@ export class Marker extends Phaser.GameObjects.Container {
 
   public setIsActive(isActive: boolean) {
     this.isActive = isActive;
+  }
+
+  public getMarkerId() {
+    return this.markerId;
+  }
+
+  public setMarkerId (id:number) {
+    this.markerId = id;
   }
 }

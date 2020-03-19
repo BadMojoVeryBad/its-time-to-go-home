@@ -8,6 +8,8 @@ import { MoveCameraToAction } from './MoveCameraToAction';
 import { DrawTextAction } from './DrawTextAction';
 import { RemoveObjectAction } from './RemoveObjectAction';
 import { CustomAction } from './CustomAction';
+import { OpenLetterboxAction } from './openLetterboxAction';
+import { CloseLetterboxAction } from './CloseLetterboxAction';
 
 export class ActionFactory {
 
@@ -23,6 +25,8 @@ export class ActionFactory {
     moveCameraTo: MoveCameraToAction,
     drawText: DrawTextAction,
     removeObject: RemoveObjectAction,
-    customFunction: CustomAction
+    customFunction: CustomAction,
+    openLetterbox: OpenLetterboxAction,
+    closeLetterbox: CloseLetterboxAction
   };
 }

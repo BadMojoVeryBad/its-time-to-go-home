@@ -14,7 +14,7 @@ export class MoveCameraToAction extends CutsceneAction {
     this.xTarget = data.xTarget;
     this.yTarget = data.yTarget;
 
-    if (data.duration) {
+    if (data.duration !== undefined) {
       this.duration = data.duration;
     }
   }

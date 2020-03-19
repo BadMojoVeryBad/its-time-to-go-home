@@ -1,12 +1,13 @@
 import { SceneBase } from './SceneBase';
+import AnimatedTiles from 'phaser-animated-tiles/dist/AnimatedTiles.js';
 
-import bigStarsBgPng from '../assets/big-stars-bg.png';
+import bigStarsBgPng from '../assets/big-stars-bg-sm.png';
 import cratersFgPng from '../assets/craters-fg.png';
 import cratersSmallFgPng from '../assets/craters-small-fg.png';
 import homePng from '../assets/home.png';
-import mountainsBgPng from '../assets/mountains-bg.png';
-import smallStarsBgPng from '../assets/small-stars-bg.png';
-import spaceBgPng from '../assets/space-bg.png';
+import mountainsBgPng from '../assets/mountains-bg-sm.png';
+import smallStarsBgPng from '../assets/small-stars-bg-sm.png';
+import spaceBgPng from '../assets/space-bg-sm.png';
 import tilesheetPng from '../assets/tileset.png';
 import playerPng from '../assets/ttgh-spritesheet.png';
 
@@ -30,10 +31,10 @@ export class LoadScene extends SceneBase {
     this.load.atlasXML('player', playerPng, playerJson);
 
     // Images.
-    this.load.image('space-bg', spaceBgPng);
-    this.load.image('big-stars-bg', bigStarsBgPng);
-    this.load.image('small-stars-bg', smallStarsBgPng);
-    this.load.image('mountains-bg', mountainsBgPng);
+    this.load.image('stars1', spaceBgPng);
+    this.load.image('stars3', bigStarsBgPng);
+    this.load.image('stars2', smallStarsBgPng);
+    this.load.image('mountains', mountainsBgPng);
     this.load.image('craters-fg', cratersFgPng);
     this.load.image('craters-small-fg', cratersSmallFgPng);
     this.load.image('home', homePng);
@@ -41,6 +42,8 @@ export class LoadScene extends SceneBase {
     // for (let i = 0; i < 1000; i++) {
     //   this.load.image('craters-fg' + i, cratersFgPng);
     // }
+
+    // this.load.plugin('animatedTiles', AnimatedTiles, 'animatedTiles', 'animatedTiles');
 
     // Fonts.
     this.load.bitmapFont('font', fontPng, fontFnt);
