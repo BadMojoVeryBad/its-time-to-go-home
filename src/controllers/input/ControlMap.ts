@@ -3,6 +3,7 @@ import { Control } from '../InputController';
 export class ControlMap {
   private control: Control;
   private inputs: Phaser.Input.Keyboard.Key[];
+  public enabled: boolean = true;
 
   constructor(control: Control, ...inputs: Phaser.Input.Keyboard.Key[]) {
     this.inputs = inputs;

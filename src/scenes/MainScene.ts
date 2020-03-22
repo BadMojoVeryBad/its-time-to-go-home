@@ -4,12 +4,10 @@ import { Player } from '../sprites/Player';
 import { Rocket } from '../sprites/Rocket';
 import { CONST } from '../util/CONST';
 import { GameplaySceneBase } from './GameplaySceneBase';
-import { BlurShader } from '../shaders/BlurShader';
 
 export class MainScene extends GameplaySceneBase {
   private player!: Player;
   private rocket!: Rocket;
-  private customPipeline: any;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -17,12 +15,6 @@ export class MainScene extends GameplaySceneBase {
 
   public preload() {
     super.preload();
-
-    // @ts-ignore
-    this.customPipeline = this.game.renderer.addPipeline('CustomPipeline', new BlurShader(this));
-    this.customPipeline.setFloat1('resolution', this.gameWidth);
-    this.customPipeline.setFloat1('radius', 0);
-    this.customPipeline.setFloat2('dir', 1, 1);
   }
 
   public create() {
@@ -52,7 +44,7 @@ export class MainScene extends GameplaySceneBase {
     this.player = new Player(this);
 
     // Create a new main camera that we can control.
-    let cam = new GameplayCamera(this, this.player.getSprite(), 0, 0, this.gameWidth, this.gameHeight);
+    new GameplayCamera(this, this.player.getSprite(), 0, 0, this.gameWidth, this.gameHeight);
 
     // Add rocket.
     const rockets = this.map.getObjectLayer('rocket').objects;

@@ -14,12 +14,11 @@ export class GameplayCamera extends Phaser.Cameras.Scene2D.Camera {
     this.scene.cameras.addExisting(this, true);
     this.scene.cameras.main.setRoundPixels(true);
     this.scene.cameras.main.setBounds(CONST.ZERO, CONST.ZERO, this.scene.map.widthInPixels * CONST.SCALE, this.scene.map.heightInPixels * CONST.SCALE);
-    this.startFollow(this.follow);
+    this.startFollow(this.follow, true, 0.1, 0.1, 0, 100);
     this.fadeIn(400);
 
     // Debug.
     if (CONST.DEBUG) {
-      this.scene.debug();
       this.scene.addDebugNumber(this.scene.cameras.main, 'zoom', 1, 2);
       this.scene.addDebugNumber(this.scene.cameras.main, 'scrollX', 0, this.scene.map.widthInPixels * CONST.SCALE);
       this.scene.addDebugNumber(this.scene.cameras.main, 'scrollY', 0, this.scene.map.heightInPixels * CONST.SCALE);

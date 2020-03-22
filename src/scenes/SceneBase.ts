@@ -1,5 +1,4 @@
 import { InputController } from '../controllers/InputController';
-
 const dat: any = require('dat.gui');
 
 export abstract class SceneBase extends Phaser.Scene {
@@ -42,8 +41,11 @@ export abstract class SceneBase extends Phaser.Scene {
     this.inputController = new InputController(this);
   }
 
-  public debug () {
+  protected setupDebug () {
     this.gui = new dat.GUI({ name: 'Debug Values' });
+    this.events.once('destroy', () => {
+        this.gui.destroy();
+    });
   }
 
   public addDebugNumber (obj: any, prop: string, min: number, max: number) {
@@ -52,5 +54,9 @@ export abstract class SceneBase extends Phaser.Scene {
 
   public addDebugButton (obj: any, functionName: string) {
     this.gui.add(obj,functionName);
+  }
+
+  public addDebugBoolean (obj: any, prop: string) {
+    this.gui.add(obj, prop).listen();
   }
 }

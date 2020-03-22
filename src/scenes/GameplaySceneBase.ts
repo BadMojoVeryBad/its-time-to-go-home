@@ -10,7 +10,7 @@ export abstract class GameplaySceneBase extends SceneBase {
   protected tilesheet!: Phaser.Tilemaps.Tileset;
   protected mapLayers: any = {};
   private animatedTilesController!: AnimatedTilesController;
-  private markerController!: MarkerController;
+  protected markerController!: MarkerController;
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -19,6 +19,10 @@ export abstract class GameplaySceneBase extends SceneBase {
   public preload() {
     this.animatedTilesController = new AnimatedTilesController(this);
     this.markerController = new MarkerController(this);
+
+    if (CONST.DEBUG) {
+      this.setupDebug();
+    }
   }
 
   public create() {

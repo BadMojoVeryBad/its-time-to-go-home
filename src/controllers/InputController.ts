@@ -31,6 +31,11 @@ export class InputController extends Phaser.GameObjects.Container {
   }
 
   public isPressed(control: Control) {
+    // Don't do anything if the control is disabled.
+    if (!this.controls[control].enabled) {
+      return;
+    }
+
     // For each input in this control.
     const inputs = this.controls[control].getInputs();
 
@@ -49,18 +54,29 @@ export class InputController extends Phaser.GameObjects.Container {
     // Get control object.
     const inputs = this.controls[control].getInputs();
 
+    // The function to add to the keypress.
+    let onPressFn = () => {
+      // Don't do anything if the control is disabled.
+      if (!this.controls[control].enabled) {
+        return;
+      }
+
+      // Run function.
+      fn();
+    }
+
     // For each key in this control.
     for (let i = 0; i < inputs.length; i++) {
       // Add function to event.
       const input = inputs[i];
-      input.on('down', fn);
+      input.on('down', onPressFn);
     }
 
     // Return a reference to the event listeners
-    const reference = 'control.' + control.toString() + '.' + fn.toString();
+    const reference = 'control.' + control.toString() + '.' + new Date().valueOf();
     this.customListeners[reference] = {
       control,
-      function: fn,
+      function: onPressFn,
     };
     return reference;
   }
@@ -86,5 +102,25 @@ export class InputController extends Phaser.GameObjects.Container {
     // Get the primary input used for this control.
     const primaryInput = controlMap.getPrimaryInput();
     return (primaryInput) ? String.fromCharCode(primaryInput.keyCode) : '[No Input]';
+  }
+
+  public disableControl (control: Control) {
+    this.controls[control].enabled = false;
+  }
+
+  public enableControl (control: Control) {
+    this.controls[control].enabled = true;
+  }
+
+  public enableAllControls () {
+    for (const control of this.controls) {
+      control.enabled = true;
+    }
+  }
+
+  public disableAllControls () {
+    for (const control of this.controls) {
+      control.enabled = false;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { SceneBase } from './SceneBase';
 
-import loaderPng from '../assets/loader.png';
+import loaderPng from '../assets/loading-bar.png';
 import logoPng from '../assets/studio-logo.png';
 
 export class PreloadScene extends SceneBase {

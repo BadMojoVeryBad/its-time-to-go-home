@@ -1,7 +1,9 @@
 import { SceneBase } from './SceneBase';
+import { CONST } from '../util/CONST';
 
 export class CreditScene extends SceneBase {
   private logo: any;
+  private verticalOffsetPercentage: number = 0.125;
 
   constructor() {
     super({
@@ -22,7 +24,7 @@ export class CreditScene extends SceneBase {
   }
 
   public create() {
-    this.logo = this.add.image(this.gameWidth / 2, this.gameHeight / 3, 'logo');
+    this.logo = this.add.image(this.gameWidth * CONST.HALF, (this.gameHeight * CONST.HALF) - this.gameHeight * this.verticalOffsetPercentage, 'logo');
     this.logo.setScrollFactor(0);
     this.logo.setScale(8);
     this.logo.alpha = 0;

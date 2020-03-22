@@ -11,6 +11,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
   private hasCursor: boolean = true;
   private timer!: any;
   private timer2!: any;
+  private onClose: () => any = () => {};
 
   constructor(scene: SceneBase, message: string, onClose: () => void) {
     super(scene);
@@ -32,6 +33,11 @@ export class TextPlate extends Phaser.GameObjects.Container {
         // Remove input listeners.
         this.scene.inputController.removeOnPress(pressReference);
 
+        // Enable character movement.
+        this.scene.inputController.enableControl(Control.Jump);
+        this.scene.inputController.enableControl(Control.Left);
+        this.scene.inputController.enableControl(Control.Right);
+
         // Destroy the container.
         this.destroy();
       }
@@ -39,6 +45,11 @@ export class TextPlate extends Phaser.GameObjects.Container {
   }
 
   public openPlate() {
+    // Disable character movement.
+    this.scene.inputController.disableControl(Control.Jump);
+    this.scene.inputController.disableControl(Control.Left);
+    this.scene.inputController.disableControl(Control.Right);
+
     // Set state.
     this.plateState = 'opening';
 
@@ -46,13 +57,13 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.backgroundImage = this.scene.add.image(this.scene.gameWidth / 2, this.scene.gameHeight - 104, 'player', 'text-plate');
     this.backgroundImage.setScrollFactor(0);
     this.backgroundImage.setScale(4);
-    this.backgroundImage.setDepth(100);
+    this.backgroundImage.setDepth(200);
 
     // Create text using bitmap font.
     this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 145, 'font', this.currentMessage);
     this.text.setScale(0.5);
     this.text.setScrollFactor(0);
-    this.text.setDepth(100);
+    this.text.setDepth(200);
   }
 
   public destroy() {
@@ -60,7 +71,6 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.text.destroy();
     super.destroy();
   }
-  private onClose: () => any = () => {};
 
   private addTimers() {
     this.timer2 = this.scene.time.addEvent({
@@ -72,7 +82,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
         const suffix2 = '_';
         this.text.destroy();
         this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 145, 'font', this.currentMessage + suffix2);
-        this.text.setDepth(100);
+        this.text.setDepth(200);
         this.text.setScale(0.5);
         this.text.setScrollFactor(0);
 
@@ -91,7 +101,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
               const suffix = (!this.hasCursor) ? '_' : '';
               this.text.destroy();
               this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 145, 'font', this.currentMessage + suffix);
-              this.text.setDepth(100);
+              this.text.setDepth(200);
               this.text.setScale(0.5);
               this.text.setScrollFactor(0);
               this.hasCursor = !this.hasCursor;
