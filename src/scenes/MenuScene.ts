@@ -9,7 +9,7 @@ export class MenuScene extends SceneBase {
     });
   }
 
-  preload (){
+  public preload() {
 
   }
 
@@ -42,7 +42,6 @@ export class MenuScene extends SceneBase {
       });
     });
   }
-
 
   public update() {
     if (this.cameras.main.scrollX > this.gameWidth * 4) {

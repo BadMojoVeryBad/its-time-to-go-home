@@ -6,8 +6,8 @@ import cratersSmallFgPng from '../assets/craters-sm.png';
 import mountainsBgPng from '../assets/mountains-bg-sm.png';
 import smallStarsBgPng from '../assets/small-stars-bg-sm.png';
 import spaceBgPng from '../assets/space-bg-sm.png';
-import tilesheetPng from '../assets/tileset.png';
 import playerPng from '../assets/spritesheet.png';
+import tilesheetPng from '../assets/tileset.png';
 
 import fontFnt from '../assets/font.fnt';
 import fontPng from '../assets/font.png';
@@ -68,10 +68,10 @@ export class LoadScene extends SceneBase {
 
     // Progress bar.
     this.load.on('progress', (percent: number) => {
-      let x = this.loader.x - (this.loader.displayWidth / 2) + 8;
-      let y = this.loader.y - (this.loader.displayHeight / 2) + 8;
-      let height = 16;
-      let width = (this.loader.displayWidth - 16) * percent;
+      const x = this.loader.x - (this.loader.displayWidth / 2) + 8;
+      const y = this.loader.y - (this.loader.displayHeight / 2) + 8;
+      const height = 16;
+      const width = (this.loader.displayWidth - 16) * percent;
       graphics.fillRect(x, y, width, height);
     });
 

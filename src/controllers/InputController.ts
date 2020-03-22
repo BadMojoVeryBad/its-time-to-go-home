@@ -55,7 +55,7 @@ export class InputController extends Phaser.GameObjects.Container {
     const inputs = this.controls[control].getInputs();
 
     // The function to add to the keypress.
-    let onPressFn = () => {
+    const onPressFn = () => {
       // Don't do anything if the control is disabled.
       if (!this.controls[control].enabled) {
         return;
@@ -63,7 +63,7 @@ export class InputController extends Phaser.GameObjects.Container {
 
       // Run function.
       fn();
-    }
+    };
 
     // For each key in this control.
     for (let i = 0; i < inputs.length; i++) {
@@ -104,21 +104,21 @@ export class InputController extends Phaser.GameObjects.Container {
     return (primaryInput) ? String.fromCharCode(primaryInput.keyCode) : '[No Input]';
   }
 
-  public disableControl (control: Control) {
+  public disableControl(control: Control) {
     this.controls[control].enabled = false;
   }
 
-  public enableControl (control: Control) {
+  public enableControl(control: Control) {
     this.controls[control].enabled = true;
   }
 
-  public enableAllControls () {
+  public enableAllControls() {
     for (const control of this.controls) {
       control.enabled = true;
     }
   }
 
-  public disableAllControls () {
+  public disableAllControls() {
     for (const control of this.controls) {
       control.enabled = false;
     }

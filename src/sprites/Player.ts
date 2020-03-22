@@ -34,7 +34,7 @@ export class Player extends Phaser.GameObjects.Container {
         playerBody, floorSensor,
       ],
       friction: CONST.ZERO,
-      restitution: 0.05 // Prevent body from sticking against a wall
+      restitution: 0.05, // Prevent body from sticking against a wall
     });
 
     // Add physics to the player.
@@ -51,7 +51,7 @@ export class Player extends Phaser.GameObjects.Container {
 
     // This variable is used during collisions to occasionally
     // set the player's position manually.
-    let position = { x: 0, y: 0 };
+    const position = { x: 0, y: 0 };
 
     // Collisions.
     this.scene.matter.world.on('beforeupdate', (event: any) => {

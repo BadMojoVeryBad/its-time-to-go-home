@@ -11,7 +11,6 @@ export class TextPlate extends Phaser.GameObjects.Container {
   private hasCursor: boolean = true;
   private timer!: any;
   private timer2!: any;
-  private onClose: () => any = () => {};
 
   constructor(scene: SceneBase, message: string, onClose: () => void) {
     super(scene);
@@ -71,6 +70,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.text.destroy();
     super.destroy();
   }
+  private onClose: () => any = () => {};
 
   private addTimers() {
     this.timer2 = this.scene.time.addEvent({

@@ -1,5 +1,5 @@
-import { SceneBase } from './SceneBase';
 import { CONST } from '../util/CONST';
+import { SceneBase } from './SceneBase';
 
 export class CreditScene extends SceneBase {
   private logo: any;

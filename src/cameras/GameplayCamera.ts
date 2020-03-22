@@ -1,9 +1,9 @@
-import { CONST } from '../util/CONST';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
+import { CONST } from '../util/CONST';
 
 export class GameplayCamera extends Phaser.Cameras.Scene2D.Camera {
-  private follow!: Phaser.Physics.Matter.Sprite;
   public scene: GameplaySceneBase;
+  private follow!: Phaser.Physics.Matter.Sprite;
 
   constructor(scene: GameplaySceneBase, follow: Phaser.Physics.Matter.Sprite, x: number, y: number, w: number, h: number) {
     super(x, y, w, h);
@@ -23,17 +23,17 @@ export class GameplayCamera extends Phaser.Cameras.Scene2D.Camera {
       this.scene.addDebugNumber(this.scene.cameras.main, 'scrollX', 0, this.scene.map.widthInPixels * CONST.SCALE);
       this.scene.addDebugNumber(this.scene.cameras.main, 'scrollY', 0, this.scene.map.heightInPixels * CONST.SCALE);
 
-      var obj = {
+      let obj = {
         stopFollow: () => {
           this.scene.cameras.main.stopFollow();
         },
         startFollow: () => {
           this.scene.cameras.main.startFollow(this.follow, true, 0.1, 0.1, 0, 100);
-        }
+        },
       };
 
-      this.scene.addDebugButton(obj,'startFollow');
-      this.scene.addDebugButton(obj,'stopFollow');
+      this.scene.addDebugButton(obj, 'startFollow');
+      this.scene.addDebugButton(obj, 'stopFollow');
     }
   }
 

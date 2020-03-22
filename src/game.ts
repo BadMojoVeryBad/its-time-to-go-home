@@ -1,8 +1,8 @@
 // @ts-nocheck
 
 import 'phaser';
-import { SceneUtils } from './util/SceneUtils';
 import { CONST } from './util/CONST';
+import { SceneUtils } from './util/SceneUtils';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,

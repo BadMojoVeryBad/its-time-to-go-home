@@ -1,16 +1,16 @@
 import { AnimatedTilesController } from '../controllers/AnimatedTilesController';
+import { MarkerController } from '../controllers/MarkerController';
 import { TileSprite } from '../sprites/TileSprite';
 import { CONST } from '../util/CONST';
 import { TiledUtils } from '../util/TiledUtils';
 import { SceneBase } from './SceneBase';
-import { MarkerController } from '../controllers/MarkerController';
 
 export abstract class GameplaySceneBase extends SceneBase {
   public map!: Phaser.Tilemaps.Tilemap;
   protected tilesheet!: Phaser.Tilemaps.Tileset;
   protected mapLayers: any = {};
-  private animatedTilesController!: AnimatedTilesController;
   protected markerController!: MarkerController;
+  private animatedTilesController!: AnimatedTilesController;
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -69,7 +69,7 @@ export abstract class GameplaySceneBase extends SceneBase {
     }
   }
 
-  public setupMarkers () {
+  public setupMarkers() {
     const markers = this.map.getObjectLayer('markers').objects;
     markers.forEach((marker: Phaser.Types.Tilemaps.TiledObject) => {
       const message = TiledUtils.getProperty(marker, 'message');

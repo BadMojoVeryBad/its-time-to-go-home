@@ -2,16 +2,14 @@ import { SceneBase } from '../scenes/SceneBase';
 import { ActionFactory } from './cutscene/ActionFactory';
 import { CutsceneAction } from './cutscene/CutsceneAction';
 
-/**
- * TODO:
- *   Disable player controls when cutscene active.
- *   Clean up letterbox code a bit.
- *   Move player action.
- */
 export class CutsceneController extends Phaser.GameObjects.Container {
+
+  public static isInCutscene() {
+    return this.inCutscene;
+  }
   private static inCutscene: boolean = false;
-  private queue: CutsceneAction[] = [];
   protected scene!: SceneBase;
+  private queue: CutsceneAction[] = [];
 
   constructor(scene: SceneBase) {
     super(scene);
@@ -19,10 +17,6 @@ export class CutsceneController extends Phaser.GameObjects.Container {
 
   public addAction(key: string, data: object) {
     this.queue.push(ActionFactory.create(this.scene, key, data));
-  }
-
-  public static isInCutscene() {
-    return this.inCutscene;
   }
 
   public async play() {
