@@ -2,6 +2,7 @@
 
 import 'phaser';
 import { SceneUtils } from './util/SceneUtils';
+import { CONST } from './util/CONST';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -13,7 +14,7 @@ const config: Phaser.Types.Core.GameConfig = {
     default: 'matter',
     matter: {
       gravity: true,
-      debug: false,
+      debug: CONST.DEBUG,
     },
   },
   scene: SceneUtils.getScenes(),

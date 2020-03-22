@@ -1,9 +1,9 @@
 export abstract class CONST {
-  public static get SCALE(): number {
-    return 4 as number;
-  }
+  public static readonly DEBUG = true;
 
-  public static get ZERO(): number {
-    return 0 as number;
-  }
+  public static readonly SCALE = 4;
+
+  public static readonly ZERO = 0;
+
+  public static readonly HALF = 0.5;
 }

@@ -5,13 +5,13 @@ import { MenuScene } from '../scenes/MenuScene';
 import { PreloadScene } from '../scenes/PreloadScene';
 
 export abstract class SceneUtils {
-  public static getScenes (): any[] {
+  public static getScenes(): any[] {
     return [
       PreloadScene,
       CreditScene,
       LoadScene,
       MainScene,
-      MenuScene
+      MenuScene,
     ];
   }
 }

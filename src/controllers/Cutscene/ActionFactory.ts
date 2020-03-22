@@ -1,15 +1,15 @@
+import { CloseLetterboxAction } from './CloseLetterboxAction';
+import { CustomAction } from './CustomAction';
 import { CutsceneAction } from './CutsceneAction';
+import { DrawTextAction } from './DrawTextAction';
+import { MoveCameraToAction } from './MoveCameraToAction';
+import { OpenLetterboxAction } from './OpenLetterboxAction';
+import { PlayerCrawlToAction } from './PlayerCrawlToAction';
 import { PlayerJumpAction } from './PlayerJumpAction';
 import { PlayerRunToAction } from './PlayerRunToAction';
-import { PlayerCrawlToAction } from './PlayerCrawlToAction';
-import { WaitAction } from './WaitAction';
-import { SetDepthAction } from './SetDepthAction';
-import { MoveCameraToAction } from './MoveCameraToAction';
-import { DrawTextAction } from './DrawTextAction';
 import { RemoveObjectAction } from './RemoveObjectAction';
-import { CustomAction } from './CustomAction';
-import { OpenLetterboxAction } from './openLetterboxAction';
-import { CloseLetterboxAction } from './CloseLetterboxAction';
+import { SetDepthAction } from './SetDepthAction';
+import { WaitAction } from './WaitAction';
 
 export class ActionFactory {
 
@@ -27,6 +27,6 @@ export class ActionFactory {
     removeObject: RemoveObjectAction,
     customFunction: CustomAction,
     openLetterbox: OpenLetterboxAction,
-    closeLetterbox: CloseLetterboxAction
+    closeLetterbox: CloseLetterboxAction,
   };
 }

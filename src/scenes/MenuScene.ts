@@ -1,12 +1,16 @@
 import { Control } from '../controllers/InputController';
-import { SceneBase } from './SceneBase';
 import { CONST } from '../util/CONST';
+import { SceneBase } from './SceneBase';
 
 export class MenuScene extends SceneBase {
   constructor() {
     super({
       key: 'MenuScene',
     });
+  }
+
+  preload (){
+
   }
 
   public create() {
@@ -25,8 +29,8 @@ export class MenuScene extends SceneBase {
     bigStarsBg.setScale(CONST.SCALE);
     bigStarsBg.setScrollFactor(0.15);
 
-    const text = this.add.bitmapText(this.gameWidth / 2, this.gameHeight / 2, 'font', 'Press ' + this.inputController.getControlString(Control.Activate) + ' to start.');
-    text.setOrigin(0.5, 0.5);
+    const text = this.add.bitmapText(this.gameWidth * CONST.HALF, this.gameHeight * CONST.HALF, 'font', 'Press ' + this.inputController.getControlString(Control.Activate) + ' to start.');
+    text.setOrigin(1, 1);
     text.setScale(0.5);
     text.setScrollFactor(0);
 
@@ -38,6 +42,7 @@ export class MenuScene extends SceneBase {
       });
     });
   }
+
 
   public update() {
     if (this.cameras.main.scrollX > this.gameWidth * 4) {
@@ -54,5 +59,4 @@ export class MenuScene extends SceneBase {
       this.cameras.main.scrollX++;
     }
   }
-
 }

@@ -26,22 +26,18 @@ export class Player extends Phaser.GameObjects.Container {
     // @ts-ignore
     const M = Phaser.Physics.Matter.Matter;
 
-    this.floorSensor = M.Bodies.rectangle(0, 16.5, 4, 1, { isSensor: true, label: 'astronaut-floor' });
-    this.playerBody = M.Bodies.rectangle(0, 8, 8, 16, { chamfer: { radius: 2 }, label: 'astronaut' });
+    this.floorSensor = M.Bodies.rectangle(0, 9, 4, 1, { isSensor: true, label: 'astronaut-floor' });
+    this.playerBody = M.Bodies.rectangle(0, 0, 8, 16, { chamfer: { radius: 2 }, label: 'astronaut' });
     this.compoundBody =  M.Body.create({
       parts: [
         this.playerBody, this.floorSensor,
       ],
       friction: 0,
-      restitution: 0.05, // Prevent body from sticking against a wall
-      render: {
-        sprite: {
-          yOffset: 0.25,
-        },
-      },
+      restitution: 0.05 // Prevent body from sticking against a wall
     });
 
     this.player.setExistingBody(this.compoundBody);
+    this.player.setOrigin(0.5, 0.75);
     this.player.setPosition(551, 1889);
     this.player.flipX = true;
     this.player.setScale(4);

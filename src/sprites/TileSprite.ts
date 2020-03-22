@@ -1,7 +1,7 @@
-import { CONST } from "../util/CONST";
+import { CONST } from '../util/CONST';
 
 export class TileSprite extends Phaser.GameObjects.TileSprite {
-  constructor(scene: Phaser.Scene, x: number, y: number, width: number, height:number, texture: string, frame: string | undefined) {
+  constructor(scene: Phaser.Scene, x: number, y: number, width: number, height: number, texture: string, frame: string | undefined) {
     const textureHeight = scene.textures.get(texture).get().height;
     const textureWidth = scene.textures.get(texture).get().width;
 
@@ -12,17 +12,17 @@ export class TileSprite extends Phaser.GameObjects.TileSprite {
       width,
       height,
       texture,
-      frame
+      frame,
     );
 
     scene.add.existing(this);
   }
 
-  public dontRepeatX () {
+  public dontRepeatX() {
     this.width = this.scene.textures.get(this.texture.key).get().width * CONST.SCALE;
   }
 
-  public dontRepeatY () {
+  public dontRepeatY() {
     this.height = this.scene.textures.get(this.texture.key).get().height * CONST.SCALE;
   }
 }

@@ -1,6 +1,6 @@
-import { CutsceneAction } from './CutsceneAction';
 import { SceneBase } from '../../scenes/SceneBase';
 import { CONST } from '../../util/CONST';
+import { CutsceneAction } from './CutsceneAction';
 
 export class OpenLetterboxAction extends CutsceneAction {
   private duration: number = 1000;
@@ -14,14 +14,14 @@ export class OpenLetterboxAction extends CutsceneAction {
     return new Promise((resolve) => {
       const cam = this.scene.cameras.main;
 
-      let topBar = this.scene.add.graphics();
-      topBar.setDepth(1000);
+      const topBar = this.scene.add.graphics();
+      topBar.setDepth(401);
       topBar.setScrollFactor(0);
       topBar.fillStyle(0x000000, 1);
       topBar.fillRect(0, 0 - (this.scene.gameHeight / CONST.SCALE), this.scene.gameWidth, this.scene.gameHeight / CONST.SCALE);
 
-      let bottomBar = this.scene.add.graphics();
-      bottomBar.setDepth(1000);
+      const bottomBar = this.scene.add.graphics();
+      bottomBar.setDepth(400);
       bottomBar.setScrollFactor(0);
       bottomBar.fillStyle(0x000000, 1);
       bottomBar.fillRect(0, this.scene.gameHeight, this.scene.gameWidth, this.scene.gameHeight / CONST.SCALE);

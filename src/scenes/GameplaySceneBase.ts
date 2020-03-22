@@ -1,28 +1,31 @@
-import { TiledUtils } from "../util/TiledUtils";
-import { CONST } from "../util/CONST";
-import { AnimatedTilesController } from "../controllers/AnimatedTilesController";
-import { TileSprite } from "../sprites/TileSprite";
-import { SceneBase } from "./SceneBase";
+import { AnimatedTilesController } from '../controllers/AnimatedTilesController';
+import { TileSprite } from '../sprites/TileSprite';
+import { CONST } from '../util/CONST';
+import { TiledUtils } from '../util/TiledUtils';
+import { SceneBase } from './SceneBase';
+import { MarkerController } from '../controllers/MarkerController';
 
 export abstract class GameplaySceneBase extends SceneBase {
-  protected map!: Phaser.Tilemaps.Tilemap;
+  public map!: Phaser.Tilemaps.Tilemap;
   protected tilesheet!: Phaser.Tilemaps.Tileset;
   protected mapLayers: any = {};
   private animatedTilesController!: AnimatedTilesController;
+  private markerController!: MarkerController;
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
   }
 
-  public preload () {
+  public preload() {
     this.animatedTilesController = new AnimatedTilesController(this);
+    this.markerController = new MarkerController(this);
   }
 
-  public create () {
+  public create() {
     // ...
   }
 
-  public setupTiles () {
+  public setupTiles() {
     this.map = this.make.tilemap({key: 'map'});
     this.tilesheet = this.map.addTilesetImage('Tiles', 'tilesheet', 16, 16, 0, 0);
     for (let i = 0; i < this.map.layers.length; i++) {
@@ -41,11 +44,11 @@ export abstract class GameplaySceneBase extends SceneBase {
     this.animatedTilesController.init(this.map);
   }
 
-  public setupImages () {
+  public setupImages() {
     for (let i = 0; i < this.map.images.length; i++) {
       const layer = this.map.images[i];
 
-      let tileSprite = new TileSprite(this, layer.x, layer.y, this.map.widthInPixels * CONST.SCALE, this.map.widthInPixels * CONST.SCALE, layer.name, undefined);
+      const tileSprite = new TileSprite(this, layer.x, layer.y, this.map.widthInPixels * CONST.SCALE, this.map.widthInPixels * CONST.SCALE, layer.name, undefined);
       tileSprite.setDepth(TiledUtils.getProperty(layer, 'depth'))
         .setScale(CONST.SCALE)
         .setScrollFactor(TiledUtils.getProperty(layer, 'parallaxX'), TiledUtils.getProperty(layer, 'parallaxY'));
@@ -60,5 +63,15 @@ export abstract class GameplaySceneBase extends SceneBase {
 
       this.mapLayers[layer.name] = tileSprite;
     }
+  }
+
+  public setupMarkers () {
+    const markers = this.map.getObjectLayer('markers').objects;
+    markers.forEach((marker: Phaser.Types.Tilemaps.TiledObject) => {
+      const message = TiledUtils.getProperty(marker, 'message');
+      const event = TiledUtils.getProperty(marker, 'event');
+      const m = this.markerController.addMarkerWithTextPlate((marker.x * CONST.SCALE) + 32, (marker.y * CONST.SCALE) - 64, message, event);
+      m.setMarkerId(marker.id);
+    });
   }
 }

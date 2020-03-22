@@ -1,5 +1,4 @@
 import { SceneBase } from './SceneBase';
-import AnimatedTiles from 'phaser-animated-tiles/dist/AnimatedTiles.js';
 
 import bigStarsBgPng from '../assets/big-stars-bg-sm.png';
 import cratersFgPng from '../assets/craters-fg.png';
@@ -10,12 +9,15 @@ import smallStarsBgPng from '../assets/small-stars-bg-sm.png';
 import spaceBgPng from '../assets/space-bg-sm.png';
 import tilesheetPng from '../assets/tileset.png';
 import playerPng from '../assets/ttgh-spritesheet.png';
+import dogPng from '../assets/dog.png';
 
 import fontFnt from '../assets/font.fnt';
 import fontPng from '../assets/font.png';
 
 import mapJson from '../assets/map.json';
 import playerJson from '../assets/ttgh-spritesheet.xml';
+
+import shader from '../assets/outline.fnt';
 
 export class LoadScene extends SceneBase {
   private loader: any;
@@ -30,6 +32,8 @@ export class LoadScene extends SceneBase {
     // Asset atlas.
     this.load.atlasXML('player', playerPng, playerJson);
 
+    this.load.glsl('blur', shader);
+
     // Images.
     this.load.image('stars1', spaceBgPng);
     this.load.image('stars3', bigStarsBgPng);
@@ -38,6 +42,7 @@ export class LoadScene extends SceneBase {
     this.load.image('craters-fg', cratersFgPng);
     this.load.image('craters-small-fg', cratersSmallFgPng);
     this.load.image('home', homePng);
+    this.load.image('dog', homePng);
 
     // for (let i = 0; i < 1000; i++) {
     //   this.load.image('craters-fg' + i, cratersFgPng);
@@ -82,7 +87,7 @@ export class LoadScene extends SceneBase {
     });
   }
 
-  public create () {
+  public create() {
     this.anims.create({
       key: 'earth',
       frames: this.anims.generateFrameNames('player', { prefix: 'earth', start: 0, end: 26, zeroPad: 4 }),

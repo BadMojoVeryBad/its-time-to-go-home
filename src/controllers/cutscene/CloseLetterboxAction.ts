@@ -1,6 +1,6 @@
-import { CutsceneAction } from './CutsceneAction';
 import { SceneBase } from '../../scenes/SceneBase';
 import { CONST } from '../../util/CONST';
+import { CutsceneAction } from './CutsceneAction';
 
 export class CloseLetterboxAction extends CutsceneAction {
   private duration: number = 1000;
