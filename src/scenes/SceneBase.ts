@@ -38,6 +38,7 @@ export abstract class SceneBase extends Phaser.Scene {
     // Fade in the scene.
     this.events.on('create', (fromScene: Phaser.Scene) => {
       const graphics = this.add.graphics();
+      graphics.setDepth(9999);
       graphics.fillStyle(0x000000, 1);
       graphics.setScrollFactor(0);
       graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);

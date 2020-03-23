@@ -33,7 +33,7 @@ export class InputController extends Phaser.GameObjects.Container {
   public isPressed(control: Control) {
     // Don't do anything if the control is disabled.
     if (!this.controls[control].enabled) {
-      return;
+      return false;
     }
 
     // For each input in this control.
@@ -105,22 +105,22 @@ export class InputController extends Phaser.GameObjects.Container {
   }
 
   public disableControl(control: Control) {
-    this.controls[control].enabled = false;
+    this.controls[control].disabled++;
   }
 
   public enableControl(control: Control) {
-    this.controls[control].enabled = true;
-  }
-
-  public enableAllControls() {
-    for (const control of this.controls) {
-      control.enabled = true;
-    }
+    this.controls[control].disabled--;
   }
 
   public disableAllControls() {
     for (const control of this.controls) {
-      control.enabled = false;
+      control.disabled++;
+    }
+  }
+
+  public enableAllControls() {
+    for (const control of this.controls) {
+      control.disabled--;
     }
   }
 }

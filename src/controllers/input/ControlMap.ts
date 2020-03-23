@@ -1,7 +1,10 @@
 import { Control } from '../InputController';
 
 export class ControlMap {
-  public enabled: boolean = true;
+  public disabled: number = 0;
+  public get enabled(): boolean {
+    return this.disabled < 1;
+  }
   private control: Control;
   private inputs: Phaser.Input.Keyboard.Key[];
 
