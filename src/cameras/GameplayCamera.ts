@@ -23,7 +23,7 @@ export class GameplayCamera extends Phaser.Cameras.Scene2D.Camera {
       this.scene.addDebugNumber(this.scene.cameras.main, 'scrollX', 0, this.scene.map.widthInPixels * CONST.SCALE);
       this.scene.addDebugNumber(this.scene.cameras.main, 'scrollY', 0, this.scene.map.heightInPixels * CONST.SCALE);
 
-      let obj = {
+      const obj = {
         stopFollow: () => {
           this.scene.cameras.main.stopFollow();
         },
