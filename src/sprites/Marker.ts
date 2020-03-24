@@ -1,4 +1,5 @@
 import { Control } from '../controllers/InputController';
+import { SoundController } from '../controllers/SoundController';
 import { SceneBase } from '../scenes/SceneBase';
 
 export class Marker {
@@ -31,6 +32,7 @@ export class Marker {
       // If the marker is 'active' and it isn't already activated,
       // then run its 'onActivate' function.
       if (this.isActive && !this.isActivated) {
+        SoundController.getSound('audio_activate').play();
         this.isActivated = true;
         this.onActivate(() => {
           // When the 'done()' callback is called, we know the marker's

@@ -1,4 +1,5 @@
 import { Control } from '../controllers/InputController';
+import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
 import { SceneBase } from './SceneBase';
 
@@ -35,12 +36,15 @@ export class MenuScene extends SceneBase {
     text.setScrollFactor(0);
 
     this.inputController.onPress(Control.Activate, () => {
+      SoundController.getSound('audio_activate').play();
       this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
         if (progress === 1) {
           this.scene.start('MainScene', {});
         }
       });
     });
+
+    SoundController.getSound('audio_music').play();
   }
 
   public update() {

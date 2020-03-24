@@ -12,8 +12,17 @@ import tilesheetPng from '../assets/tileset.png';
 import fontFnt from '../assets/font.fnt';
 import fontPng from '../assets/font.png';
 
+import ActivateMp3 from '../assets/ttgh_activate.mp3';
+import CrawlMp3 from '../assets/ttgh_crawl.mp3';
+import DeactivateMp3 from '../assets/ttgh_deactivate.mp3';
+import JumpMp3 from '../assets/ttgh_jump.mp3';
+import MusicMp3 from '../assets/ttgh_music.mp3';
+import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
+import WalkMp3 from '../assets/ttgh_walk.mp3';
+
 import mapJson from '../assets/map.json';
 import playerJson from '../assets/spritesheet.xml';
+import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
 
 export class LoadScene extends SceneBase {
@@ -43,6 +52,15 @@ export class LoadScene extends SceneBase {
     // for (let i = 0; i < 1000; i++) {
     //   this.load.image('craters-fg' + i, cratersFgPng);
     // }
+
+    // Audio.
+    this.load.audio('audio_activate', ActivateMp3);
+    this.load.audio('audio_deactivate', DeactivateMp3);
+    this.load.audio('audio_music', MusicMp3);
+    this.load.audio('audio_walk', WalkMp3);
+    this.load.audio('audio_crawl', CrawlMp3);
+    this.load.audio('audio_jump', JumpMp3);
+    this.load.audio('audio_rocket_nofuel', RocketNoFuelMp3);
 
     // Fonts.
     this.load.bitmapFont('font', fontPng, fontFnt);
@@ -127,6 +145,71 @@ export class LoadScene extends SceneBase {
       frames: this.anims.generateFrameNames('player', { prefix: 'astronaut-crawl', start: 0, end: 7, zeroPad: 4 }),
       frameRate: 6,
       repeat: -1,
+    });
+
+    SoundController.init(this.game);
+    SoundController.addSound('audio_activate', {
+      mute: false,
+      volume: 0.25,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: false,
+      delay: 0,
+    });
+    SoundController.addSound('audio_deactivate', {
+      mute: false,
+      volume: 0.25,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: false,
+      delay: 0,
+    });
+    SoundController.addSound('audio_music', {
+      mute: false,
+      volume: 0.75,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay: 0,
+    });
+    SoundController.addSound('audio_walk', {
+      mute: false,
+      volume: 0.15,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay: 0,
+    });
+    SoundController.addSound('audio_crawl', {
+      mute: false,
+      volume: 0.15,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay: 0,
+    });
+    SoundController.addSound('audio_jump', {
+      mute: false,
+      volume: 0.15,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: false,
+      delay: 0,
+    });
+    SoundController.addSound('audio_rocket_nofuel', {
+      mute: false,
+      volume: 1,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: false,
+      delay: 0,
     });
   }
 }

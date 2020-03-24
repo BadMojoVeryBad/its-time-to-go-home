@@ -1,5 +1,5 @@
-import { CutsceneController } from '../controllers/CutsceneController';
 import { Control } from '../controllers/InputController';
+import { SoundController } from '../controllers/SoundController';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
 import { CONST } from '../util/CONST';
 
@@ -88,11 +88,20 @@ export class Player extends Phaser.GameObjects.Container {
       // Figure out animation.
       let anim = 'idle';
       if (this.isGrounded && Math.abs(this.player.body.velocity.x) > this.movementThreshold && this.isDoingAction('crawl')) {
+        SoundController.getSound('audio_walk').stop();
+        SoundController.play('audio_crawl', true);
         anim = 'crawl';
       } else if (this.isGrounded && Math.abs(this.player.body.velocity.x) > this.movementThreshold) {
+        SoundController.play('audio_walk', true);
+        SoundController.getSound('audio_crawl').stop();
         anim = 'walk';
       } else if (!this.isGrounded) {
+        SoundController.getSound('audio_walk').stop();
+        SoundController.getSound('audio_crawl').stop();
         anim = 'jump';
+      } else {
+        SoundController.getSound('audio_walk').stop();
+        SoundController.getSound('audio_crawl').stop();
       }
       this.player.anims.play(anim, true);
 
@@ -107,24 +116,22 @@ export class Player extends Phaser.GameObjects.Container {
   }
 
   public preUpdate(time: number, delta: number) {
-    // Do input.
-    // if (!CutsceneController.isInCutscene()) {
-      // Left and right input.
-      if (this.scene.inputController.isPressed(Control.Left)) {
-        this.moveLeft();
-      } else if (this.scene.inputController.isPressed(Control.Right)) {
-        this.moveRight();
-      }
+    // Left and right input.
+    if (this.scene.inputController.isPressed(Control.Left)) {
+      this.moveLeft();
+    } else if (this.scene.inputController.isPressed(Control.Right)) {
+      this.moveRight();
+    }
 
-      // Jump input.
-      if (this.scene.inputController.isPressed(Control.Jump) && this.isGrounded) {
-        this.jump();
-      }
-    // }
+    // Jump input.
+    if (this.scene.inputController.isPressed(Control.Jump) && this.isGrounded) {
+      this.jump();
+    }
   }
 
   public jump() {
     this.actions.push('jump');
+    SoundController.getSound('audio_jump').play();
     this.player.setVelocityY(this.jumpVelocity * CONST.NEGATIVE);
   }
 

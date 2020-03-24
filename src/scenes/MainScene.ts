@@ -87,6 +87,7 @@ export class MainScene extends GameplaySceneBase {
       cutscene.addAction('setDepth',  { object: this.rocket.getRocketBackSprite(), depth: 50 });
       cutscene.addAction('playerCrawlTo',  { player: this.player, xTarget: 100 });
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: - 400, yTarget: 2048 - 550, duration: 800 });
+      cutscene.addAction('playSound', { key: 'audio_rocket_nofuel' });
       cutscene.addAction('wait', { duration: 5000 });
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 0, yTarget: 0, follow: this.player.getSprite(), duration: 800 });
       cutscene.addAction('playerCrawlTo',  { player: this.player, xTarget: 152 });

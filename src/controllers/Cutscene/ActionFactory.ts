@@ -7,6 +7,7 @@ import { OpenLetterboxAction } from './OpenLetterboxAction';
 import { PlayerCrawlToAction } from './PlayerCrawlToAction';
 import { PlayerJumpAction } from './PlayerJumpAction';
 import { PlayerRunToAction } from './PlayerRunToAction';
+import { PlaySoundAction } from './PlaySoundAction';
 import { RemoveObjectAction } from './RemoveObjectAction';
 import { SetDepthAction } from './SetDepthAction';
 import { WaitAction } from './WaitAction';
@@ -16,7 +17,7 @@ export class ActionFactory {
   public static create(scene: Phaser.Scene, key: string, data: object): CutsceneAction {
     return new this.actions[key](scene, data);
   }
-  private static actions: object = {
+  private static actions: {} = {
     wait: WaitAction,
     playerJump: PlayerJumpAction,
     playerRunTo: PlayerRunToAction,
@@ -28,5 +29,6 @@ export class ActionFactory {
     customFunction: CustomAction,
     openLetterbox: OpenLetterboxAction,
     closeLetterbox: CloseLetterboxAction,
+    playSound: PlaySoundAction,
   };
 }
