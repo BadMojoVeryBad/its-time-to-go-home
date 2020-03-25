@@ -34,7 +34,7 @@ export abstract class SceneBase extends Phaser.Scene {
     this.cameras.main.centerOn(0, 0);
   }
 
-  protected setupTransitionEvents(): void {
+  protected setupTransitionEvents(wait: number = 0, duration: number = 600): void {
     // Fade in the scene.
     this.events.on('create', (fromScene: Phaser.Scene) => {
       const graphics = this.add.graphics();
@@ -44,8 +44,9 @@ export abstract class SceneBase extends Phaser.Scene {
       graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
       this.tweens.add({
         targets: graphics,
-        duration: 600,
+        duration: duration,
         alpha: 0,
+        delay: wait
       });
     }, this);
   }

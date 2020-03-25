@@ -37,14 +37,13 @@ export class MenuScene extends SceneBase {
 
     this.inputController.onPress(Control.Activate, () => {
       SoundController.getSound('audio_activate').play();
+
       this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
         if (progress === 1) {
           this.scene.start('MainScene', {});
         }
       });
     });
-
-    SoundController.getSound('audio_music').play();
   }
 
   public update() {

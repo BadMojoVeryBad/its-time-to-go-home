@@ -2,12 +2,14 @@ import { Control } from '../controllers/InputController';
 import { SoundController } from '../controllers/SoundController';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
 import { CONST } from '../util/CONST';
+import { ParticleController } from '../controllers/ParticleController';
 
 export class Player extends Phaser.GameObjects.Container {
   protected scene!: GameplaySceneBase;
   private player!: Phaser.Physics.Matter.Sprite;
   private isGrounded: boolean = false;
   private actions: string[] = [];
+  private particleController: ParticleController;
 
   private readonly moveVelocity = 2;
   private readonly crawlVelocity = 1;
@@ -90,29 +92,63 @@ export class Player extends Phaser.GameObjects.Container {
       if (this.isGrounded && Math.abs(this.player.body.velocity.x) > this.movementThreshold && this.isDoingAction('crawl')) {
         SoundController.getSound('audio_walk').stop();
         SoundController.play('audio_crawl', true);
+        this.particleController.stop('walking');
+        this.particleController.start('crawling');
+        this.particleController.stop('jumping');
         anim = 'crawl';
       } else if (this.isGrounded && Math.abs(this.player.body.velocity.x) > this.movementThreshold) {
         SoundController.play('audio_walk', true);
         SoundController.getSound('audio_crawl').stop();
+        this.particleController.start('walking');
+        this.particleController.stop('crawling');
+        this.particleController.stop('jumping');
         anim = 'walk';
       } else if (!this.isGrounded) {
         SoundController.getSound('audio_walk').stop();
         SoundController.getSound('audio_crawl').stop();
+        this.particleController.stop('walking');
+        this.particleController.stop('crawling');
+        this.particleController.start('jumping');
         anim = 'jump';
       } else {
         SoundController.getSound('audio_walk').stop();
         SoundController.getSound('audio_crawl').stop();
+        this.particleController.stop('walking');
+        this.particleController.stop('crawling');
+        this.particleController.stop('jumping');
       }
       this.player.anims.play(anim, true);
 
       // Reset actions.
       this.actions = [];
+
+      // Position particles.
+      this.particleController.getParticleEmitter('walking').emitters.each(emitter => {
+        emitter.setPosition(position.x, position.y + 32);
+      });
+      this.particleController.getParticleEmitter('crawling').emitters.each(emitter => {
+        emitter.setPosition(position.x, position.y + 32);
+      });
+      this.particleController.getParticleEmitter('jumping').emitters.each(emitter => {
+        emitter.setPosition(position.x, position.y + 32);
+      });
     });
 
     // Debug.
     if (CONST.DEBUG) {
       this.scene.addDebugBoolean(this, 'isGrounded');
     }
+
+    this.particleController = new ParticleController(this.scene);
+    this.particleController.createParticleEmitter('walking', [
+      'walking'
+    ], 56);
+    this.particleController.createParticleEmitter('crawling', [
+      'crawling'
+    ], 56);
+    this.particleController.createParticleEmitter('jumping', [
+      'jumping'
+    ], 56);
   }
 
   public preUpdate(time: number, delta: number) {
@@ -127,6 +163,9 @@ export class Player extends Phaser.GameObjects.Container {
     if (this.scene.inputController.isPressed(Control.Jump) && this.isGrounded) {
       this.jump();
     }
+
+    // Set position of particles.
+
   }
 
   public jump() {

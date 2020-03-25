@@ -41,7 +41,8 @@
   "dependencies": {
     "dat.gui": "^0.7.6",
     "phaser": "photonstorm/phaser#master",
-    "phaser-animated-tiles": "^2.0.2"
+    "phaser-animated-tiles": "^2.0.2",
+    "phaser3-rex-plugins": "^1.1.9"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",

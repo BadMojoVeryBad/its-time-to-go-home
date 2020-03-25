@@ -17,6 +17,7 @@ import CrawlMp3 from '../assets/ttgh_crawl.mp3';
 import DeactivateMp3 from '../assets/ttgh_deactivate.mp3';
 import JumpMp3 from '../assets/ttgh_jump.mp3';
 import MusicMp3 from '../assets/ttgh_music.mp3';
+import MusicTwoMp3 from '../assets/ttgh_music_2.mp3';
 import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
 import WalkMp3 from '../assets/ttgh_walk.mp3';
 
@@ -24,6 +25,7 @@ import mapJson from '../assets/map.json';
 import playerJson from '../assets/spritesheet.xml';
 import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
+import { ParticleController } from '../controllers/ParticleController';
 
 export class LoadScene extends SceneBase {
   private loader: any;
@@ -57,6 +59,7 @@ export class LoadScene extends SceneBase {
     this.load.audio('audio_activate', ActivateMp3);
     this.load.audio('audio_deactivate', DeactivateMp3);
     this.load.audio('audio_music', MusicMp3);
+    this.load.audio('audio_music_2', MusicTwoMp3);
     this.load.audio('audio_walk', WalkMp3);
     this.load.audio('audio_crawl', CrawlMp3);
     this.load.audio('audio_jump', JumpMp3);
@@ -146,6 +149,18 @@ export class LoadScene extends SceneBase {
       frameRate: 6,
       repeat: -1,
     });
+    this.anims.create({
+      key: 'rocket_starting',
+      frames: this.anims.generateFrameNames('player', { prefix: 'rocket', start: 0, end: 1, zeroPad: 4 }),
+      frameRate: 3,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'rocket_going',
+      frames: this.anims.generateFrameNames('player', { prefix: 'rocket', start: 0, end: 1, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: -1,
+    });
 
     SoundController.init(this.game);
     SoundController.addSound('audio_activate', {
@@ -167,6 +182,15 @@ export class LoadScene extends SceneBase {
       delay: 0,
     });
     SoundController.addSound('audio_music', {
+      mute: false,
+      volume: 0.75,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay: 0,
+    });
+    SoundController.addSound('audio_music_2', {
       mute: false,
       volume: 0.75,
       rate: 1,
@@ -210,6 +234,62 @@ export class LoadScene extends SceneBase {
       seek: 0,
       loop: false,
       delay: 0,
+    });
+
+    ParticleController.addEmitter('rocket_smoke_1', {
+      frame: 'rocket_particle',
+      angle: { min: 180, max: 360 },
+      speed: { min: 10, max: 20 },
+      gravityY: 100,
+      lifespan: 600,
+      quantity: 8,
+      scale: 4,
+      maxParticles: 0,
+      frequency: 500,
+    });
+    ParticleController.addEmitter('rocket_smoke_2', {
+      frame: 'walking_particle',
+      angle: { min: 180, max: 360 },
+      speed: { min: 10, max: 20 },
+      gravityY: 100,
+      lifespan: 600,
+      quantity: 8,
+      scale: 4,
+      maxParticles: 0,
+      frequency: 500,
+    });
+    ParticleController.addEmitter('walking', {
+      frame: 'walking_particle',
+      angle: { min: 180, max: 360 },
+      speed: { min: 30, max: 50 },
+      gravityY: 100,
+      lifespan: 600,
+      quantity: 8,
+      scale: 4,
+      maxParticles: 0,
+      frequency: 490,
+    });
+    ParticleController.addEmitter('crawling', {
+      frame: 'walking_particle',
+      angle: { min: 180, max: 360 },
+      speed: { min: 30, max: 50 },
+      gravityY: 100,
+      lifespan: 600,
+      quantity: 8,
+      scale: 4,
+      maxParticles: 0,
+      frequency: 250,
+    });
+    ParticleController.addEmitter('jumping', {
+      frame: 'walking_particle',
+      angle: { min: 180, max: 360 },
+      speed: { min: 40, max: 80 },
+      gravityY: 100,
+      lifespan: 600,
+      quantity: 8,
+      scale: 4,
+      maxParticles: 0,
+      frequency: 9999,
     });
   }
 }
