@@ -1,8 +1,8 @@
 import { Control } from '../controllers/InputController';
+import { ParticleController } from '../controllers/ParticleController';
 import { SoundController } from '../controllers/SoundController';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
 import { CONST } from '../util/CONST';
-import { ParticleController } from '../controllers/ParticleController';
 
 export class Player extends Phaser.GameObjects.Container {
   protected scene!: GameplaySceneBase;
@@ -123,13 +123,13 @@ export class Player extends Phaser.GameObjects.Container {
       this.actions = [];
 
       // Position particles.
-      this.particleController.getParticleEmitter('walking').emitters.each(emitter => {
+      this.particleController.getParticleEmitter('walking').emitters.each((emitter) => {
         emitter.setPosition(position.x, position.y + 32);
       });
-      this.particleController.getParticleEmitter('crawling').emitters.each(emitter => {
+      this.particleController.getParticleEmitter('crawling').emitters.each((emitter) => {
         emitter.setPosition(position.x, position.y + 32);
       });
-      this.particleController.getParticleEmitter('jumping').emitters.each(emitter => {
+      this.particleController.getParticleEmitter('jumping').emitters.each((emitter) => {
         emitter.setPosition(position.x, position.y + 32);
       });
     });
@@ -141,13 +141,13 @@ export class Player extends Phaser.GameObjects.Container {
 
     this.particleController = new ParticleController(this.scene);
     this.particleController.createParticleEmitter('walking', [
-      'walking'
+      'walking',
     ], 56);
     this.particleController.createParticleEmitter('crawling', [
-      'crawling'
+      'crawling',
     ], 56);
     this.particleController.createParticleEmitter('jumping', [
-      'jumping'
+      'jumping',
     ], 56);
   }
 

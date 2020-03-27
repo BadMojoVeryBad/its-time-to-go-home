@@ -22,13 +22,14 @@ export class MainScene extends GameplaySceneBase {
     super.create();
 
     // Set up some stuff the base scene gives us.
-    this.setupTransitionEvents(6000, 4000);
+    // this.setupTransitionEvents(6000, 4000);
     this.setupInputs();
 
     // Setup the map.
     this.setupTiles();
     this.setupImages();
     this.setupMarkers();
+    this.setupEvents();
 
     // Setup the events/cutscenes this scene has.
     this.setupCutscenes();
@@ -54,9 +55,9 @@ export class MainScene extends GameplaySceneBase {
     });
 
     // Start the opening cutscene as soon as the scene loads.
-    this.events.emit('cutscene_opening');
-    this.time.delayedCall(500, () => {
-      SoundController.fadeIn(this, 'audio_music_2');
+    // this.events.emit('cutscene_opening');
+    this.time.delayedCall(2000, () => {
+      SoundController.fadeIn(this, 'audio_music_2', true);
     });
   }
 
@@ -85,6 +86,11 @@ export class MainScene extends GameplaySceneBase {
       cutscene.play();
     });
 
+    this.events.on('change_scene_scene2', () => {
+      this.events.removeListener('change_scene_scene2');
+      this.changeScene('Scene2', 300);
+    });
+
     this.events.on('cutscene_rocket_1', () => {
       const cutscene = new CutsceneController(this);
       cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.25 });
@@ -103,7 +109,7 @@ export class MainScene extends GameplaySceneBase {
       }});
       cutscene.addAction('wait', { duration: 1000 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
-        this.rocket.getSmokeParticles().emitters.each(emitter => {
+        this.rocket.getSmokeParticles().emitters.each((emitter) => {
           emitter.setSpeed({ min: 100, max: 200 });
           emitter.setGravity(0, 500);
           emitter.setFrequency(250);
@@ -116,7 +122,7 @@ export class MainScene extends GameplaySceneBase {
       }});
       cutscene.addAction('wait', { duration: 2500 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
-        this.rocket.getSmokeParticles().emitters.each(emitter => {
+        this.rocket.getSmokeParticles().emitters.each((emitter) => {
           emitter.setSpeed({ min: 10, max: 20 });
           emitter.setGravity(0, 100);
           emitter.setFrequency(500);

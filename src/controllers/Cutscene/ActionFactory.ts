@@ -8,9 +8,9 @@ import { PlayerCrawlToAction } from './PlayerCrawlToAction';
 import { PlayerJumpAction } from './PlayerJumpAction';
 import { PlayerRunToAction } from './PlayerRunToAction';
 import { PlaySoundAction } from './PlaySoundAction';
-import { SoundVolumeAction } from './SoundVolumeAction';
 import { RemoveObjectAction } from './RemoveObjectAction';
 import { SetDepthAction } from './SetDepthAction';
+import { SoundVolumeAction } from './SoundVolumeAction';
 import { WaitAction } from './WaitAction';
 
 export class ActionFactory {
@@ -31,6 +31,6 @@ export class ActionFactory {
     openLetterbox: OpenLetterboxAction,
     closeLetterbox: CloseLetterboxAction,
     playSound: PlaySoundAction,
-    soundVolume: SoundVolumeAction
+    soundVolume: SoundVolumeAction,
   };
 }

@@ -1,6 +1,6 @@
+import { ParticleController } from '../controllers/ParticleController';
 import { SceneBase } from '../scenes/SceneBase';
 import { CONST } from '../util/CONST';
-import { ParticleController } from '../controllers/ParticleController';
 
 export class Rocket {
   private rocketSprite: Phaser.Physics.Matter.Sprite;
@@ -28,17 +28,20 @@ export class Rocket {
     // @ts-ignore
     const M = Phaser.Physics.Matter.Matter;
     const sensor = M.Bodies.rectangle(CONST.ZERO, CONST.ZERO, width, width, { isSensor: true, label: 'rocket' });
+    const sensor2 = M.Bodies.rectangle(CONST.ZERO, CONST.ZERO, width, width, { isSensor: true, label: 'rocket_back' });
     this.rocketSprite.setExistingBody(sensor);
-    this.rocketBackSprite.setExistingBody(sensor);
+    this.rocketBackSprite.setExistingBody(sensor2);
     this.rocketSprite.setIgnoreGravity(true);
     this.rocketBackSprite.setIgnoreGravity(true);
     this.rocketSprite.setPosition((x * CONST.SCALE) + (width * CONST.HALF), (y * CONST.SCALE) - (width * CONST.HALF))
+      .setDepth(70);
+    this.rocketBackSprite.setPosition((x * CONST.SCALE) + (width * CONST.HALF), (y * CONST.SCALE) - (width * CONST.HALF))
       .setDepth(70);
 
     this.particleController = new ParticleController(this.scene);
     this.particleController.createParticleEmitter('rocket_smoke', [
       'rocket_smoke_1',
-      'rocket_smoke_2'
+      'rocket_smoke_2',
     ], 75);
     this.particleController.getParticleEmitter('rocket_smoke').setPosition((x * CONST.SCALE) + (width * CONST.HALF), (y * CONST.SCALE));
     this.particleController.start('rocket_smoke');

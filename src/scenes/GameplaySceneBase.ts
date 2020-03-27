@@ -1,5 +1,7 @@
 import { AnimatedTilesController } from '../controllers/AnimatedTilesController';
 import { MarkerController } from '../controllers/MarkerController';
+import { GameplayEvent } from '../sprites/GameplayEvent';
+import { Player } from '../sprites/Player';
 import { TileSprite } from '../sprites/TileSprite';
 import { CONST } from '../util/CONST';
 import { TiledUtils } from '../util/TiledUtils';
@@ -29,8 +31,17 @@ export abstract class GameplaySceneBase extends SceneBase {
     // ...
   }
 
-  public setupTiles() {
-    this.map = this.make.tilemap({key: 'map'});
+  public update () {
+    // ...
+  }
+
+  protected changeScene(scene: string, duration: number = 600) {
+    this.inputController.disableAllControls();
+    super.changeScene(scene, duration);
+  }
+
+  public setupTiles(map: string = 'map') {
+    this.map = this.make.tilemap({key: map});
     this.tilesheet = this.map.addTilesetImage('Tiles', 'tilesheet', 16, 16, 0, 0);
     for (let i = 0; i < this.map.layers.length; i++) {
       const layer = this.map.layers[i];
@@ -76,6 +87,17 @@ export abstract class GameplaySceneBase extends SceneBase {
       const event = TiledUtils.getProperty(marker, 'event');
       const m = this.markerController.addMarkerWithTextPlate((marker.x * CONST.SCALE) + 32, (marker.y * CONST.SCALE) - 64, message, event);
       m.setMarkerId(marker.id);
+    });
+  }
+
+  public setupEvents() {
+    const events = this.map.getObjectLayer('events').objects;
+    events.forEach((event: Phaser.Types.Tilemaps.TiledObject) => {
+      const w = event.width * CONST.SCALE;
+      const h = event.height * CONST.SCALE;
+      const x = (event.x * CONST.SCALE) + (w * CONST.HALF);
+      const y = (event.y * CONST.SCALE) - (h * CONST.HALF);
+      new GameplayEvent(this, x, y, w, h, TiledUtils.getProperty(event, 'event'));
     });
   }
 }

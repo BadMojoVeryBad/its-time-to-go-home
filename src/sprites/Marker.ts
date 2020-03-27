@@ -28,7 +28,7 @@ export class Marker {
     this.marker.play('info');
 
     // What to do when the marker is activated.
-    this.scene.inputController.onPress(Control.Activate, () => {
+    const pressRef = this.scene.inputController.onPress(Control.Activate, () => {
       // If the marker is 'active' and it isn't already activated,
       // then run its 'onActivate' function.
       if (this.isActive && !this.isActivated) {
@@ -41,6 +41,10 @@ export class Marker {
           this.isActivated = false;
         });
       }
+    });
+
+    this.marker.once('destroy', () => {
+      this.scene.inputController.removeOnPress(pressRef);
     });
   }
 

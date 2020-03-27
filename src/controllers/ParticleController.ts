@@ -1,17 +1,17 @@
-import { SceneBase } from "../scenes/SceneBase";
+import { SceneBase } from '../scenes/SceneBase';
 
 export class ParticleController {
+
+  public static addEmitter(key: string, config: {}) {
+    ParticleController.emitterConfigs[key] = config;
+  }
+  private static emitterConfigs: { [index: string]: {} } = {};
   private scene: SceneBase;
-  private particles: { [index:string] : Phaser.GameObjects.Particles.ParticleEmitterManager } = {};
-  private static emitterConfigs: { [index:string] : {} } = {};
-  private playing: { [index:string] : number } = {}
+  private particles: { [index: string]: Phaser.GameObjects.Particles.ParticleEmitterManager } = {};
+  private playing: { [index: string]: number } = {};
 
   constructor(scene: SceneBase) {
     this.scene = scene;
-  }
-
-  public static addEmitter(key:string, config: {}) {
-    ParticleController.emitterConfigs[key] = config;
   }
 
   public createParticleEmitter(key: string, emitters: string[], depth = 200) {
@@ -36,7 +36,7 @@ export class ParticleController {
   public start(key: string) {
     if (!this.playing[key]) {
       this.playing[key] = 1;
-      this.particles[key].emitters.each(emitter => {
+      this.particles[key].emitters.each((emitter) => {
         emitter.start();
       });
     }
@@ -45,7 +45,7 @@ export class ParticleController {
   public stop(key: string) {
     if (this.playing[key]) {
       this.playing[key] = 0;
-      this.particles[key].emitters.each(emitter => {
+      this.particles[key].emitters.each((emitter) => {
         emitter.stop();
       });
     }

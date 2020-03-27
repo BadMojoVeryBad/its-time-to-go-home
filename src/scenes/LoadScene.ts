@@ -22,10 +22,11 @@ import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
 import WalkMp3 from '../assets/ttgh_walk.mp3';
 
 import mapJson from '../assets/map.json';
+import map2Json from '../assets/map2.json';
 import playerJson from '../assets/spritesheet.xml';
+import { ParticleController } from '../controllers/ParticleController';
 import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
-import { ParticleController } from '../controllers/ParticleController';
 
 export class LoadScene extends SceneBase {
   private loader: any;
@@ -70,6 +71,7 @@ export class LoadScene extends SceneBase {
 
     // Level map.
     this.load.tilemapTiledJSON('map', mapJson);
+    this.load.tilemapTiledJSON('map2', map2Json);
     this.load.spritesheet('tilesheet', tilesheetPng, {frameWidth: 16, frameHeight: 16});
 
     // Basic graphics and loading bar.

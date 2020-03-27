@@ -44,11 +44,29 @@ export abstract class SceneBase extends Phaser.Scene {
       graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
       this.tweens.add({
         targets: graphics,
-        duration: duration,
+        duration,
         alpha: 0,
-        delay: wait
+        delay: wait,
       });
     }, this);
+  }
+
+  protected changeScene(scene: string, duration: number = 600) {
+    // Fade out the scene.
+    const graphics = this.add.graphics();
+    graphics.setDepth(9999);
+    graphics.fillStyle(0x000000, 1);
+    graphics.setScrollFactor(0);
+    graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
+    graphics.setAlpha(0);
+    this.tweens.add({
+      targets: graphics,
+      duration,
+      alpha: 1,
+      onComplete: () => {
+        this.scene.start(scene)
+      },
+    });
   }
 
   protected setupInputs(): void {

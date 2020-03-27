@@ -22,8 +22,8 @@ const config: Phaser.Types.Core.GameConfig = {
     global: [{
       key: 'rexSoundFade',
       plugin: SoundFadePlugin,
-      start: true
-    }]
+      start: true,
+    }],
   },
   scene: SceneUtils.getScenes(),
 };
