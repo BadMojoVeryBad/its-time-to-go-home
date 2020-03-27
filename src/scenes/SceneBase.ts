@@ -64,7 +64,7 @@ export abstract class SceneBase extends Phaser.Scene {
       duration,
       alpha: 1,
       onComplete: () => {
-        this.scene.start(scene)
+        this.scene.start(scene);
       },
     });
   }

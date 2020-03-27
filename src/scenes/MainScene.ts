@@ -22,7 +22,7 @@ export class MainScene extends GameplaySceneBase {
     super.create();
 
     // Set up some stuff the base scene gives us.
-    // this.setupTransitionEvents(6000, 4000);
+    this.setupTransitionEvents(6000, 4000);
     this.setupInputs();
 
     // Setup the map.
@@ -55,8 +55,8 @@ export class MainScene extends GameplaySceneBase {
     });
 
     // Start the opening cutscene as soon as the scene loads.
-    // this.events.emit('cutscene_opening');
-    this.time.delayedCall(2000, () => {
+    this.events.emit('cutscene_opening');
+    this.time.delayedCall(500, () => {
       SoundController.fadeIn(this, 'audio_music_2', true);
     });
   }

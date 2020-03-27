@@ -31,13 +31,8 @@ export abstract class GameplaySceneBase extends SceneBase {
     // ...
   }
 
-  public update () {
+  public update() {
     // ...
-  }
-
-  protected changeScene(scene: string, duration: number = 600) {
-    this.inputController.disableAllControls();
-    super.changeScene(scene, duration);
   }
 
   public setupTiles(map: string = 'map') {
@@ -99,5 +94,10 @@ export abstract class GameplaySceneBase extends SceneBase {
       const y = (event.y * CONST.SCALE) - (h * CONST.HALF);
       new GameplayEvent(this, x, y, w, h, TiledUtils.getProperty(event, 'event'));
     });
+  }
+
+  protected changeScene(scene: string, duration: number = 600) {
+    this.inputController.disableAllControls();
+    super.changeScene(scene, duration);
   }
 }
