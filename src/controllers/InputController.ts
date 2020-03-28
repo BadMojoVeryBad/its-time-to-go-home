@@ -73,7 +73,7 @@ export class InputController extends Phaser.GameObjects.Container {
     }
 
     // Return a reference to the event listeners
-    const reference = 'control.' + control.toString() + '.' + new Date().valueOf();
+    const reference = 'control.' + control.toString() + '.' + new Date().valueOf() + '.' + Math.floor(Math.random() * 1000000);
     this.customListeners[reference] = {
       control,
       function: onPressFn,

@@ -1,4 +1,5 @@
 import { AnimatedTilesController } from '../controllers/AnimatedTilesController';
+import { CutsceneController } from '../controllers/CutsceneController';
 import { MarkerController } from '../controllers/MarkerController';
 import { GameplayEvent } from '../sprites/GameplayEvent';
 import { Player } from '../sprites/Player';
@@ -12,10 +13,16 @@ export abstract class GameplaySceneBase extends SceneBase {
   protected tilesheet!: Phaser.Tilemaps.Tileset;
   protected mapLayers: any = {};
   protected markerController!: MarkerController;
+  protected player!: Player;
   private animatedTilesController!: AnimatedTilesController;
+  private sceneData: {} = {};
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
+  }
+
+  public init(data: {}) {
+    this.sceneData = data;
   }
 
   public preload() {
@@ -28,11 +35,23 @@ export abstract class GameplaySceneBase extends SceneBase {
   }
 
   public create() {
-    // ...
+    super.create();
+
+    // Make the player object.
+    this.setupInputs();
+    this.player = new Player(this);
+    if (this.sceneData.playerX) {
+      const startX = (this.sceneData.playerDir === 'left') ? -64 : 64;
+      this.player.setPlayerPosition(this.sceneData.playerX, this.sceneData.playerY);
+      this.player.setPlayerDirection(this.sceneData.playerDir);
+      const cutscene = new CutsceneController(this);
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: this.sceneData.playerX + startX });
+      cutscene.play();
+    }
   }
 
   public update() {
-    // ...
+    // console.log(this.game.input.mousePointer.x, this.game.input.mousePointer.y);
   }
 
   public setupTiles(map: string = 'map') {
@@ -86,18 +105,20 @@ export abstract class GameplaySceneBase extends SceneBase {
   }
 
   public setupEvents() {
-    const events = this.map.getObjectLayer('events').objects;
-    events.forEach((event: Phaser.Types.Tilemaps.TiledObject) => {
-      const w = event.width * CONST.SCALE;
-      const h = event.height * CONST.SCALE;
-      const x = (event.x * CONST.SCALE) + (w * CONST.HALF);
-      const y = (event.y * CONST.SCALE) - (h * CONST.HALF);
-      new GameplayEvent(this, x, y, w, h, TiledUtils.getProperty(event, 'event'));
+    this.time.delayedCall(600, () => {
+      const events = this.map.getObjectLayer('events').objects;
+      events.forEach((event: Phaser.Types.Tilemaps.TiledObject) => {
+        const w = event.width * CONST.SCALE;
+        const h = event.height * CONST.SCALE;
+        const x = (event.x * CONST.SCALE) + (w * CONST.HALF);
+        const y = (event.y * CONST.SCALE) - (h * CONST.HALF);
+        new GameplayEvent(this, x, y, w, h, TiledUtils.getProperty(event, 'event'));
+      });
     });
   }
 
-  protected changeScene(scene: string, duration: number = 600) {
+  protected changeScene(scene: string, duration: number = 600, data: {} = {}) {
     this.inputController.disableAllControls();
-    super.changeScene(scene, duration);
+    super.changeScene(scene, duration, data);
   }
 }

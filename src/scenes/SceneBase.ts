@@ -1,4 +1,5 @@
 import { InputController } from '../controllers/InputController';
+import { GameBase } from '../util/GameBase';
 const dat: any = require('dat.gui');
 
 export abstract class SceneBase extends Phaser.Scene {
@@ -10,11 +11,24 @@ export abstract class SceneBase extends Phaser.Scene {
   public get gameHeight(): number {
     return this.sys.game.config.height as number;
   }
+  // This property is set in the super constructor.
+  // @ts-ignore
+  public game: GameBase;
   public inputController!: InputController;
   protected gui!: any;
 
+  private transitionEventFn?: any;
+
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
+  }
+
+  public create() {
+    this.events.once('shutdown', () => {
+      if (this.transitionEventFn !== undefined) {
+        this.events.removeListener('create', this.transitionEventFn);
+      }
+    });
   }
 
   public addDebugNumber(obj: any, prop: string, min: number, max: number) {
@@ -36,7 +50,7 @@ export abstract class SceneBase extends Phaser.Scene {
 
   protected setupTransitionEvents(wait: number = 0, duration: number = 600): void {
     // Fade in the scene.
-    this.events.on('create', (fromScene: Phaser.Scene) => {
+    this.transitionEventFn = () => {
       const graphics = this.add.graphics();
       graphics.setDepth(9999);
       graphics.fillStyle(0x000000, 1);
@@ -48,10 +62,12 @@ export abstract class SceneBase extends Phaser.Scene {
         alpha: 0,
         delay: wait,
       });
-    }, this);
+    };
+
+    this.events.on('create', this.transitionEventFn);
   }
 
-  protected changeScene(scene: string, duration: number = 600) {
+  protected changeScene(scene: string, duration: number = 300, data: {} = {}) {
     // Fade out the scene.
     const graphics = this.add.graphics();
     graphics.setDepth(9999);
@@ -64,7 +80,7 @@ export abstract class SceneBase extends Phaser.Scene {
       duration,
       alpha: 1,
       onComplete: () => {
-        this.scene.start(scene);
+        this.scene.start(scene, data);
       },
     });
   }

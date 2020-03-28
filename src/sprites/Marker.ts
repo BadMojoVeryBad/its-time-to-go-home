@@ -31,6 +31,7 @@ export class Marker {
     const pressRef = this.scene.inputController.onPress(Control.Activate, () => {
       // If the marker is 'active' and it isn't already activated,
       // then run its 'onActivate' function.
+
       if (this.isActive && !this.isActivated) {
         SoundController.getSound('audio_activate').play();
         this.isActivated = true;

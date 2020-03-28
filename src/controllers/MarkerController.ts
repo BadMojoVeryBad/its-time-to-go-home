@@ -3,8 +3,8 @@ import { Marker } from '../sprites/Marker';
 import { TextPlate } from '../sprites/TextPlate';
 
 export class MarkerController {
+  public markers: Marker[] = [];
   protected scene: SceneBase;
-  private markers: Marker[] = [];
 
   constructor(scene: SceneBase) {
     this.scene = scene;
@@ -78,6 +78,15 @@ export class MarkerController {
     marker.setPos(x, y);
     this.markers.push(marker);
     return marker;
+  }
+
+  public removeMarkerById(tiledId: number): void {
+    for (let i = 0; i < this.markers.length; i++) {
+      if (this.markers[i].getMarkerId() === tiledId) {
+        this.markers[i].getSprite().destroy();
+        this.markers.splice(i, 1);
+      }
+    }
   }
 
   public getMarkerById(tiledId: number): Marker | undefined {

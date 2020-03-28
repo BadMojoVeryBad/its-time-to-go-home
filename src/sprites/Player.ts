@@ -30,7 +30,7 @@ export class Player extends Phaser.GameObjects.Container {
 
     // Create the player's physics body.
     const floorSensor = M.Bodies.rectangle(0, 9, 4, 1, { isSensor: true, label: 'astronaut-floor' });
-    const playerBody = M.Bodies.rectangle(0, 0, 8, 16, { chamfer: { radius: 2 }, label: 'astronaut' });
+    const playerBody = M.Bodies.rectangle(0, 0, 6, 16, { chamfer: { radius: 2 }, label: 'astronaut' });
     const compoundBody =  M.Body.create({
       parts: [
         playerBody, floorSensor,
@@ -163,9 +163,6 @@ export class Player extends Phaser.GameObjects.Container {
     if (this.scene.inputController.isPressed(Control.Jump) && this.isGrounded) {
       this.jump();
     }
-
-    // Set position of particles.
-
   }
 
   public jump() {
@@ -202,6 +199,14 @@ export class Player extends Phaser.GameObjects.Container {
 
   public getSprite() {
     return this.player;
+  }
+
+  public setPlayerPosition(x: number, y: number) {
+    this.player.setPosition(x, y);
+  }
+
+  public setPlayerDirection(dir: string) {
+    this.player.flipX = dir === 'right';
   }
 
   private isDoingAction(action: string) {

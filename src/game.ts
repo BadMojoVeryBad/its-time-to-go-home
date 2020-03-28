@@ -3,6 +3,7 @@
 import 'phaser';
 import SoundFadePlugin from 'phaser3-rex-plugins/plugins/soundfade-plugin.js';
 import { CONST } from './util/CONST';
+import { GameBase } from './util/GameBase';
 import { SceneUtils } from './util/SceneUtils';
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -28,4 +29,4 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: SceneUtils.getScenes(),
 };
 
-const game = new Phaser.Game(config);
+const game = new GameBase(config);

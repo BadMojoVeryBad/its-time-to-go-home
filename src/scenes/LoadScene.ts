@@ -163,6 +163,12 @@ export class LoadScene extends SceneBase {
       frameRate: 6,
       repeat: -1,
     });
+    this.anims.create({
+      key: 'rocks',
+      frames: this.anims.generateFrameNames('player', { prefix: 'rocks', start: 0, end: 21, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: 0,
+    });
 
     SoundController.init(this.game);
     SoundController.addSound('audio_activate', {
