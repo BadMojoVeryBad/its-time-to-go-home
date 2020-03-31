@@ -17,7 +17,7 @@ export class MarkerController {
           const markerSprite = (bodyA.label === 'astronaut') ? bodyB.gameObject : bodyA.gameObject;
 
           const marker = this.getMarkerBySprite(markerSprite);
-          if (marker === undefined) {
+          if (marker === undefined || !marker.isEnabled()) {
             return;
           }
 
@@ -41,7 +41,7 @@ export class MarkerController {
           const markerSprite: Phaser.Physics.Matter.Sprite = (bodyA.label === 'astronaut') ? bodyB.gameObject : bodyA.gameObject;
 
           const marker = this.getMarkerBySprite(markerSprite);
-          if (marker === undefined) {
+          if (marker === undefined || !marker.isEnabled()) {
             return;
           }
 

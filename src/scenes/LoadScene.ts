@@ -245,7 +245,7 @@ export class LoadScene extends SceneBase {
     });
 
     ParticleController.addEmitter('rocket_smoke_1', {
-      frame: 'rocket_particle',
+      frame: 'rocket_particle_big',
       angle: { min: 180, max: 360 },
       speed: { min: 10, max: 20 },
       gravityY: 100,
@@ -298,6 +298,22 @@ export class LoadScene extends SceneBase {
       scale: 4,
       maxParticles: 0,
       frequency: 9999,
+    });
+    let geom = new Phaser.Geom.Rectangle(0, 0, this.gameWidth * 4, this.gameHeight * 4);
+    ParticleController.addEmitter('falling_stars', {
+      frame: 'star_particle',
+      angle: 45,
+      speed: { min: 400, max: 600 },
+      alpha: { start: 1, end: 1 },
+      lifespan: 5000,
+      quantity: 8,
+      scale: 3,
+      maxParticles: 0,
+      frequency: 2500,
+      emitZone: {
+        type: 'random',
+        source: geom,
+      }
     });
   }
 }

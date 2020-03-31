@@ -1,10 +1,10 @@
 // @ts-nocheck
 
 import 'phaser';
-import SoundFadePlugin from 'phaser3-rex-plugins/plugins/soundfade-plugin.js';
 import { CONST } from './util/CONST';
 import { GameBase } from './util/GameBase';
 import { SceneUtils } from './util/SceneUtils';
+import SoundFadePlugin from 'phaser3-rex-plugins/plugins/soundfade-plugin.js';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,

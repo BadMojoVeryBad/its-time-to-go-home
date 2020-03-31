@@ -27,6 +27,7 @@ export class Scene2 extends GameplaySceneBase {
     this.setupImages();
     this.setupMarkers();
     this.setupEvents();
+    this.setupLadders();
 
     // Setup the events/cutscenes this scene has.
     this.setupCutscenes();

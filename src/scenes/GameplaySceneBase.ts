@@ -7,6 +7,8 @@ import { TileSprite } from '../sprites/TileSprite';
 import { CONST } from '../util/CONST';
 import { TiledUtils } from '../util/TiledUtils';
 import { SceneBase } from './SceneBase';
+import { ParticleController } from '../controllers/ParticleController';
+import { Ladder } from '../sprites/Ladder';
 
 export abstract class GameplaySceneBase extends SceneBase {
   public map!: Phaser.Tilemaps.Tilemap;
@@ -16,6 +18,7 @@ export abstract class GameplaySceneBase extends SceneBase {
   protected player!: Player;
   private animatedTilesController!: AnimatedTilesController;
   private sceneData: {} = {};
+  private particleController!: ParticleController;
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -28,6 +31,7 @@ export abstract class GameplaySceneBase extends SceneBase {
   public preload() {
     this.animatedTilesController = new AnimatedTilesController(this);
     this.markerController = new MarkerController(this);
+    this.particleController = new ParticleController(this);
 
     if (CONST.DEBUG) {
       this.setupDebug();
@@ -48,6 +52,10 @@ export abstract class GameplaySceneBase extends SceneBase {
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: this.sceneData.playerX + startX });
       cutscene.play();
     }
+
+    // Falling stars.
+    this.particleController.createParticleEmitter('falling_stars', [ 'falling_stars' ], 31);
+    this.particleController.start('falling_stars');
   }
 
   public update() {
@@ -99,8 +107,10 @@ export abstract class GameplaySceneBase extends SceneBase {
     markers.forEach((marker: Phaser.Types.Tilemaps.TiledObject) => {
       const message = TiledUtils.getProperty(marker, 'message');
       const event = TiledUtils.getProperty(marker, 'event');
+      const disabled = TiledUtils.getProperty(marker, 'disabled');
       const m = this.markerController.addMarkerWithTextPlate((marker.x * CONST.SCALE) + 32, (marker.y * CONST.SCALE) - 64, message, event);
       m.setMarkerId(marker.id);
+      m.setEnabled(!disabled);
     });
   }
 
@@ -114,6 +124,19 @@ export abstract class GameplaySceneBase extends SceneBase {
         const y = (event.y * CONST.SCALE) - (h * CONST.HALF);
         new GameplayEvent(this, x, y, w, h, TiledUtils.getProperty(event, 'event'));
       });
+    });
+  }
+
+  public setupLadders() {
+    const ladders = this.map.getObjectLayer('ladders').objects;
+    ladders.forEach((ladder: Phaser.Types.Tilemaps.TiledObject) => {
+      const w = ladder.width * CONST.SCALE;
+      const h = ladder.height * CONST.SCALE;
+      const x = (ladder.x * CONST.SCALE) + (w * CONST.HALF);
+      const y = (ladder.y * CONST.SCALE) - (h * CONST.HALF);
+      let sprite = new Ladder(this, x, y, 'player', 'ladder');
+      sprite.setDepth(51);
+      sprite.setScale(CONST.SCALE);
     });
   }
 

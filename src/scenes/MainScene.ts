@@ -1,4 +1,3 @@
-import { resolve } from '../../node_modules/bluebird-lst/index';
 import { GameplayCamera } from '../cameras/GameplayCamera';
 import { CutsceneController } from '../controllers/CutsceneController';
 import { SoundController } from '../controllers/SoundController';
@@ -49,6 +48,7 @@ export class MainScene extends GameplaySceneBase {
 
     // Set up the opening cutscene.
     if (this.game.flags.flag(GameFlag.OPENING_CUTSCENE_PLAYED)) {
+    // if (true) {
       this.setupTransitionEvents();
     } else {
       this.setupTransitionEvents(6000, 4000);

@@ -2,8 +2,11 @@ import { Control } from '../controllers/InputController';
 import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
 import { SceneBase } from './SceneBase';
+import { ParticleController } from '../controllers/ParticleController';
 
 export class MenuScene extends SceneBase {
+  particleController!: ParticleController;
+
   constructor() {
     super({
       key: 'MenuScene',
@@ -11,7 +14,7 @@ export class MenuScene extends SceneBase {
   }
 
   public preload() {
-
+    this.particleController = new ParticleController(this);
   }
 
   public create() {
@@ -44,6 +47,9 @@ export class MenuScene extends SceneBase {
         }
       });
     });
+
+    this.particleController.createParticleEmitter('falling_stars', [ 'falling_stars' ], 31);
+    this.particleController.start('falling_stars');
   }
 
   public update() {

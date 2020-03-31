@@ -9,6 +9,7 @@ export class Marker {
   private isActivated: boolean = false;
   private marker!: Phaser.Physics.Matter.Sprite;
   private markerId: number = 0;
+  private enabled: boolean = true;
 
   constructor(scene: SceneBase, onActivate: (done: () => void) => any) {
     this.scene = scene;
@@ -63,6 +64,20 @@ export class Marker {
 
   public setMarkerId(id: number) {
     this.markerId = id;
+  }
+
+  public setEnabled(enabled: boolean) {
+    this.enabled = enabled;
+
+    if (this.enabled) {
+      this.marker.alpha = 1;
+    } else {
+      this.marker.alpha = 0.5;
+    }
+  }
+
+  public isEnabled() {
+    return this.enabled;
   }
 
   public getSprite() {
