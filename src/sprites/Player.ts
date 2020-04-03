@@ -10,8 +10,8 @@ export class Player extends Phaser.GameObjects.Container {
   private isGrounded: boolean = false;
   private actions: string[] = [];
   private particleController: ParticleController;
-  private collideCategory!: any;
   private isSitting: boolean = false;
+  private isButton: boolean = false;
 
   private readonly moveVelocity = 2;
   private readonly crawlVelocity = 1;
@@ -81,17 +81,17 @@ export class Player extends Phaser.GameObjects.Container {
 
     this.scene.matter.world.on('afterupdate', (event: any) => {
       if (!this.isDoingAction('left') && !this.isDoingAction('right') && !this.isDoingAction('jump') && !this.isDoingAction('climb')) {
-        this.player.setPosition(position.x, this.player.y);
+        // this.player.setPosition(position.x, this.player.y);
         this.player.setVelocityX(CONST.ZERO);
         if (this.isGrounded) {
           this.player.setVelocityY(CONST.ZERO);
-          this.player.setPosition(position.x, position.y);
+          // this.player.setPosition(position.x, position.y);
         }
       }
 
       // Figure out animation.
       let anim = 'idle';
-      if (this.isGrounded && this.isSitting) {
+      if (this.isGrounded && (this.isSitting || this.isButton)) {
         anim = '';
         SoundController.getSound('audio_walk').stop();
         SoundController.getSound('audio_crawl').stop();
@@ -242,6 +242,17 @@ export class Player extends Phaser.GameObjects.Container {
     this.player.anims.play('stand', true);
     this.scene.time.delayedCall(1440, () => {
       this.isSitting = false;
+    });
+  }
+
+  public button() {
+    this.isButton = true;
+    this.player.setVelocityY(CONST.ZERO);
+    this.player.setVelocityX(CONST.ZERO);
+    this.actions.push('button');
+    this.player.anims.play('button', true);
+    this.scene.time.delayedCall(2400, () => {
+      this.isButton = false;
     });
   }
 

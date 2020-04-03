@@ -19,6 +19,7 @@ import DeactivateMp3 from '../assets/ttgh_deactivate.mp3';
 import JumpMp3 from '../assets/ttgh_jump.mp3';
 import MusicMp3 from '../assets/ttgh_music.mp3';
 import MusicTwoMp3 from '../assets/ttgh_music_2.mp3';
+import MusicThreeMp3 from '../assets/stargazing.mp3';
 import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
 import WalkMp3 from '../assets/ttgh_walk.mp3';
 
@@ -62,6 +63,7 @@ export class LoadScene extends SceneBase {
     this.load.audio('audio_deactivate', DeactivateMp3);
     this.load.audio('audio_music', MusicMp3);
     this.load.audio('audio_music_2', MusicTwoMp3);
+    this.load.audio('audio_music_3', MusicThreeMp3);
     this.load.audio('audio_walk', WalkMp3);
     this.load.audio('audio_crawl', CrawlMp3);
     this.load.audio('audio_jump', JumpMp3);
@@ -172,6 +174,12 @@ export class LoadScene extends SceneBase {
       repeat: 0,
     });
     this.anims.create({
+      key: 'button',
+      frames: this.anims.generateFrameNames('player', { prefix: 'astronaut-button', start: 0, end: 14, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: 0,
+    });
+    this.anims.create({
       key: 'rocket_starting',
       frames: this.anims.generateFrameNames('player', { prefix: 'rocket', start: 0, end: 1, zeroPad: 4 }),
       frameRate: 3,
@@ -225,6 +233,15 @@ export class LoadScene extends SceneBase {
       detune: 0,
       seek: 0,
       loop: true,
+      delay: 0,
+    });
+    SoundController.addSound('audio_music_3', {
+      mute: false,
+      volume: 0.75,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: false,
       delay: 0,
     });
     SoundController.addSound('audio_walk', {

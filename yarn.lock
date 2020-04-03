@@ -915,6 +915,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/matter-js@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@types/matter-js/-/matter-js-0.14.2.tgz#920be69e4505a8ebb568b93de88a6527b7634400"
+  integrity sha512-yBRBCaigtUtQFSWl1H0UJYgQS7GyC++zgtDy1F9j27KyTU8uaoonbAnszGuIrU3aEpfNXmTGLbTmzlRcKOQPWA==
+
 "@types/node@*":
   version "13.9.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.3.tgz#6356df2647de9eac569f9a52eda3480fa9e70b4d"
@@ -4578,6 +4583,11 @@ matcher@^2.1.0:
   integrity sha512-o+nZr+vtJtgPNklyeUKkkH42OsK8WAfdgaJE2FNxcjLPg+5QbeEoT6vRj8Xq/iv18JlQ9cmKsEu0b94ixWf1YQ==
   dependencies:
     escape-string-regexp "^2.0.0"
+
+matter-js@^0.14.2:
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/matter-js/-/matter-js-0.14.2.tgz#8169af9e06fdc356ba9e72b49624eb329839883b"
+  integrity sha512-3ttVT8cJlQnGRjBa8MyVrGyvGmnmOkZ3YsyemIw+KwEEdVi70mo32FH1Eta2b3GfdDJFbMDRqyMQt4heNKBUEA==
 
 md5.js@^1.3.4:
   version "1.3.5"

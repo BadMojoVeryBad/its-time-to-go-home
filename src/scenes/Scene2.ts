@@ -3,9 +3,12 @@ import { CutsceneController } from '../controllers/CutsceneController';
 import { Rocks } from '../sprites/Rocks';
 import { GameplaySceneBase } from './GameplaySceneBase';
 import { GameFlag } from '../util/GameFlags';
+import { SoundController } from '../controllers/SoundController';
+import { Pump } from '../sprites/Pump.ts';
 
 export class Scene2 extends GameplaySceneBase {
   private rocks?: Rocks;
+  private pump?: Pump;
 
   constructor() {
     super({ key: 'Scene2' });
@@ -38,6 +41,13 @@ export class Scene2 extends GameplaySceneBase {
     const rocks = this.map.getObjectLayer('rocks').objects;
     rocks.forEach((rock: Phaser.Types.Tilemaps.TiledObject) => {
       this.rocks = new Rocks(this, rock.x, rock.y);
+    });
+
+    // Pump.
+    const pumps = this.map.getObjectLayer('pump').objects;
+    pumps.forEach((pump: Phaser.Types.Tilemaps.TiledObject) => {
+      this.pump = new Pump(this, pump.x, pump.y);
+      this.pump?.setDepth(60);
     });
   }
 
@@ -104,8 +114,26 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1665 });
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1670 });
-      // cutscene.addAction('playerPressButton', { player: this.player });
       cutscene.addAction('wait', { duration: 500 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.player.button();
+        resolve();
+      }});
+      cutscene.addAction('wait', { duration: 1000 });
+      cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 1000, yTarget: 1300, duration: 4000 });
+      cutscene.addAction('wait', { duration: 100 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.pump?.startPump();
+        resolve();
+      }});
+      cutscene.addAction('wait', { duration: 2900 });
+      cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 0, yTarget: 0, duration: 1400, follow: this.player.getSprite() });
+      cutscene.addAction('wait', { duration: 1000 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.markerController.removeMarkerById(21);
+        this.markerController.addMarkerWithTextPlate(1656 + 32, 1648 - 64, 'The fuel is flowing.\nLook at it go!', undefined);
+        resolve();
+      }});
       cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();
@@ -116,21 +144,26 @@ export class Scene2 extends GameplaySceneBase {
       const cutscene = new CutsceneController(this);
       cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0 });
       cutscene.addAction('openLetterbox', {});
-      cutscene.addAction('wait', { duration: 500 });
-      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1166 });
+      cutscene.addAction('wait', { duration: 400 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        SoundController.play('audio_music_3', true);
+        resolve();
+      }});
       cutscene.addAction('wait', { duration: 1000 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1166 });
+      cutscene.addAction('wait', { duration: 1200 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
         this.player.sit();
         resolve();
       }});
-      cutscene.addAction('wait', { duration: 1600 });
+      cutscene.addAction('wait', { duration: 1800 });
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 550, yTarget: 1100, duration: 8000 });
-      cutscene.addAction('wait', { duration: 400 });
-      cutscene.addAction('drawText', { text: 'It\'s time', x: 700, y: 1300, fadeAfter: 8200 });
-      cutscene.addAction('wait', { duration: 400 });
-      cutscene.addAction('drawText', { text: 'to go home.', x: 700, y: 1380, fadeAfter: 7000 });
-      cutscene.addAction('wait', { duration: 1400 });
-      cutscene.addAction('drawText', { text: 'Are you ready?', x: 700, y: 1460, duration: 1600, color: 'red', fadeAfter: 4000 });
+      cutscene.addAction('wait', { duration: 1200 });
+      cutscene.addAction('drawText', { text: 'It\'s time', x: 700, y: 1300, fadeAfter: 8700 });
+      cutscene.addAction('wait', { duration: 900 });
+      cutscene.addAction('drawText', { text: 'to go home.', x: 700, y: 1380, fadeAfter: 7500 });
+      cutscene.addAction('wait', { duration: 1800 });
+      cutscene.addAction('drawText', { text: 'Are you ready?', x: 700, y: 1460, duration: 1600, color: 'red', fadeAfter: 5500 });
       cutscene.addAction('wait', { duration: 5000 });
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 0, yTarget: 0, follow: this.player.getSprite(), duration: 4000 });
       cutscene.addAction('wait', { duration: 1000 });
@@ -141,7 +174,11 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('wait', { duration: 2000 });
       cutscene.addAction('playerJump', { player: this.player });
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1000 });
-      cutscene.addAction('wait', { duration: 500 });
+      cutscene.addAction('wait', { duration: 800 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        SoundController.getSound('audio_music_3').stop();
+        resolve();
+      }});
       cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();
