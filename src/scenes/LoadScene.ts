@@ -11,6 +11,7 @@ import tilesheetPng from '../assets/tileset.png';
 
 import fontFnt from '../assets/font.fnt';
 import fontPng from '../assets/font.png';
+import fontRedPng from '../assets/font_red.png';
 
 import ActivateMp3 from '../assets/ttgh_activate.mp3';
 import CrawlMp3 from '../assets/ttgh_crawl.mp3';
@@ -68,6 +69,7 @@ export class LoadScene extends SceneBase {
 
     // Fonts.
     this.load.bitmapFont('font', fontPng, fontFnt);
+    this.load.bitmapFont('font_red', fontRedPng, fontFnt);
 
     // Level map.
     this.load.tilemapTiledJSON('map', mapJson);
@@ -150,6 +152,24 @@ export class LoadScene extends SceneBase {
       frames: this.anims.generateFrameNames('player', { prefix: 'astronaut-crawl', start: 0, end: 7, zeroPad: 4 }),
       frameRate: 6,
       repeat: -1,
+    });
+    this.anims.create({
+      key: 'climb',
+      frames: this.anims.generateFrameNames('player', { prefix: 'astronaut-climb', start: 0, end: 3, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'sit',
+      frames: this.anims.generateFrameNames('player', { prefix: 'astronaut-sit', start: 0, end: 8, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: 0,
+    });
+    this.anims.create({
+      key: 'stand',
+      frames: this.anims.generateFrameNames('player', { prefix: 'astronaut-sit', start: 8, end: 0, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: 0,
     });
     this.anims.create({
       key: 'rocket_starting',

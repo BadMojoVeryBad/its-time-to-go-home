@@ -10,6 +10,8 @@ export class Player extends Phaser.GameObjects.Container {
   private isGrounded: boolean = false;
   private actions: string[] = [];
   private particleController: ParticleController;
+  private collideCategory!: any;
+  private isSitting: boolean = false;
 
   private readonly moveVelocity = 2;
   private readonly crawlVelocity = 1;
@@ -78,7 +80,7 @@ export class Player extends Phaser.GameObjects.Container {
     });
 
     this.scene.matter.world.on('afterupdate', (event: any) => {
-      if (!this.isDoingAction('left') && !this.isDoingAction('right') && !this.isDoingAction('jump')) {
+      if (!this.isDoingAction('left') && !this.isDoingAction('right') && !this.isDoingAction('jump') && !this.isDoingAction('climb')) {
         this.player.setPosition(position.x, this.player.y);
         this.player.setVelocityX(CONST.ZERO);
         if (this.isGrounded) {
@@ -89,7 +91,21 @@ export class Player extends Phaser.GameObjects.Container {
 
       // Figure out animation.
       let anim = 'idle';
-      if (this.isGrounded && Math.abs(this.player.body.velocity.x) > this.movementThreshold && this.isDoingAction('crawl')) {
+      if (this.isGrounded && this.isSitting) {
+        anim = '';
+        SoundController.getSound('audio_walk').stop();
+        SoundController.getSound('audio_crawl').stop();
+        this.particleController.stop('walking');
+        this.particleController.stop('crawling');
+        this.particleController.stop('jumping');
+      } else if (this.isDoingAction('climb')) {
+        anim = 'climb';
+        SoundController.getSound('audio_walk').stop();
+        SoundController.getSound('audio_crawl').stop();
+        this.particleController.stop('walking');
+        this.particleController.stop('crawling');
+        this.particleController.stop('jumping');
+      } else if (this.isGrounded && Math.abs(this.player.body.velocity.x) > this.movementThreshold && this.isDoingAction('crawl')) {
         SoundController.getSound('audio_walk').stop();
         SoundController.play('audio_crawl', true);
         this.particleController.stop('walking');
@@ -117,7 +133,10 @@ export class Player extends Phaser.GameObjects.Container {
         this.particleController.stop('crawling');
         this.particleController.stop('jumping');
       }
-      this.player.anims.play(anim, true);
+
+      if (anim.length) {
+        this.player.anims.play(anim, true);
+      }
 
       // Reset actions.
       this.actions = [];
@@ -152,6 +171,8 @@ export class Player extends Phaser.GameObjects.Container {
   }
 
   public preUpdate(time: number, delta: number) {
+    // console.log(this.player.x);
+
     // Left and right input.
     if (this.scene.inputController.isPressed(Control.Left)) {
       this.moveLeft();
@@ -195,6 +216,39 @@ export class Player extends Phaser.GameObjects.Container {
     this.actions.push('crawl');
     this.player.setVelocityX(this.crawlVelocity);
     this.player.flipX = true;
+  }
+
+  public climb() {
+    this.collideCategory = this.scene.matter.world.nextCategory();
+    this.player.setIgnoreGravity(true);
+    this.player.setCollisionCategory(0);
+    this.player.setVelocityY(-1);
+    this.player.setVelocityX(CONST.ZERO);
+    this.actions.push('climb');
+  }
+
+  public sit() {
+    this.player.setVelocityY(CONST.ZERO);
+    this.player.setVelocityX(CONST.ZERO);
+    this.actions.push('sit');
+    this.player.anims.play('sit', true);
+    this.isSitting = true;
+  }
+
+  public stand() {
+    this.player.setVelocityY(CONST.ZERO);
+    this.player.setVelocityX(CONST.ZERO);
+    this.actions.push('stand');
+    this.player.anims.play('stand', true);
+    this.scene.time.delayedCall(1440, () => {
+      this.isSitting = false;
+    });
+  }
+
+  public stopClimb() {
+    this.player.setCollisionCategory(1);
+    this.player.setIgnoreGravity(false);
+    this.player.setVelocityY(-2);
   }
 
   public getSprite() {

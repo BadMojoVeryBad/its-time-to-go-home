@@ -1,5 +1,7 @@
+import { SceneBase } from "../../scenes/SceneBase";
+
 export abstract class CutsceneAction extends Phaser.GameObjects.Container {
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: SceneBase) {
     super(scene);
     scene.sys.updateList.add(this);
   }

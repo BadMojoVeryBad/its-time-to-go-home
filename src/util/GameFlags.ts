@@ -3,6 +3,7 @@ export enum GameFlag {
   ROCKET_NOFUEL_CUTSCENE_PLAYED,
   SCENE_1_TRAVERSED,
   SCENE_2_TRAVERSED,
+  STARGAZE_CUTSCENE_PLAYED,
 }
 
 export class GameFlags {

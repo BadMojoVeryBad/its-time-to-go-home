@@ -1,9 +1,8 @@
-import { resolve } from '../../node_modules/bluebird-lst/index';
 import { GameplayCamera } from '../cameras/GameplayCamera';
 import { CutsceneController } from '../controllers/CutsceneController';
-import { Player } from '../sprites/Player';
 import { Rocks } from '../sprites/Rocks';
 import { GameplaySceneBase } from './GameplaySceneBase';
+import { GameFlag } from '../util/GameFlags';
 
 export class Scene2 extends GameplaySceneBase {
   private rocks?: Rocks;
@@ -71,6 +70,78 @@ export class Scene2 extends GameplaySceneBase {
         this.markerController.addMarkerWithTextPlate(544, 1716, 'It seems these moon\nrocks are quite shy.', undefined);
         resolve();
       }});
+      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
+      cutscene.addAction('closeLetterbox', {});
+      cutscene.play();
+    });
+
+    this.events.on('climb_ladder', () => {
+      const cutscene = new CutsceneController(this);
+      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.25 });
+      cutscene.addAction('openLetterbox', {});
+      cutscene.addAction('playerClimbLadder', { player: this.player, ladder: this.ladders[0] });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.markerController.removeMarkerById(23);
+        resolve();
+      }});
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.markerController.addMarkerWithTextPlate(1472 + 32, 1676 - 64, 'You\'ve already climbed\nthis ladder. Good work!', undefined);
+        resolve();
+      }});
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        let marker = this.markerController.getMarkerById(21);
+        marker?.setEnabled(true);
+        resolve();
+      }});
+      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
+      cutscene.addAction('closeLetterbox', {});
+      cutscene.play();
+    });
+
+    this.events.on('press_button', () => {
+      const cutscene = new CutsceneController(this);
+      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.25 });
+      cutscene.addAction('openLetterbox', {});
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1665 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1670 });
+      // cutscene.addAction('playerPressButton', { player: this.player });
+      cutscene.addAction('wait', { duration: 500 });
+      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
+      cutscene.addAction('closeLetterbox', {});
+      cutscene.play();
+    });
+
+    this.events.on('cutscene_stargaze', () => {
+      this.game.flags.setFlag(GameFlag.STARGAZE_CUTSCENE_PLAYED);
+      const cutscene = new CutsceneController(this);
+      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0 });
+      cutscene.addAction('openLetterbox', {});
+      cutscene.addAction('wait', { duration: 500 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1166 });
+      cutscene.addAction('wait', { duration: 1000 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.player.sit();
+        resolve();
+      }});
+      cutscene.addAction('wait', { duration: 1600 });
+      cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 550, yTarget: 1100, duration: 8000 });
+      cutscene.addAction('wait', { duration: 400 });
+      cutscene.addAction('drawText', { text: 'It\'s time', x: 700, y: 1300, fadeAfter: 8200 });
+      cutscene.addAction('wait', { duration: 400 });
+      cutscene.addAction('drawText', { text: 'to go home.', x: 700, y: 1380, fadeAfter: 7000 });
+      cutscene.addAction('wait', { duration: 1400 });
+      cutscene.addAction('drawText', { text: 'Are you ready?', x: 700, y: 1460, duration: 1600, color: 'red', fadeAfter: 4000 });
+      cutscene.addAction('wait', { duration: 5000 });
+      cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 0, yTarget: 0, follow: this.player.getSprite(), duration: 4000 });
+      cutscene.addAction('wait', { duration: 1000 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.player.stand();
+        resolve();
+      }});
+      cutscene.addAction('wait', { duration: 2000 });
+      cutscene.addAction('playerJump', { player: this.player });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1000 });
+      cutscene.addAction('wait', { duration: 500 });
       cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();

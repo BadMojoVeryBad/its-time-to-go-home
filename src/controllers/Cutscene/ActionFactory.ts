@@ -12,6 +12,9 @@ import { RemoveObjectAction } from './RemoveObjectAction';
 import { SetDepthAction } from './SetDepthAction';
 import { SoundVolumeAction } from './SoundVolumeAction';
 import { WaitAction } from './WaitAction';
+import { ClimbLadder } from './ClimbLadder';
+import { FadeOutLayerAction } from './FadeOutLayerAction';
+import { FadeInLayerAction } from './FadeInLayerAction';
 
 export class ActionFactory {
 
@@ -32,5 +35,8 @@ export class ActionFactory {
     closeLetterbox: CloseLetterboxAction,
     playSound: PlaySoundAction,
     soundVolume: SoundVolumeAction,
+    playerClimbLadder: ClimbLadder,
+    fadeOutLayer: FadeOutLayerAction,
+    fadeInLayer: FadeInLayerAction,
   };
 }

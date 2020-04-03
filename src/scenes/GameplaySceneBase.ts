@@ -13,12 +13,13 @@ import { Ladder } from '../sprites/Ladder';
 export abstract class GameplaySceneBase extends SceneBase {
   public map!: Phaser.Tilemaps.Tilemap;
   protected tilesheet!: Phaser.Tilemaps.Tileset;
-  protected mapLayers: any = {};
+  public mapLayers: any = {};
   protected markerController!: MarkerController;
   protected player!: Player;
   private animatedTilesController!: AnimatedTilesController;
   private sceneData: {} = {};
-  private particleController!: ParticleController;
+  protected particleController!: ParticleController;
+  protected ladders: Ladder[] = [];
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -79,6 +80,9 @@ export abstract class GameplaySceneBase extends SceneBase {
     // Set world bounds and start animated tiles.
     this.matter.world.setBounds(CONST.ZERO, CONST.ZERO, this.map.widthInPixels * CONST.SCALE, this.map.heightInPixels * CONST.SCALE);
     this.animatedTilesController.init(this.map);
+
+    // Background.
+    this.add.rectangle(this.map.widthInPixels * 2, this.map.heightInPixels * 2, this.map.widthInPixels * CONST.SCALE, this.map.heightInPixels * CONST.SCALE, 0x292929, 1);
   }
 
   public setupImages() {
@@ -137,6 +141,7 @@ export abstract class GameplaySceneBase extends SceneBase {
       let sprite = new Ladder(this, x, y, 'player', 'ladder');
       sprite.setDepth(51);
       sprite.setScale(CONST.SCALE);
+      this.ladders.push(sprite);
     });
   }
 
