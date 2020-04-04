@@ -17,9 +17,9 @@ import ActivateMp3 from '../assets/ttgh_activate.mp3';
 import CrawlMp3 from '../assets/ttgh_crawl.mp3';
 import DeactivateMp3 from '../assets/ttgh_deactivate.mp3';
 import JumpMp3 from '../assets/ttgh_jump.mp3';
-import MusicMp3 from '../assets/ttgh_music.mp3';
-import MusicTwoMp3 from '../assets/ttgh_music_2.mp3';
-import MusicThreeMp3 from '../assets/stargazing.mp3';
+import Music1Mp3 from '../assets/ttgh_music.mp3';
+import Music2Mp3 from '../assets/ttgh_music_2.mp3';
+import Music3Mp3 from '../assets/stargazing.mp3';
 import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
 import WalkMp3 from '../assets/ttgh_walk.mp3';
 
@@ -29,6 +29,7 @@ import playerJson from '../assets/spritesheet.xml';
 import { ParticleController } from '../controllers/ParticleController';
 import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 
 export class LoadScene extends SceneBase {
   private loader: any;
@@ -61,9 +62,9 @@ export class LoadScene extends SceneBase {
     // Audio.
     this.load.audio('audio_activate', ActivateMp3);
     this.load.audio('audio_deactivate', DeactivateMp3);
-    this.load.audio('audio_music', MusicMp3);
-    this.load.audio('audio_music_2', MusicTwoMp3);
-    this.load.audio('audio_music_3', MusicThreeMp3);
+    this.load.audio('audio_music', Music1Mp3);
+    this.load.audio('audio_music_2', Music2Mp3);
+    this.load.audio('audio_music_3', Music3Mp3);
     this.load.audio('audio_walk', WalkMp3);
     this.load.audio('audio_crawl', CrawlMp3);
     this.load.audio('audio_jump', JumpMp3);
@@ -197,88 +198,19 @@ export class LoadScene extends SceneBase {
       frameRate: 6,
       repeat: 0,
     });
-
-    SoundController.init(this.game);
-    SoundController.addSound('audio_activate', {
-      mute: false,
-      volume: 0.25,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: false,
-      delay: 0,
+    this.anims.create({
+      key: 'fuel-tank',
+      frames: this.anims.generateFrameNames('player', { prefix: 'fuel-tank', start: 0, end: 2, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: -1,
     });
-    SoundController.addSound('audio_deactivate', {
-      mute: false,
-      volume: 0.25,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: false,
-      delay: 0,
-    });
-    SoundController.addSound('audio_music', {
-      mute: false,
-      volume: 0.75,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: true,
-      delay: 0,
-    });
-    SoundController.addSound('audio_music_2', {
-      mute: false,
-      volume: 0.75,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: true,
-      delay: 0,
-    });
-    SoundController.addSound('audio_music_3', {
-      mute: false,
-      volume: 0.75,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: false,
-      delay: 0,
-    });
-    SoundController.addSound('audio_walk', {
-      mute: false,
-      volume: 0.15,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: true,
-      delay: 0,
-    });
-    SoundController.addSound('audio_crawl', {
-      mute: false,
-      volume: 0.15,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: true,
-      delay: 0,
-    });
-    SoundController.addSound('audio_jump', {
-      mute: false,
-      volume: 0.15,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: false,
-      delay: 0,
-    });
-    SoundController.addSound('audio_rocket_nofuel', {
-      mute: false,
-      volume: 1,
-      rate: 1,
-      detune: 0,
-      seek: 0,
-      loop: false,
-      delay: 0,
+    this.anims.create({
+      key: 'button-active',
+      frames: this.anims.generateFrameNames('player', { prefix: 'button', start: 0, end: 1, zeroPad: 4 }),
+      frameRate: 3,
+      repeat: 0,
+      delay: 350,
+      yoyo: true,
     });
 
     ParticleController.addEmitter('rocket_smoke_1', {
@@ -351,6 +283,40 @@ export class LoadScene extends SceneBase {
         type: 'random',
         source: geom,
       }
+    });
+
+    AudioManager.addSound('activate', ActivateMp3, {
+      loop: false,
+      volume: 0.5,
+    });
+    AudioManager.addSound('deactivate', DeactivateMp3, {
+      loop: false,
+      volume: 0.5,
+    });
+    AudioManager.addSound('rocket_nofuel', RocketNoFuelMp3);
+    AudioManager.addSound('player_walk', WalkMp3, {
+      loop: true,
+      volume: 0.15,
+    });
+    AudioManager.addSound('player_crawl', CrawlMp3, {
+      loop: true,
+      volume: 0.15,
+    });
+    AudioManager.addSound('player_jump', JumpMp3, {
+      loop: false,
+      volume: 0.15,
+    });
+    AudioManager.addSound('music_1', Music1Mp3, {
+      loop: true,
+      volume: 0.75,
+    });
+    AudioManager.addSound('music_2', Music2Mp3, {
+      loop: true,
+      volume: 0.75,
+    });
+    AudioManager.addSound('music_3', Music3Mp3, {
+      loop: false,
+      volume: 0.75,
     });
   }
 }

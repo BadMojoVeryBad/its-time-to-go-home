@@ -7,7 +7,7 @@ import { SceneUtils } from './util/SceneUtils';
 import SoundFadePlugin from 'phaser3-rex-plugins/plugins/soundfade-plugin.js';
 
 const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.AUTO,
+  type: Phaser.WEBGL,
   antialias: false,
   pixelart: true,
   width: 800,

@@ -1,10 +1,10 @@
 import { GameplayCamera } from '../cameras/GameplayCamera';
 import { CutsceneController } from '../controllers/CutsceneController';
-import { SoundController } from '../controllers/SoundController';
 import { Rocket } from '../sprites/Rocket';
 import { CONST } from '../util/CONST';
 import { GameFlag } from '../util/GameFlags';
 import { GameplaySceneBase } from './GameplaySceneBase';
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 
 export class MainScene extends GameplaySceneBase {
   private rocket!: Rocket;
@@ -54,7 +54,8 @@ export class MainScene extends GameplaySceneBase {
       this.setupTransitionEvents(6000, 4000);
       this.events.emit('cutscene_opening');
       this.time.delayedCall(500, () => {
-        SoundController.fadeIn(this, 'audio_music_2', true);
+        AudioManager.play('music_2');
+        AudioManager.fadeIn('music_2', 400, 0.75);
       });
     }
 
@@ -105,7 +106,7 @@ export class MainScene extends GameplaySceneBase {
       if (!this.game.flags.flag(GameFlag.ROCKET_NOFUEL_CUTSCENE_PLAYED)) {
         this.game.flags.setFlag(GameFlag.ROCKET_NOFUEL_CUTSCENE_PLAYED);
         const cutscene = new CutsceneController(this);
-        cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.25 });
+        cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.25 });
         cutscene.addAction('openLetterbox', {});
         cutscene.addAction('wait', { duration: 1000 });
         cutscene.addAction('playerRunTo', { player: this.player, xTarget: 160 });
@@ -113,7 +114,7 @@ export class MainScene extends GameplaySceneBase {
         cutscene.addAction('setDepth',  { object: this.rocket.getRocketBackSprite(), depth: 50 });
         cutscene.addAction('playerCrawlTo',  { player: this.player, xTarget: 100 });
         cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: - 400, yTarget: 2048 - 550, duration: 800 });
-        cutscene.addAction('playSound', { key: 'audio_rocket_nofuel' });
+        cutscene.addAction('playSound', { key: 'rocket_nofuel' });
         cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
           this.rocket.getRocketSprite().anims.play('rocket_starting');
           this.rocket.getRocketBackSprite().visible = false;
@@ -161,7 +162,7 @@ export class MainScene extends GameplaySceneBase {
           this.markerController.addMarkerWithTextPlate((33 * CONST.SCALE) + 32, (462 * CONST.SCALE) - 64, 'This rocket needs to be\nrefueled. How annoying.', undefined);
           resolve();
         }});
-        cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
+        cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.75 });
         cutscene.addAction('closeLetterbox', {});
         cutscene.play();
       }

@@ -38,7 +38,13 @@ export class Pump extends Phaser.GameObjects.Container {
 
     this.pumpMask = this.scene.add.image(x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-mask')
     this.pumpMask.setScale(CONST.SCALE);
-    this.setMask(this.pumpMask.createBitmapMask());
+
+    let g = this.scene.add.graphics();
+    g.setVisible(false);
+    g.fillStyle(0xffffff, 1);
+    g.fillRect(x * CONST.SCALE, y * CONST.SCALE - 64, 64, 64);
+    g.setDepth(999);
+    this.setMask(g.createGeometryMask());
 
     let obj = new Phaser.Physics.Matter.Sprite(this.scene.matter.world, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-top').setVisible(false);
     obj.setOrigin(0, 1);

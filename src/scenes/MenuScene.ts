@@ -3,6 +3,7 @@ import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
 import { SceneBase } from './SceneBase';
 import { ParticleController } from '../controllers/ParticleController';
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 
 export class MenuScene extends SceneBase {
   particleController!: ParticleController;
@@ -39,11 +40,11 @@ export class MenuScene extends SceneBase {
     text.setScrollFactor(0);
 
     this.inputController.onPress(Control.Activate, () => {
-      SoundController.getSound('audio_activate').play();
+      AudioManager.play('activate');
 
       this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
         if (progress === 1) {
-          this.scene.start('MainScene', {});
+          this.scene.start('Scene2', {});
         }
       });
     });

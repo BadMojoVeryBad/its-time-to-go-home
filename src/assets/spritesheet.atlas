@@ -6,392 +6,406 @@ filter: Nearest,Nearest
 repeat: none
 Untitled-10001
   rotate: false
-  xy: 524, 24
+  xy: 966, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 Untitled-10002
   rotate: false
-  xy: 542, 24
+  xy: 984, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 Untitled-10003
   rotate: false
-  xy: 560, 24
+  xy: 786, 54
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 Untitled-10004
   rotate: false
-  xy: 398, 24
+  xy: 804, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 Untitled-10005
   rotate: false
-  xy: 578, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0001
-  rotate: false
-  xy: 974, 222
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0013
-  rotate: false
-  xy: 974, 222
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0002
-  rotate: false
-  xy: 182, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0012
-  rotate: false
-  xy: 182, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0005
-  rotate: false
-  xy: 800, 156
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0004
-  rotate: false
-  xy: 800, 156
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0006
-  rotate: false
-  xy: 800, 156
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0008
-  rotate: false
-  xy: 800, 156
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0009
-  rotate: false
-  xy: 800, 156
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-button0010
-  rotate: false
-  xy: 800, 156
+  xy: 804, 54
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-button0007
   rotate: false
-  xy: 92, 24
+  xy: 886, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0009
+  rotate: false
+  xy: 778, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0004
+  rotate: false
+  xy: 778, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0005
+  rotate: false
+  xy: 778, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0006
+  rotate: false
+  xy: 778, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0008
+  rotate: false
+  xy: 778, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0010
+  rotate: false
+  xy: 778, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-button0011
   rotate: false
-  xy: 938, 222
+  xy: 1004, 222
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-button0003
   rotate: false
-  xy: 938, 222
+  xy: 1004, 222
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0012
+  rotate: false
+  xy: 796, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0002
+  rotate: false
+  xy: 796, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0013
+  rotate: false
+  xy: 876, 88
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-button0001
+  rotate: false
+  xy: 876, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-climb0000
   rotate: false
-  xy: 254, 24
+  xy: 696, 56
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-climb0002
   rotate: false
-  xy: 596, 24
+  xy: 840, 54
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-climb0003
   rotate: false
-  xy: 890, 156
+  xy: 958, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-climb0001
   rotate: false
-  xy: 890, 156
+  xy: 958, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-crawl0000
   rotate: false
-  xy: 956, 222
+  xy: 832, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-crawl0001
   rotate: false
-  xy: 488, 24
+  xy: 832, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-crawl0002
   rotate: false
-  xy: 764, 156
+  xy: 850, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-crawl0003
   rotate: false
-  xy: 56, 24
+  xy: 850, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-crawl0004
   rotate: false
-  xy: 836, 156
+  xy: 868, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-crawl0005
   rotate: false
-  xy: 782, 156
+  xy: 868, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-crawl0006
   rotate: false
-  xy: 74, 24
+  xy: 976, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-crawl0007
   rotate: false
-  xy: 992, 222
+  xy: 886, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-jump0000
   rotate: false
-  xy: 728, 156
+  xy: 814, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-jump0001
   rotate: false
-  xy: 746, 156
+  xy: 814, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-jump0002
   rotate: false
-  xy: 698, 90
+  xy: 822, 54
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-sit0000
   rotate: false
-  xy: 920, 222
+  xy: 778, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 Untitled-10000
   rotate: false
-  xy: 920, 222
+  xy: 778, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-button0000
   rotate: false
-  xy: 920, 222
+  xy: 778, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-button0014
   rotate: false
-  xy: 920, 222
+  xy: 778, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-sit0001
   rotate: false
-  xy: 818, 156
+  xy: 904, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-sit0002
   rotate: false
-  xy: 200, 24
+  xy: 958, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-sit0003
   rotate: false
-  xy: 218, 24
+  xy: 36, 8
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-sit0004
   rotate: false
-  xy: 452, 24
+  xy: 940, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-sit0005
   rotate: false
-  xy: 236, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-astronaut-sit0007
-  rotate: false
-  xy: 38, 24
+  xy: 54, 8
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-sit0006
   rotate: false
-  xy: 38, 24
+  xy: 72, 8
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+astronaut-sit0007
+  rotate: false
+  xy: 72, 8
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 astronaut-sit0008
   rotate: false
-  xy: 38, 24
+  xy: 72, 8
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
+button0000
+  rotate: false
+  xy: 2, 6
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+button0001
+  rotate: false
+  xy: 2, 24
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
 earth0000
   rotate: false
-  xy: 2, 124
+  xy: 260, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0001
   rotate: false
-  xy: 200, 124
+  xy: 68, 124
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0002
   rotate: false
-  xy: 2, 58
+  xy: 2, 124
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0003
   rotate: false
-  xy: 68, 124
+  xy: 326, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0004
   rotate: false
-  xy: 326, 190
+  xy: 134, 124
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0005
   rotate: false
-  xy: 68, 58
+  xy: 102, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0006
   rotate: false
-  xy: 134, 124
+  xy: 392, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0007
   rotate: false
-  xy: 596, 58
+  xy: 630, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0008
   rotate: false
-  xy: 392, 190
+  xy: 854, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0009
   rotate: false
-  xy: 134, 58
+  xy: 200, 124
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0010
   rotate: false
-  xy: 200, 58
+  xy: 458, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -405,35 +419,35 @@ earth0011
   index: -1
 earth0012
   rotate: false
-  xy: 524, 190
+  xy: 234, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0013
   rotate: false
-  xy: 458, 190
+  xy: 168, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0014
   rotate: false
-  xy: 530, 124
+  xy: 498, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0015
   rotate: false
-  xy: 788, 190
+  xy: 596, 124
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0016
   rotate: false
-  xy: 266, 58
+  xy: 524, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -447,21 +461,21 @@ earth0017
   index: -1
 earth0018
   rotate: false
-  xy: 590, 190
+  xy: 788, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0019
   rotate: false
-  xy: 260, 190
+  xy: 300, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0020
   rotate: false
-  xy: 332, 58
+  xy: 590, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -475,14 +489,14 @@ earth0021
   index: -1
 earth0022
   rotate: false
-  xy: 656, 190
+  xy: 366, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0023
   rotate: false
-  xy: 398, 58
+  xy: 656, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -496,525 +510,546 @@ earth0024
   index: -1
 earth0025
   rotate: false
-  xy: 722, 190
+  xy: 432, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 earth0026
   rotate: false
-  xy: 464, 58
+  xy: 722, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 flag0000
   rotate: false
-  xy: 728, 138
+  xy: 750, 56
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 flag0001
   rotate: false
-  xy: 614, 40
+  xy: 768, 56
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 flag0002
   rotate: false
-  xy: 938, 204
+  xy: 858, 70
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 flag0003
   rotate: false
-  xy: 662, 72
+  xy: 732, 56
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 flag0004
   rotate: false
-  xy: 920, 204
+  xy: 714, 56
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 flag0005
   rotate: false
-  xy: 764, 138
+  xy: 876, 70
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 flag0006
   rotate: false
-  xy: 680, 72
+  xy: 948, 70
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 flag0007
   rotate: false
-  xy: 746, 138
+  xy: 894, 70
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 flag0008
   rotate: false
-  xy: 632, 40
+  xy: 912, 70
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 fuel-pump-base
   rotate: false
-  xy: 698, 72
+  xy: 966, 70
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 fuel-pump-mask
   rotate: false
-  xy: 854, 190
+  xy: 662, 124
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 fuel-pump-top
   rotate: false
-  xy: 956, 204
+  xy: 930, 70
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-info-marker-highlighted0001
+fuel-tank0000
   rotate: false
-  xy: 854, 156
-  size: 16, 32
-  orig: 16, 32
+  xy: 2, 42
+  size: 48, 80
+  orig: 48, 80
+  offset: 0, 0
+  index: -1
+fuel-tank0001
+  rotate: false
+  xy: 728, 108
+  size: 48, 80
+  orig: 48, 80
+  offset: 0, 0
+  index: -1
+fuel-tank0002
+  rotate: false
+  xy: 52, 42
+  size: 48, 80
+  orig: 48, 80
   offset: 0, 0
   index: -1
 info-marker-highlighted0000
   rotate: false
-  xy: 854, 156
+  xy: 904, 122
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+info-marker-highlighted0001
+  rotate: false
+  xy: 904, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0002
   rotate: false
-  xy: 854, 156
+  xy: 904, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0003
   rotate: false
-  xy: 854, 156
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-info-marker-highlighted0004
-  rotate: false
-  xy: 146, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-info-marker-highlighted0005
-  rotate: false
-  xy: 146, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-info-marker-highlighted0014
-  rotate: false
-  xy: 146, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-info-marker-highlighted0015
-  rotate: false
-  xy: 146, 24
+  xy: 904, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0006
   rotate: false
-  xy: 872, 156
+  xy: 922, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0007
   rotate: false
-  xy: 872, 156
+  xy: 922, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0012
   rotate: false
-  xy: 872, 156
+  xy: 922, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0013
   rotate: false
-  xy: 872, 156
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-info-marker-highlighted0008
-  rotate: false
-  xy: 164, 24
+  xy: 922, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0009
   rotate: false
-  xy: 164, 24
+  xy: 940, 156
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+info-marker-highlighted0008
+  rotate: false
+  xy: 940, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0010
   rotate: false
-  xy: 164, 24
+  xy: 940, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker-highlighted0011
   rotate: false
-  xy: 164, 24
+  xy: 940, 156
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+info-marker-highlighted0015
+  rotate: false
+  xy: 796, 156
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+info-marker-highlighted0004
+  rotate: false
+  xy: 796, 156
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+info-marker-highlighted0005
+  rotate: false
+  xy: 796, 156
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+info-marker-highlighted0014
+  rotate: false
+  xy: 796, 156
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0000
   rotate: false
-  xy: 416, 24
+  xy: 822, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0001
   rotate: false
-  xy: 416, 24
+  xy: 822, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0002
   rotate: false
-  xy: 416, 24
+  xy: 822, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0003
   rotate: false
-  xy: 416, 24
+  xy: 822, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0008
   rotate: false
-  xy: 434, 24
+  xy: 858, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0009
   rotate: false
-  xy: 434, 24
+  xy: 858, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0010
   rotate: false
-  xy: 434, 24
+  xy: 858, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0011
   rotate: false
-  xy: 434, 24
+  xy: 858, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0012
   rotate: false
-  xy: 272, 24
+  xy: 90, 8
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0006
   rotate: false
-  xy: 272, 24
+  xy: 90, 8
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0007
   rotate: false
-  xy: 272, 24
+  xy: 90, 8
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0013
   rotate: false
-  xy: 272, 24
+  xy: 90, 8
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0015
   rotate: false
-  xy: 662, 90
+  xy: 696, 90
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0004
   rotate: false
-  xy: 662, 90
+  xy: 696, 90
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0005
   rotate: false
-  xy: 662, 90
+  xy: 696, 90
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 info-marker0014
   rotate: false
-  xy: 662, 90
+  xy: 696, 90
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 ladder
   rotate: false
-  xy: 2, 8
+  xy: 986, 206
   size: 16, 48
   orig: 16, 48
   offset: 0, 0
   index: -1
 rocket0000
   rotate: false
-  xy: 530, 58
+  xy: 530, 124
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 rocket0001
   rotate: false
-  xy: 596, 124
+  xy: 564, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 rocket_front
   rotate: false
-  xy: 662, 124
+  xy: 920, 190
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 rocket_particle
   rotate: false
-  xy: 20, 20
+  xy: 2, 2
   size: 2, 2
   orig: 2, 2
   offset: 0, 0
   index: 1
 rocket_particle_big
   rotate: false
-  xy: 2, 2
+  xy: 36, 2
   size: 4, 4
   orig: 4, 4
   offset: 0, 0
   index: -1
 rocks0001
   rotate: false
-  xy: 308, 24
+  xy: 976, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0002
   rotate: false
-  xy: 326, 24
+  xy: 714, 74
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0003
   rotate: false
-  xy: 344, 24
+  xy: 732, 74
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0004
   rotate: false
-  xy: 362, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-rocks0008
-  rotate: false
-  xy: 380, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-rocks0009
-  rotate: false
-  xy: 380, 24
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: -1
-rocks0011
-  rotate: false
-  xy: 20, 24
+  xy: 750, 74
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0005
   rotate: false
-  xy: 20, 24
+  xy: 768, 74
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0006
   rotate: false
-  xy: 20, 24
+  xy: 768, 74
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0007
   rotate: false
-  xy: 20, 24
+  xy: 768, 74
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0010
   rotate: false
-  xy: 20, 24
+  xy: 768, 74
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+rocks0011
+  rotate: false
+  xy: 768, 74
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0012
   rotate: false
-  xy: 20, 24
+  xy: 768, 74
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
-rocks0014
+rocks0008
   rotate: false
-  xy: 680, 90
+  xy: 786, 88
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+rocks0009
+  rotate: false
+  xy: 786, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0013
   rotate: false
-  xy: 680, 90
+  xy: 894, 88
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+rocks0014
+  rotate: false
+  xy: 894, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0015
   rotate: false
-  xy: 290, 24
+  xy: 912, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0016
   rotate: false
-  xy: 470, 24
+  xy: 930, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0017
   rotate: false
-  xy: 506, 24
+  xy: 948, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0018
   rotate: false
-  xy: 128, 24
+  xy: 840, 88
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0020
   rotate: false
-  xy: 110, 24
+  xy: 922, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0000
   rotate: false
-  xy: 110, 24
+  xy: 922, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0019
   rotate: false
-  xy: 110, 24
+  xy: 922, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 rocks0021
   rotate: false
-  xy: 110, 24
+  xy: 922, 122
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 star_particle
   rotate: false
-  xy: 1010, 252
+  xy: 10, 2
   size: 2, 2
   orig: 2, 2
   offset: 0, 0
@@ -1028,7 +1063,7 @@ text-plate
   index: -1
 walking_particle
   rotate: false
-  xy: 716, 120
+  xy: 6, 2
   size: 2, 2
   orig: 2, 2
   offset: 0, 0

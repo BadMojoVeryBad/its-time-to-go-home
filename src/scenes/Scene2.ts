@@ -3,12 +3,17 @@ import { CutsceneController } from '../controllers/CutsceneController';
 import { Rocks } from '../sprites/Rocks';
 import { GameplaySceneBase } from './GameplaySceneBase';
 import { GameFlag } from '../util/GameFlags';
-import { SoundController } from '../controllers/SoundController';
 import { Pump } from '../sprites/Pump.ts';
+import { Tank } from '../sprites/Tank';
+import { CONST } from '../util/CONST.ts';
+import { Button } from '../sprites/Button.ts';
+import { AudioManager } from '../controllers/audio/AudioManager';
 
 export class Scene2 extends GameplaySceneBase {
   private rocks?: Rocks;
   private pump?: Pump;
+  private tank?: Tank;
+  private button?: Button;
 
   constructor() {
     super({ key: 'Scene2' });
@@ -47,8 +52,24 @@ export class Scene2 extends GameplaySceneBase {
     const pumps = this.map.getObjectLayer('pump').objects;
     pumps.forEach((pump: Phaser.Types.Tilemaps.TiledObject) => {
       this.pump = new Pump(this, pump.x, pump.y);
-      this.pump?.setDepth(60);
+      this.pump.setDepth(60);
     });
+
+    // Button.
+    const buttons = this.map.getObjectLayer('button').objects;
+    buttons.forEach((button: Phaser.Types.Tilemaps.TiledObject) => {
+      this.button = new Button(this, button.x * CONST.SCALE, button.y * CONST.SCALE);
+      this.button.setDepth(83);
+    });
+
+    // Tank.
+    const tanks = this.map.getObjectLayer('tank').objects;
+    tanks.forEach((tank: Phaser.Types.Tilemaps.TiledObject) => {
+      this.tank = new Tank(this, tank.x * CONST.SCALE, tank.y * CONST.SCALE);
+      this.tank.setDepth(84);
+    });
+
+    AudioManager.play('music_2');
   }
 
   private setupCutscenes() {
@@ -62,7 +83,7 @@ export class Scene2 extends GameplaySceneBase {
 
     this.events.on('cutscene_rocks', () => {
       const cutscene = new CutsceneController(this);
-      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.25 });
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.25 });
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 480 });
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 485 });
@@ -80,14 +101,14 @@ export class Scene2 extends GameplaySceneBase {
         this.markerController.addMarkerWithTextPlate(544, 1716, 'It seems these moon\nrocks are quite shy.', undefined);
         resolve();
       }});
-      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.75 });
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();
     });
 
     this.events.on('climb_ladder', () => {
       const cutscene = new CutsceneController(this);
-      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.25 });
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.25 });
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('playerClimbLadder', { player: this.player, ladder: this.ladders[0] });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
@@ -103,23 +124,31 @@ export class Scene2 extends GameplaySceneBase {
         marker?.setEnabled(true);
         resolve();
       }});
-      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.75 });
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();
     });
 
     this.events.on('press_button', () => {
       const cutscene = new CutsceneController(this);
-      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.25 });
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.25 });
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1665 });
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1670 });
       cutscene.addAction('wait', { duration: 500 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.button.pressButton();
+        resolve();
+      }});
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
         this.player.button();
         resolve();
       }});
       cutscene.addAction('wait', { duration: 1000 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.tank?.startTank();
+        resolve();
+      }});
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 1000, yTarget: 1300, duration: 4000 });
       cutscene.addAction('wait', { duration: 100 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
@@ -134,7 +163,7 @@ export class Scene2 extends GameplaySceneBase {
         this.markerController.addMarkerWithTextPlate(1656 + 32, 1648 - 64, 'The fuel is flowing.\nLook at it go!', undefined);
         resolve();
       }});
-      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.75 });
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();
     });
@@ -142,11 +171,11 @@ export class Scene2 extends GameplaySceneBase {
     this.events.on('cutscene_stargaze', () => {
       this.game.flags.setFlag(GameFlag.STARGAZE_CUTSCENE_PLAYED);
       const cutscene = new CutsceneController(this);
-      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0 });
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0 });
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('wait', { duration: 400 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
-        SoundController.play('audio_music_3', true);
+        AudioManager.play('music_3');
         resolve();
       }});
       cutscene.addAction('wait', { duration: 1000 });
@@ -175,11 +204,7 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('playerJump', { player: this.player });
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1000 });
       cutscene.addAction('wait', { duration: 800 });
-      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
-        SoundController.getSound('audio_music_3').stop();
-        resolve();
-      }});
-      cutscene.addAction('soundVolume', { key: 'audio_music_2', volume: 0.75 });
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.75 });
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();
     });

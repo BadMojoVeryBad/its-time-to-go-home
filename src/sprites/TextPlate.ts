@@ -1,6 +1,6 @@
 import { Control } from '../controllers/InputController';
-import { SoundController } from '../controllers/SoundController';
 import { SceneBase } from '../scenes/SceneBase';
+import { AudioManager } from '../controllers/audio/AudioManager';
 
 export class TextPlate extends Phaser.GameObjects.Container {
   protected scene!: SceneBase;
@@ -31,7 +31,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
         this.onClose();
 
         // Play the 'deactivate' sound.
-        SoundController.play('audio_deactivate');
+        AudioManager.play('deactivate');
 
         // Remove input listeners.
         this.scene.inputController.removeOnPress(pressReference);
