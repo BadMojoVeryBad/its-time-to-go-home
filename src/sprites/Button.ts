@@ -1,3 +1,4 @@
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase.ts';
 import { CONST } from '../util/CONST.ts';
 
@@ -25,6 +26,9 @@ export class Button extends Phaser.Physics.Matter.Sprite {
 
   public pressButton() {
     this.anims.play('button-active');
+    this.scene.time.delayedCall(800, () => {
+      AudioManager.play('beep');
+    });
   }
 
   public setBodyOrigin(x: number, y: number): this {

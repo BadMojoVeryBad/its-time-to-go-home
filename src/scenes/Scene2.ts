@@ -68,8 +68,6 @@ export class Scene2 extends GameplaySceneBase {
       this.tank = new Tank(this, tank.x * CONST.SCALE, tank.y * CONST.SCALE);
       this.tank.setDepth(84);
     });
-
-    AudioManager.play('music_2');
   }
 
   private setupCutscenes() {

@@ -15,9 +15,12 @@ import fontRedPng from '../assets/font_red.png';
 
 import Music3Mp3 from '../assets/stargazing.mp3';
 import ActivateMp3 from '../assets/ttgh_activate.mp3';
+import BeepMp3 from '../assets/ttgh_beep.mp3';
 import CrawlMp3 from '../assets/ttgh_crawl.mp3';
 import DeactivateMp3 from '../assets/ttgh_deactivate.mp3';
+import FuelPumpMp3 from '../assets/ttgh_fuel_pump.mp3';
 import JumpMp3 from '../assets/ttgh_jump.mp3';
+import MachineMp3 from '../assets/ttgh_machine.mp3';
 import Music1Mp3 from '../assets/ttgh_music.mp3';
 import Music2Mp3 from '../assets/ttgh_music_2.mp3';
 import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
@@ -28,7 +31,6 @@ import map2Json from '../assets/map2.json';
 import playerJson from '../assets/spritesheet.xml';
 import { AudioManager } from '../controllers/audio/AudioManager.ts';
 import { ParticleController } from '../controllers/ParticleController';
-import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
 
 export class LoadScene extends SceneBase {
@@ -69,6 +71,9 @@ export class LoadScene extends SceneBase {
     this.load.audio('audio_crawl', CrawlMp3);
     this.load.audio('audio_jump', JumpMp3);
     this.load.audio('audio_rocket_nofuel', RocketNoFuelMp3);
+    this.load.audio('audio_beep', BeepMp3);
+    this.load.audio('audio_machine', MachineMp3);
+    this.load.audio('audio_fuel_pump', FuelPumpMp3);
 
     // Fonts.
     this.load.bitmapFont('font', fontPng, fontFnt);
@@ -317,6 +322,18 @@ export class LoadScene extends SceneBase {
     AudioManager.addSound('music_3', Music3Mp3, {
       loop: false,
       volume: 0.75,
+    });
+    AudioManager.addSound('beep', BeepMp3, {
+      loop: false,
+      volume: 0.5,
+    });
+    AudioManager.addSound('machine', MachineMp3, {
+      loop: true,
+      volume: 0.25,
+    });
+    AudioManager.addSound('fuel_pump', FuelPumpMp3, {
+      loop: true,
+      volume: 0.25,
     });
   }
 }

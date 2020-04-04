@@ -1,3 +1,5 @@
+import MachineMp3 from '../assets/ttgh_machine.mp3';
+import { AudioManager } from '../controllers/audio/AudioManager';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase.ts';
 import { CONST } from '../util/CONST.ts';
 
@@ -23,6 +25,7 @@ export class Tank extends Phaser.Physics.Matter.Sprite {
 
   public startTank() {
     this.anims.play('fuel-tank');
+    AudioManager.play('machine_spatial');
   }
 
   private setupSprite() {
@@ -47,6 +50,11 @@ export class Tank extends Phaser.Physics.Matter.Sprite {
     this.setPosition(this.x + this.textureWidth / 2, this.y - this.textureHeight / 2);
 
     this.setMask(this.createBitmapMask());
+
+    AudioManager.addSpatialSound(this.scene, 'machine_spatial', MachineMp3, this.scene.player.getSprite(), {
+      loop: true,
+      volume: 0.25,
+    }, this.x, this.y, 800);
 
     // Setup debug graphics.
     if (CONST.DEBUG) {

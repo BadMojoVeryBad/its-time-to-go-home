@@ -13,9 +13,9 @@ import { SceneBase } from './SceneBase';
 export abstract class GameplaySceneBase extends SceneBase {
   public map!: Phaser.Tilemaps.Tilemap;
   public mapLayers: any = {};
+  public player!: Player;
   protected tilesheet!: Phaser.Tilemaps.Tileset;
   protected markerController!: MarkerController;
-  protected player!: Player;
   protected particleController!: ParticleController;
   protected ladders: Ladder[] = [];
   private animatedTilesController!: AnimatedTilesController;

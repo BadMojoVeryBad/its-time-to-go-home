@@ -1,5 +1,5 @@
-import M from 'matter-js';
-import { GameObjects } from 'phaser';
+import FuelPumpMp3 from '../assets/ttgh_fuel_pump.mp3';
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase.ts';
 import { CONST } from '../util/CONST.ts';
 
@@ -60,6 +60,11 @@ export class Pump extends Phaser.GameObjects.Container {
     obj.setScale(4, 1);
 
     this.physicsContainer = obj;
+
+    AudioManager.addSpatialSound(this.scene, 'fuel_pump_spatial', FuelPumpMp3, this.scene.player.getSprite(), {
+      loop: true,
+      volume: 0.25,
+    }, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 400);
   }
 
   public preUpdate(time: number, delta: number) {
@@ -105,6 +110,10 @@ export class Pump extends Phaser.GameObjects.Container {
     });
     timeline2.loop = -1;
     timeline2.play();
+
+    this.scene.time.delayedCall(400, () => {
+      AudioManager.play('fuel_pump_spatial');
+    });
   }
 
   public stopPump() {

@@ -1,6 +1,7 @@
-import { Howl, Howler } from 'howler';
+import { Howl } from 'howler';
+import { SoundInterface } from './SoundInterface.ts';
 
-export class Sound {
+export class Sound implements SoundInterface {
   private sound: Howl;
 
   constructor(soundUrl: any, config: {} = {}) {
