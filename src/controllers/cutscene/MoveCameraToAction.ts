@@ -1,5 +1,5 @@
-import { CutsceneAction } from './CutsceneAction';
 import { SceneBase } from '../../scenes/SceneBase';
+import { CutsceneAction } from './CutsceneAction';
 
 export class MoveCameraToAction extends CutsceneAction {
   private camera!: Phaser.Cameras.Scene2D.Camera;

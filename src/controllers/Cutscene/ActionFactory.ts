@@ -1,7 +1,10 @@
+import { ClimbLadder } from './ClimbLadder';
 import { CloseLetterboxAction } from './CloseLetterboxAction';
 import { CustomAction } from './CustomAction';
 import { CutsceneAction } from './CutsceneAction';
 import { DrawTextAction } from './DrawTextAction';
+import { FadeInLayerAction } from './FadeInLayerAction';
+import { FadeOutLayerAction } from './FadeOutLayerAction';
 import { MoveCameraToAction } from './MoveCameraToAction';
 import { OpenLetterboxAction } from './OpenLetterboxAction';
 import { PlayerCrawlToAction } from './PlayerCrawlToAction';
@@ -12,9 +15,6 @@ import { RemoveObjectAction } from './RemoveObjectAction';
 import { SetDepthAction } from './SetDepthAction';
 import { SoundVolumeAction } from './SoundVolumeAction';
 import { WaitAction } from './WaitAction';
-import { ClimbLadder } from './ClimbLadder';
-import { FadeOutLayerAction } from './FadeOutLayerAction';
-import { FadeInLayerAction } from './FadeInLayerAction';
 
 export class ActionFactory {
 

@@ -3,11 +3,11 @@ import { Howl, Howler } from 'howler';
 export class Sound {
   private sound: Howl;
 
-  constructor (soundUrl: any, config: {} = {}) {
+  constructor(soundUrl: any, config: {} = {}) {
     let howlConfig = {
       volume: 1,
       loop: false,
-      src: [ soundUrl ]
+      src: [ soundUrl ],
     };
 
     howlConfig = Object.assign(howlConfig, config);

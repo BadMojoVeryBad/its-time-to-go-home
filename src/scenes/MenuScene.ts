@@ -1,12 +1,11 @@
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 import { Control } from '../controllers/InputController';
-import { SoundController } from '../controllers/SoundController';
+import { ParticleController } from '../controllers/ParticleController';
 import { CONST } from '../util/CONST';
 import { SceneBase } from './SceneBase';
-import { ParticleController } from '../controllers/ParticleController';
-import { AudioManager } from '../controllers/audio/AudioManager.ts';
 
 export class MenuScene extends SceneBase {
-  particleController!: ParticleController;
+  public particleController!: ParticleController;
 
   constructor() {
     super({
@@ -44,7 +43,7 @@ export class MenuScene extends SceneBase {
 
       this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
         if (progress === 1) {
-          this.scene.start('Scene2', {});
+          this.scene.start('MainScene', {});
         }
       });
     });

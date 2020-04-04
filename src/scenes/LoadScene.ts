@@ -13,23 +13,23 @@ import fontFnt from '../assets/font.fnt';
 import fontPng from '../assets/font.png';
 import fontRedPng from '../assets/font_red.png';
 
+import Music3Mp3 from '../assets/stargazing.mp3';
 import ActivateMp3 from '../assets/ttgh_activate.mp3';
 import CrawlMp3 from '../assets/ttgh_crawl.mp3';
 import DeactivateMp3 from '../assets/ttgh_deactivate.mp3';
 import JumpMp3 from '../assets/ttgh_jump.mp3';
 import Music1Mp3 from '../assets/ttgh_music.mp3';
 import Music2Mp3 from '../assets/ttgh_music_2.mp3';
-import Music3Mp3 from '../assets/stargazing.mp3';
 import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
 import WalkMp3 from '../assets/ttgh_walk.mp3';
 
 import mapJson from '../assets/map.json';
 import map2Json from '../assets/map2.json';
 import playerJson from '../assets/spritesheet.xml';
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 import { ParticleController } from '../controllers/ParticleController';
 import { SoundController } from '../controllers/SoundController';
 import { CONST } from '../util/CONST';
-import { AudioManager } from '../controllers/audio/AudioManager.ts';
 
 export class LoadScene extends SceneBase {
   private loader: any;
@@ -268,7 +268,7 @@ export class LoadScene extends SceneBase {
       maxParticles: 0,
       frequency: 9999,
     });
-    let geom = new Phaser.Geom.Rectangle(0, 0, this.gameWidth * 4, this.gameHeight * 4);
+    const geom = new Phaser.Geom.Rectangle(0, 0, this.gameWidth * 4, this.gameHeight * 4);
     ParticleController.addEmitter('falling_stars', {
       frame: 'star_particle',
       angle: 45,
@@ -282,7 +282,7 @@ export class LoadScene extends SceneBase {
       emitZone: {
         type: 'random',
         source: geom,
-      }
+      },
     });
 
     AudioManager.addSound('activate', ActivateMp3, {

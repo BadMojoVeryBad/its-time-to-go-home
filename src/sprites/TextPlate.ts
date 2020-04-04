@@ -1,6 +1,6 @@
+import { AudioManager } from '../controllers/audio/AudioManager';
 import { Control } from '../controllers/InputController';
 import { SceneBase } from '../scenes/SceneBase';
-import { AudioManager } from '../controllers/audio/AudioManager';
 
 export class TextPlate extends Phaser.GameObjects.Container {
   protected scene!: SceneBase;

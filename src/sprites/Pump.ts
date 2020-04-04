@@ -1,13 +1,13 @@
-import { GameplaySceneBase } from "../scenes/GameplaySceneBase.ts";
-import { CONST } from "../util/CONST.ts";
 import M from 'matter-js';
-import { GameObjects } from "phaser";
+import { GameObjects } from 'phaser';
+import { GameplaySceneBase } from '../scenes/GameplaySceneBase.ts';
+import { CONST } from '../util/CONST.ts';
 
 export class Pump extends Phaser.GameObjects.Container {
   protected scene!: GameplaySceneBase;
 
   private pumpBase: Phaser.GameObjects.Sprite;
-  private pumpTop: Phaser.GameObjects.Sprite
+  private pumpTop: Phaser.GameObjects.Sprite;
   private pumpMask: Phaser.GameObjects.Image;
   private physicsContainer: any;
 
@@ -36,17 +36,17 @@ export class Pump extends Phaser.GameObjects.Container {
 
     this.setPosition(0, 0);
 
-    this.pumpMask = this.scene.add.image(x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-mask')
+    this.pumpMask = this.scene.add.image(x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-mask');
     this.pumpMask.setScale(CONST.SCALE);
 
-    let g = this.scene.add.graphics();
+    const g = this.scene.add.graphics();
     g.setVisible(false);
     g.fillStyle(0xffffff, 1);
     g.fillRect(x * CONST.SCALE, y * CONST.SCALE - 64, 64, 64);
     g.setDepth(999);
     this.setMask(g.createGeometryMask());
 
-    let obj = new Phaser.Physics.Matter.Sprite(this.scene.matter.world, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-top').setVisible(false);
+    const obj = new Phaser.Physics.Matter.Sprite(this.scene.matter.world, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-top').setVisible(false);
     obj.setOrigin(0, 1);
     obj.setStatic(true);
     obj.setDepth(3);
@@ -65,8 +65,8 @@ export class Pump extends Phaser.GameObjects.Container {
   public preUpdate(time: number, delta: number) {
   }
 
-  public startPump () {
-    var timeline = this.scene.tweens.timeline();
+  public startPump() {
+    const timeline = this.scene.tweens.timeline();
     timeline.add({
       targets: this.pumpTop,
       y: { from: this.initPosition.y + 48, to: this.initPosition.y },
@@ -74,7 +74,7 @@ export class Pump extends Phaser.GameObjects.Container {
       duration: 400,
       repeat: 0,
       delay: 400,
-    })
+    });
     timeline.add({
       targets: this.pumpTop,
       y: { from: this.initPosition.y, to: this.initPosition.y + 48 },
@@ -82,11 +82,11 @@ export class Pump extends Phaser.GameObjects.Container {
       duration: 400,
       repeat: 0,
       delay: 400,
-    })
+    });
     timeline.loop = -1;
     timeline.play();
 
-    var timeline2 = this.scene.tweens.timeline();
+    const timeline2 = this.scene.tweens.timeline();
     timeline2.add({
       targets: this.physicsContainer,
       scaleY: { from: 1, to: 4 },
@@ -107,7 +107,7 @@ export class Pump extends Phaser.GameObjects.Container {
     timeline2.play();
   }
 
-  public stopPump () {
+  public stopPump() {
 
   }
 }

@@ -1,5 +1,5 @@
-import { CutsceneAction } from './CutsceneAction';
 import { SceneBase } from '../../scenes/SceneBase';
+import { CutsceneAction } from './CutsceneAction';
 
 export class DrawTextAction extends CutsceneAction {
   private text: string = '';
@@ -53,7 +53,7 @@ export class DrawTextAction extends CutsceneAction {
               delay: this.fadeAfter,
               onComplete: () => {
                 text.destroy();
-              }
+              },
             });
           }
         },

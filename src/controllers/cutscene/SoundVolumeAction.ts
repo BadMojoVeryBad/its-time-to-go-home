@@ -1,7 +1,7 @@
+import { SceneBase } from '../../scenes/SceneBase.ts';
+import { AudioManager } from '../audio/AudioManager.ts';
 import { SoundController } from '../SoundController';
 import { CutsceneAction } from './CutsceneAction';
-import { AudioManager } from '../audio/AudioManager.ts';
-import { SceneBase } from '../../scenes/SceneBase.ts';
 
 export class SoundVolumeAction extends CutsceneAction {
   private key: string = '';

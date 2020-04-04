@@ -1,7 +1,7 @@
-import { CutsceneAction } from './CutsceneAction';
+import { Ladder } from '../../sprites/Ladder';
 import { Player } from '../../sprites/Player';
 import { ActionFactory } from './ActionFactory';
-import { Ladder } from '../../sprites/Ladder';
+import { CutsceneAction } from './CutsceneAction';
 
 export class ClimbLadder extends CutsceneAction {
   private player!: Player;
@@ -20,7 +20,7 @@ export class ClimbLadder extends CutsceneAction {
   public do(): Promise<void> {
     return new Promise(async (resolve) => {
       // walk to ladder.
-      let action = ActionFactory.create(this.scene, 'playerRunTo', { player: this.player, xTarget: this.ladder.x });
+      const action = ActionFactory.create(this.scene, 'playerRunTo', { player: this.player, xTarget: this.ladder.x });
       await action.do();
 
       this.g = this.scene.add.graphics();

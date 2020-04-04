@@ -1,8 +1,8 @@
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 import { Control } from '../controllers/InputController';
 import { ParticleController } from '../controllers/ParticleController';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
 import { CONST } from '../util/CONST';
-import { AudioManager } from '../controllers/audio/AudioManager.ts';
 
 export class Player extends Phaser.GameObjects.Container {
   protected scene!: GameplaySceneBase;

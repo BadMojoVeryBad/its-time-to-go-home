@@ -1,25 +1,25 @@
 import { AnimatedTilesController } from '../controllers/AnimatedTilesController';
 import { CutsceneController } from '../controllers/CutsceneController';
 import { MarkerController } from '../controllers/MarkerController';
+import { ParticleController } from '../controllers/ParticleController';
 import { GameplayEvent } from '../sprites/GameplayEvent';
+import { Ladder } from '../sprites/Ladder';
 import { Player } from '../sprites/Player';
 import { TileSprite } from '../sprites/TileSprite';
 import { CONST } from '../util/CONST';
 import { TiledUtils } from '../util/TiledUtils';
 import { SceneBase } from './SceneBase';
-import { ParticleController } from '../controllers/ParticleController';
-import { Ladder } from '../sprites/Ladder';
 
 export abstract class GameplaySceneBase extends SceneBase {
   public map!: Phaser.Tilemaps.Tilemap;
-  protected tilesheet!: Phaser.Tilemaps.Tileset;
   public mapLayers: any = {};
+  protected tilesheet!: Phaser.Tilemaps.Tileset;
   protected markerController!: MarkerController;
   protected player!: Player;
-  private animatedTilesController!: AnimatedTilesController;
-  private sceneData: {} = {};
   protected particleController!: ParticleController;
   protected ladders: Ladder[] = [];
+  private animatedTilesController!: AnimatedTilesController;
+  private sceneData: {} = {};
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
     super(config);
@@ -138,7 +138,7 @@ export abstract class GameplaySceneBase extends SceneBase {
       const h = ladder.height * CONST.SCALE;
       const x = (ladder.x * CONST.SCALE) + (w * CONST.HALF);
       const y = (ladder.y * CONST.SCALE) - (h * CONST.HALF);
-      let sprite = new Ladder(this, x, y, 'player', 'ladder');
+      const sprite = new Ladder(this, x, y, 'player', 'ladder');
       sprite.setDepth(51);
       sprite.setScale(CONST.SCALE);
       this.ladders.push(sprite);

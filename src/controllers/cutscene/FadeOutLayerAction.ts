@@ -1,11 +1,11 @@
-import { CutsceneAction } from './CutsceneAction';
 import { GameplaySceneBase } from '../../scenes/GameplaySceneBase';
+import { CutsceneAction } from './CutsceneAction';
 
 export class FadeOutLayerAction extends CutsceneAction {
+  protected scene!: GameplaySceneBase;
   private key: string = '';
   private duration: number = 0;
   private wait = true;
-  protected scene!: GameplaySceneBase;
 
   constructor(scene: GameplaySceneBase, data: any) {
     super(scene);

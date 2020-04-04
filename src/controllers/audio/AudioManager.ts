@@ -1,7 +1,6 @@
 import { Sound } from './Sound.ts';
 
 export abstract class AudioManager {
-  private static sounds: { [index:string] : Sound } = {};
 
   public static addSound(key: string, soundUrl: any, config: {} = {}) {
     AudioManager.sounds[key] = new Sound(soundUrl, config);
@@ -30,4 +29,5 @@ export abstract class AudioManager {
   public static fadeOut(key: string, duration: number = 400, volume: number = 0) {
     AudioManager.sounds[key].fadeOut(volume, duration);
   }
+  private static sounds: { [index: string]: Sound } = {};
 }

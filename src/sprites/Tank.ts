@@ -1,5 +1,5 @@
-import { GameplaySceneBase } from "../scenes/GameplaySceneBase.ts";
-import { CONST } from "../util/CONST.ts";
+import { GameplaySceneBase } from '../scenes/GameplaySceneBase.ts';
+import { CONST } from '../util/CONST.ts';
 
 export class Tank extends Phaser.Physics.Matter.Sprite {
   protected scene!: GameplaySceneBase;

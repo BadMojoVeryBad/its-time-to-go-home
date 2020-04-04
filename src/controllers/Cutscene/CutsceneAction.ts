@@ -1,4 +1,4 @@
-import { SceneBase } from "../../scenes/SceneBase";
+import { SceneBase } from '../../scenes/SceneBase';
 
 export abstract class CutsceneAction extends Phaser.GameObjects.Container {
   constructor(scene: SceneBase) {

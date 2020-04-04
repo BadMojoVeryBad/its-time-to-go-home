@@ -1,10 +1,10 @@
 import { GameplayCamera } from '../cameras/GameplayCamera';
+import { AudioManager } from '../controllers/audio/AudioManager.ts';
 import { CutsceneController } from '../controllers/CutsceneController';
 import { Rocket } from '../sprites/Rocket';
 import { CONST } from '../util/CONST';
 import { GameFlag } from '../util/GameFlags';
 import { GameplaySceneBase } from './GameplaySceneBase';
-import { AudioManager } from '../controllers/audio/AudioManager.ts';
 
 export class MainScene extends GameplaySceneBase {
   private rocket!: Rocket;

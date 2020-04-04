@@ -1,4 +1,4 @@
-import { GameplaySceneBase } from "../scenes/GameplaySceneBase";
+import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
 
 export class Ladder extends Phaser.Physics.Matter.Sprite {
   protected scene!: GameplaySceneBase;
@@ -12,7 +12,7 @@ export class Ladder extends Phaser.Physics.Matter.Sprite {
     scene.add.existing(this);
 }
 
-  preUpdate(time: number, delta: number) {
+  public preUpdate(time: number, delta: number) {
     super.preUpdate(time, delta);
   }
 }

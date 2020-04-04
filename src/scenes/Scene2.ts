@@ -1,13 +1,13 @@
 import { GameplayCamera } from '../cameras/GameplayCamera';
+import { AudioManager } from '../controllers/audio/AudioManager';
 import { CutsceneController } from '../controllers/CutsceneController';
-import { Rocks } from '../sprites/Rocks';
-import { GameplaySceneBase } from './GameplaySceneBase';
-import { GameFlag } from '../util/GameFlags';
+import { Button } from '../sprites/Button.ts';
 import { Pump } from '../sprites/Pump.ts';
+import { Rocks } from '../sprites/Rocks';
 import { Tank } from '../sprites/Tank';
 import { CONST } from '../util/CONST.ts';
-import { Button } from '../sprites/Button.ts';
-import { AudioManager } from '../controllers/audio/AudioManager';
+import { GameFlag } from '../util/GameFlags';
+import { GameplaySceneBase } from './GameplaySceneBase';
 
 export class Scene2 extends GameplaySceneBase {
   private rocks?: Rocks;
@@ -120,7 +120,7 @@ export class Scene2 extends GameplaySceneBase {
         resolve();
       }});
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
-        let marker = this.markerController.getMarkerById(21);
+        const marker = this.markerController.getMarkerById(21);
         marker?.setEnabled(true);
         resolve();
       }});
