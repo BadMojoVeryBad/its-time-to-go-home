@@ -1,6 +1,6 @@
 import { GameplayCamera } from '../cameras/GameplayCamera';
-import { AudioManager } from '../controllers/audio/AudioManager.ts';
-import { CutsceneController } from '../controllers/CutsceneController';
+import { AudioManager } from '../managers/audio/AudioManager.ts';
+import { CutsceneController } from '../managers/CutsceneController';
 import { Rocket } from '../sprites/Rocket';
 import { CONST } from '../util/CONST';
 import { GameFlag } from '../util/GameFlags';

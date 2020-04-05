@@ -1,4 +1,4 @@
-import { ParticleController } from '../controllers/ParticleController';
+import { ParticleManager } from '../managers/ParticleManager';
 import { SceneBase } from '../scenes/SceneBase';
 import { CONST } from '../util/CONST';
 
@@ -6,7 +6,7 @@ export class Rocket {
   private rocketSprite: Phaser.Physics.Matter.Sprite;
   private rocketBackSprite: Phaser.Physics.Matter.Sprite;
   private scene: SceneBase;
-  private particleController: ParticleController;
+  private particleManager: ParticleManager;
 
   constructor(scene: SceneBase, x: number | undefined, y: number | undefined) {
     this.scene = scene;
@@ -38,13 +38,13 @@ export class Rocket {
     this.rocketBackSprite.setPosition((x * CONST.SCALE) + (width * CONST.HALF), (y * CONST.SCALE) - (width * CONST.HALF))
       .setDepth(70);
 
-    this.particleController = new ParticleController(this.scene);
-    this.particleController.createParticleEmitter('rocket_smoke', [
+    this.particleManager = new ParticleManager(this.scene);
+    this.particleManager.createParticleEmitter('rocket_smoke', [
       'rocket_smoke_1',
       'rocket_smoke_2',
     ], 75);
-    this.particleController.getParticleEmitter('rocket_smoke').setPosition((x * CONST.SCALE) + (width * CONST.HALF), (y * CONST.SCALE));
-    this.particleController.start('rocket_smoke');
+    this.particleManager.getParticleEmitter('rocket_smoke').setPosition((x * CONST.SCALE) + (width * CONST.HALF), (y * CONST.SCALE));
+    this.particleManager.start('rocket_smoke');
   }
 
   public getRocketSprite() {
@@ -52,7 +52,7 @@ export class Rocket {
   }
 
   public getSmokeParticles() {
-    return this.particleController.getParticleEmitter('rocket_smoke');
+    return this.particleManager.getParticleEmitter('rocket_smoke');
   }
 
   public getRocketBackSprite() {

@@ -1,4 +1,4 @@
-import { AudioManager } from '../controllers/audio/AudioManager';
+import { AudioManager } from '../managers/audio/AudioManager';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase.ts';
 import { CONST } from '../util/CONST.ts';
 

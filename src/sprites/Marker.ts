@@ -1,5 +1,5 @@
-import { AudioManager } from '../controllers/audio/AudioManager.ts';
-import { Control } from '../controllers/InputController';
+import { AudioManager } from '../managers/audio/AudioManager.ts';
+import { Controls } from '../managers/input/Controls';
 import { SceneBase } from '../scenes/SceneBase';
 
 export class Marker {
@@ -29,7 +29,7 @@ export class Marker {
     this.marker.play('info');
 
     // What to do when the marker is activated.
-    const pressRef = this.scene.inputController.onPress(Control.Activate, () => {
+    const pressRef = this.scene.inputManager.onPress(Controls.Activate, () => {
       // If the marker is 'active' and it isn't already activated,
       // then run its 'onActivate' function.
 
@@ -46,7 +46,7 @@ export class Marker {
     });
 
     this.marker.once('destroy', () => {
-      this.scene.inputController.removeOnPress(pressRef);
+      this.scene.inputManager.removeOnPress(Controls.Activate, pressRef);
     });
   }
 

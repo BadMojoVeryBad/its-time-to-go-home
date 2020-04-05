@@ -1,11 +1,11 @@
-import { AudioManager } from '../controllers/audio/AudioManager.ts';
-import { Control } from '../controllers/InputController';
-import { ParticleController } from '../controllers/ParticleController';
+import { AudioManager } from '../managers/audio/AudioManager.ts';
+import { Controls } from '../managers/input/Controls';
+import { ParticleManager } from '../managers/ParticleManager';
 import { CONST } from '../util/CONST';
 import { SceneBase } from './SceneBase';
 
 export class MenuScene extends SceneBase {
-  public particleController!: ParticleController;
+  public particleManager!: ParticleManager;
 
   constructor() {
     super({
@@ -14,7 +14,7 @@ export class MenuScene extends SceneBase {
   }
 
   public preload() {
-    this.particleController = new ParticleController(this);
+    this.particleManager = new ParticleManager(this);
   }
 
   public create() {
@@ -33,23 +33,23 @@ export class MenuScene extends SceneBase {
     bigStarsBg.setScale(CONST.SCALE);
     bigStarsBg.setScrollFactor(0.15);
 
-    const text = this.add.bitmapText(this.gameWidth * CONST.HALF, this.gameHeight * CONST.HALF, 'font', 'Press ' + this.inputController.getControlString(Control.Activate) + ' to start.');
+    const text = this.add.bitmapText(this.gameWidth * CONST.HALF, this.gameHeight * CONST.HALF, 'font', 'Press Z to start.');
     text.setOrigin(1, 1);
     text.setScale(0.5);
     text.setScrollFactor(0);
 
-    this.inputController.onPress(Control.Activate, () => {
+    this.inputManager.onPress(Controls.Activate, () => {
       AudioManager.play('activate');
 
       this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
         if (progress === 1) {
-          this.scene.start('MainScene', {});
+          this.scene.start('Scene2', {});
         }
       });
     });
 
-    this.particleController.createParticleEmitter('falling_stars', [ 'falling_stars' ], 31);
-    this.particleController.start('falling_stars');
+    this.particleManager.createParticleEmitter('falling_stars', [ 'falling_stars' ], 31);
+    this.particleManager.start('falling_stars');
   }
 
   public update() {

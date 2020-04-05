@@ -29,8 +29,8 @@ import WalkMp3 from '../assets/ttgh_walk.mp3';
 import mapJson from '../assets/map.json';
 import map2Json from '../assets/map2.json';
 import playerJson from '../assets/spritesheet.xml';
-import { AudioManager } from '../controllers/audio/AudioManager.ts';
-import { ParticleController } from '../controllers/ParticleController';
+import { AudioManager } from '../managers/audio/AudioManager.ts';
+import { ParticleManager } from '../managers/ParticleManager';
 import { CONST } from '../util/CONST';
 
 export class LoadScene extends SceneBase {
@@ -212,7 +212,7 @@ export class LoadScene extends SceneBase {
       yoyo: true,
     });
 
-    ParticleController.addEmitter('rocket_smoke_1', {
+    ParticleManager.addEmitter('rocket_smoke_1', {
       frame: 'rocket_particle_big',
       angle: { min: 180, max: 360 },
       speed: { min: 10, max: 20 },
@@ -223,7 +223,7 @@ export class LoadScene extends SceneBase {
       maxParticles: 0,
       frequency: 500,
     });
-    ParticleController.addEmitter('rocket_smoke_2', {
+    ParticleManager.addEmitter('rocket_smoke_2', {
       frame: 'walking_particle',
       angle: { min: 180, max: 360 },
       speed: { min: 10, max: 20 },
@@ -234,7 +234,7 @@ export class LoadScene extends SceneBase {
       maxParticles: 0,
       frequency: 500,
     });
-    ParticleController.addEmitter('walking', {
+    ParticleManager.addEmitter('walking', {
       frame: 'walking_particle',
       angle: { min: 180, max: 360 },
       speed: { min: 30, max: 50 },
@@ -245,7 +245,7 @@ export class LoadScene extends SceneBase {
       maxParticles: 0,
       frequency: 490,
     });
-    ParticleController.addEmitter('crawling', {
+    ParticleManager.addEmitter('crawling', {
       frame: 'walking_particle',
       angle: { min: 180, max: 360 },
       speed: { min: 30, max: 50 },
@@ -256,7 +256,7 @@ export class LoadScene extends SceneBase {
       maxParticles: 0,
       frequency: 250,
     });
-    ParticleController.addEmitter('jumping', {
+    ParticleManager.addEmitter('jumping', {
       frame: 'walking_particle',
       angle: { min: 180, max: 360 },
       speed: { min: 40, max: 80 },
@@ -268,7 +268,7 @@ export class LoadScene extends SceneBase {
       frequency: 9999,
     });
     const geom = new Phaser.Geom.Rectangle(0, 0, this.gameWidth * 4, this.gameHeight * 4);
-    ParticleController.addEmitter('falling_stars', {
+    ParticleManager.addEmitter('falling_stars', {
       frame: 'star_particle',
       angle: 45,
       speed: { min: 400, max: 600 },

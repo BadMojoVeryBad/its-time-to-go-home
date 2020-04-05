@@ -1,5 +1,7 @@
-import { InputController } from '../controllers/InputController';
+import { InputManager } from '../managers/input/InputManager';
 import { GameBase } from '../util/GameBase';
+import { Controls } from '../managers/input/Controls.ts';
+import { KeyboardInput } from '../managers/input/inputs/KeyboardInput.ts';
 const dat: any = require('dat.gui');
 
 export abstract class SceneBase extends Phaser.Scene {
@@ -11,10 +13,9 @@ export abstract class SceneBase extends Phaser.Scene {
   public get gameHeight(): number {
     return this.sys.game.config.height as number;
   }
-  // This property is set in the super constructor.
-  // @ts-ignore
-  public game: GameBase;
-  public inputController!: InputController;
+
+  public game!: GameBase;
+  public inputManager!: InputManager;
   protected gui!: any;
 
   private transitionEventFn?: any;
@@ -86,7 +87,36 @@ export abstract class SceneBase extends Phaser.Scene {
   }
 
   protected setupInputs(): void {
-    this.inputController = new InputController(this);
+    this.inputManager = new InputManager(this);
+
+    // Left.
+    this.inputManager.registerControl(Controls.Left);
+    this.inputManager.registerInputs(Controls.Left, [
+      new KeyboardInput(this, 65),
+      new KeyboardInput(this, 37),
+    ]);
+
+    // Right.
+    this.inputManager.registerControl(Controls.Right);
+    this.inputManager.registerInputs(Controls.Right, [
+      new KeyboardInput(this, 68),
+      new KeyboardInput(this, 39),
+    ]);
+
+    // Jump.
+    this.inputManager.registerControl(Controls.Jump);
+    this.inputManager.registerInputs(Controls.Jump, [
+      new KeyboardInput(this, 87),
+      new KeyboardInput(this, 38),
+      new KeyboardInput(this, 32),
+    ]);
+
+    // Activate.
+    this.inputManager.registerControl(Controls.Activate);
+    this.inputManager.registerInputs(Controls.Activate, [
+      new KeyboardInput(this, 90),
+      new KeyboardInput(this, 70),
+    ]);
   }
 
   protected setupDebug() {

@@ -1,5 +1,5 @@
-import { AudioManager } from '../controllers/audio/AudioManager';
-import { Control } from '../controllers/InputController';
+import { AudioManager } from '../managers/audio/AudioManager';
+import { Controls } from '../managers/input/Controls';
 import { SceneBase } from '../scenes/SceneBase';
 
 export class TextPlate extends Phaser.GameObjects.Container {
@@ -22,7 +22,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.addTimers();
 
     // On any keypress, close the text plate.
-    const pressReference = this.scene.inputController.onPress(Control.Activate, () => {
+    const pressReference = this.scene.inputManager.onPress(Controls.Activate, () => {
       if (this.plateState === 'open') {
         // Remove the timers running the cursor blink.
         this.removeTimers();
@@ -34,12 +34,12 @@ export class TextPlate extends Phaser.GameObjects.Container {
         AudioManager.play('deactivate');
 
         // Remove input listeners.
-        this.scene.inputController.removeOnPress(pressReference);
+        this.scene.inputManager.removeOnPress(Controls.Activate, pressReference);
 
         // Enable character movement.
-        this.scene.inputController.enableControl(Control.Jump);
-        this.scene.inputController.enableControl(Control.Left);
-        this.scene.inputController.enableControl(Control.Right);
+        this.scene.inputManager.enableControl(Controls.Jump);
+        this.scene.inputManager.enableControl(Controls.Left);
+        this.scene.inputManager.enableControl(Controls.Right);
 
         // Destroy the container.
         this.destroy();
@@ -49,9 +49,9 @@ export class TextPlate extends Phaser.GameObjects.Container {
 
   public openPlate() {
     // Disable character movement.
-    this.scene.inputController.disableControl(Control.Jump);
-    this.scene.inputController.disableControl(Control.Left);
-    this.scene.inputController.disableControl(Control.Right);
+    this.scene.inputManager.disableControl(Controls.Jump);
+    this.scene.inputManager.disableControl(Controls.Left);
+    this.scene.inputManager.disableControl(Controls.Right);
 
     // Set state.
     this.plateState = 'opening';

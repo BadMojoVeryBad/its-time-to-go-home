@@ -1,6 +1,6 @@
 import { GameplayCamera } from '../cameras/GameplayCamera';
-import { AudioManager } from '../controllers/audio/AudioManager';
-import { CutsceneController } from '../controllers/CutsceneController';
+import { AudioManager } from '../managers/audio/AudioManager';
+import { CutsceneController } from '../managers/CutsceneController';
 import { Button } from '../sprites/Button.ts';
 import { Pump } from '../sprites/Pump.ts';
 import { Rocks } from '../sprites/Rocks';

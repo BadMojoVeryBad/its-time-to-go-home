@@ -7,6 +7,8 @@ import { SpatialSound } from './SpatialSound';
 
 /**
  * Manages the audio in this game. It's basically a wrapper around Howler.
+ *
+ * Because everything is managed globally, this manager is static and abstract.
  */
 export abstract class AudioManager {
 

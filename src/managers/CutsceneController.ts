@@ -24,7 +24,7 @@ export class CutsceneController extends Phaser.GameObjects.Container {
     CutsceneController.inCutscene = true;
 
     // Disable inputs. The player can't do anything during a cutscene.
-    this.scene.inputController.disableAllControls();
+    this.scene.inputManager.disableAllControls();
 
     // Play each queued action in order.
     for (let i = 0; i < this.queue.length; i++) {
@@ -32,7 +32,7 @@ export class CutsceneController extends Phaser.GameObjects.Container {
     }
 
     // Reenable inputs.
-    this.scene.inputController.enableAllControls();
+    this.scene.inputManager.enableAllControls();
 
     // Reset flag.
     CutsceneController.inCutscene = false;

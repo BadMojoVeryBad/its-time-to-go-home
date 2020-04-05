@@ -1,7 +1,7 @@
 // @ts-nocheck
 import AnimatedTiles from 'phaser-animated-tiles/dist/AnimatedTiles.js';
 
-export class AnimatedTilesController {
+export class AnimatedTilesManager {
   private scene: Phaser.Scene;
 
   constructor(scene: Phaser.Scene) {

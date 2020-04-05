@@ -85,6 +85,7 @@ export class MarkerController {
       if (this.markers[i].getMarkerId() === tiledId) {
         this.markers[i].getSprite().destroy();
         this.markers.splice(i, 1);
+        return;
       }
     }
   }

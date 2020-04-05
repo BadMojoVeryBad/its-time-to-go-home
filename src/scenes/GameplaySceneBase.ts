@@ -1,7 +1,7 @@
-import { AnimatedTilesController } from '../controllers/AnimatedTilesController';
-import { CutsceneController } from '../controllers/CutsceneController';
-import { MarkerController } from '../controllers/MarkerController';
-import { ParticleController } from '../controllers/ParticleController';
+import { AnimatedTilesManager } from '../managers/AnimatedTilesManager';
+import { CutsceneController } from '../managers/CutsceneController';
+import { MarkerController } from '../managers/MarkerController';
+import { ParticleManager } from '../managers/ParticleManager';
 import { GameplayEvent } from '../sprites/GameplayEvent';
 import { Ladder } from '../sprites/Ladder';
 import { Player } from '../sprites/Player';
@@ -16,9 +16,9 @@ export abstract class GameplaySceneBase extends SceneBase {
   public player!: Player;
   protected tilesheet!: Phaser.Tilemaps.Tileset;
   protected markerController!: MarkerController;
-  protected particleController!: ParticleController;
+  protected particleManager!: ParticleManager;
   protected ladders: Ladder[] = [];
-  private animatedTilesController!: AnimatedTilesController;
+  private animatedTilesManager!: AnimatedTilesManager;
   private sceneData: {} = {};
 
   constructor(config: Phaser.Types.Scenes.SettingsConfig) {
@@ -30,9 +30,9 @@ export abstract class GameplaySceneBase extends SceneBase {
   }
 
   public preload() {
-    this.animatedTilesController = new AnimatedTilesController(this);
+    this.animatedTilesManager = new AnimatedTilesManager(this);
     this.markerController = new MarkerController(this);
-    this.particleController = new ParticleController(this);
+    this.particleManager = new ParticleManager(this);
 
     if (CONST.DEBUG) {
       this.setupDebug();
@@ -55,8 +55,8 @@ export abstract class GameplaySceneBase extends SceneBase {
     }
 
     // Falling stars.
-    this.particleController.createParticleEmitter('falling_stars', [ 'falling_stars' ], 31);
-    this.particleController.start('falling_stars');
+    this.particleManager.createParticleEmitter('falling_stars', [ 'falling_stars' ], 31);
+    this.particleManager.start('falling_stars');
   }
 
   public update() {
@@ -79,7 +79,7 @@ export abstract class GameplaySceneBase extends SceneBase {
 
     // Set world bounds and start animated tiles.
     this.matter.world.setBounds(CONST.ZERO, CONST.ZERO, this.map.widthInPixels * CONST.SCALE, this.map.heightInPixels * CONST.SCALE);
-    this.animatedTilesController.init(this.map);
+    this.animatedTilesManager.init(this.map);
 
     // Background.
     this.add.rectangle(this.map.widthInPixels * 2, this.map.heightInPixels * 2, this.map.widthInPixels * CONST.SCALE, this.map.heightInPixels * CONST.SCALE, 0x292929, 1);
@@ -146,7 +146,7 @@ export abstract class GameplaySceneBase extends SceneBase {
   }
 
   protected changeScene(scene: string, duration: number = 600, data: {} = {}) {
-    this.inputController.disableAllControls();
+    this.inputManager.disableAllControls();
     super.changeScene(scene, duration, data);
   }
 }
