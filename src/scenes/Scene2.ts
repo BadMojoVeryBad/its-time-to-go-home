@@ -170,6 +170,11 @@ export class Scene2 extends GameplaySceneBase {
       this.game.flags.setFlag(GameFlag.STARGAZE_CUTSCENE_PLAYED);
       const cutscene = new CutsceneController(this);
       cutscene.addAction('soundVolume', { key: 'music_2', volume: 0 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        AudioManager.fadeOut('fuel_pump_spatial', 1600, 0);
+        AudioManager.fadeOut('machine_spatial', 1600, 0);
+        resolve();
+      }});
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('wait', { duration: 400 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
@@ -203,6 +208,11 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1000 });
       cutscene.addAction('wait', { duration: 800 });
       cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.75 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        AudioManager.fadeIn('fuel_pump_spatial', 0, 1600);
+        AudioManager.fadeIn('machine_spatial', 0, 1600);
+        resolve();
+      }});
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();
     });

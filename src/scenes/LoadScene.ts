@@ -1,7 +1,5 @@
 import { SceneBase } from './SceneBase';
 
-import AwaitLoaderCallback from '../util/loader/AwaitLoaderCallback';
-
 import bigStarsBgPng from '../assets/big-stars-bg-sm.png';
 import cratersFgPng from '../assets/craters-lg.png';
 import cratersSmallFgPng from '../assets/craters-sm.png';
@@ -41,15 +39,11 @@ export class LoadScene extends SceneBase {
 
   constructor() {
     super({
-      key: 'LoadScene'
+      key: 'LoadScene',
     });
   }
 
   public preload() {
-    // Phaser 3 typings doesn't like this call :(
-    // @ts-ignore
-    this.sys.load['await'] = AwaitLoaderCallback;
-
     // Asset atlas.
     this.load.atlasXML('player', playerPng, playerJson);
 

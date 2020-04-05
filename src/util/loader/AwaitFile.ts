@@ -20,17 +20,17 @@ export class AwaitFile extends Phaser.Loader.File {
     super(loader, fileConfig);
   }
 
-  load() {
+  public load() {
     if (this.state === FILE_POPULATED) {
       //  Can happen for example in a JSONFile if they've provided a JSON object instead of a URL
       this.loader.nextFile(this, true);
     } else {
       // start loading task
-      var config = this.config;
-      var callback = config.callback;
-      var scope = config.scope;
-      var successCallback = this.onLoad.bind(this);
-      var failureCallback = this.onError.bind(this);
+      const config = this.config;
+      const callback = config.callback;
+      const scope = config.scope;
+      const successCallback = this.onLoad.bind(this);
+      const failureCallback = this.onError.bind(this);
       if (callback) {
         if (scope) {
           callback.call(scope, successCallback, failureCallback);
@@ -43,11 +43,11 @@ export class AwaitFile extends Phaser.Loader.File {
     }
   }
 
-  onLoad() {
+  public onLoad() {
     this.loader.nextFile(this, true);
   }
 
-  onError() {
+  public onError() {
     this.loader.nextFile(this, false);
   }
 }

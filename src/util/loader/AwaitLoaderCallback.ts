@@ -5,27 +5,27 @@ const IsFunction = (obj: any) => {
   return obj && (typeof(obj) === 'function');
 };
 
-const loaderCallback = function (key: any, config: any) {
+const loaderCallback = function(key: any, config: any) {
   if (IsFunction(key)) {
-    var callback = key;
-    var scope = config;
+    const callback = key;
+    const scope = config;
     config = {
       config: {
-        callback: callback,
-        scope: scope,
-      }
+        callback,
+        scope,
+      },
     };
   } else if (IsPlainObject(key)) {
     config = key;
     if (!config.hasOwnProperty('config')) {
       config = {
-        config: config
+        config,
       };
     }
   } else {
     config = {
-      key: key,
-      config: config
+      key,
+      config,
     };
   }
 
@@ -35,6 +35,6 @@ const loaderCallback = function (key: any, config: any) {
 
   // @ts-ignore
   return this;
-}
+};
 
 export default loaderCallback;

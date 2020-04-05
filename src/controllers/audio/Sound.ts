@@ -1,7 +1,13 @@
 import { Howl } from 'howler';
 import { SoundInterface } from './SoundInterface.ts';
 
+/**
+ * A standard playable sound, for use in the `AudioManager`.
+ */
 export class Sound implements SoundInterface {
+  /**
+   * The Howler sound.
+   */
   private sound: Howl;
 
   constructor(soundUrl: any, config: {} = {}) {

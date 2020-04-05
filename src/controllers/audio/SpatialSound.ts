@@ -5,12 +5,20 @@ import { MathUtils } from '../../util/MathUtils.ts';
 import { AudioManager } from './AudioManager.ts';
 import { SoundInterface } from './SoundInterface';
 
+/**
+ * A playable sound, that become louder as it gets closer to the target
+ * (or the target gets closer to it).
+ *
+ * For use in the `AudioManager`.
+ */
 export class SpatialSound extends Phaser.GameObjects.Container implements SoundInterface {
   protected scene!: GameplaySceneBase;
   private sound: Howl;
   private radius: number;
   private target: Phaser.GameObjects.Sprite;
   private key: string;
+  private spatialVolume: number = 0;
+  private volumeOverride: boolean = false;
   private debugOrigin!: Phaser.GameObjects.Graphics;
 
   constructor(scene: GameplaySceneBase, key: string, soundUrl: any, config: {}, x: number, y: number, radius: number, target: Phaser.GameObjects.Sprite) {
@@ -50,8 +58,10 @@ export class SpatialSound extends Phaser.GameObjects.Container implements SoundI
   public preUpdate(time: number, delta: number) {
     // Set volume based on distance from target.
     const distance = Phaser.Math.Distance.Between(this.target.x, this.target.y, this.x, this.y);
-    const volume = MathUtils.normalise(distance, 0, this.radius);
-    this.sound.volume(volume);
+    this.spatialVolume = MathUtils.normalise(distance, 0, this.radius);
+    if (!this.volumeOverride) {
+      this.sound.volume(this.spatialVolume);
+    }
 
     // Draw origin point for debugging.
     if (CONST.DEBUG && this.debugOrigin !== undefined) {
@@ -73,12 +83,16 @@ export class SpatialSound extends Phaser.GameObjects.Container implements SoundI
 
   public fadeIn(volume: number = 1, duration: number = 400) {
     // Calculate appropriate volume to fade in to, and ignore the volume parameter.
-    this.sound.fade(this.sound.volume(), volume, duration);
+    this.sound.fade(this.sound.volume(), this.spatialVolume, duration);
+    this.scene.time.delayedCall(duration,  () => {
+      this.volumeOverride = false;
+    });
   }
 
   public fadeOut(volume: number = 0, duration: number = 400) {
     // Will only fade out to 0, as the volume is a computed value.
-    this.sound.fade(this.sound.volume(), volume, duration);
+    this.volumeOverride = true;
+    this.sound.fade(this.spatialVolume, 0, duration);
   }
 
   public isPlaying(): boolean {
