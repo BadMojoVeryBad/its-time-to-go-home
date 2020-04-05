@@ -1,4 +1,3 @@
-import FuelPumpMp3 from '../assets/ttgh_fuel_pump.mp3';
 import { AudioManager } from '../controllers/audio/AudioManager.ts';
 import { GameplaySceneBase } from '../scenes/GameplaySceneBase.ts';
 import { CONST } from '../util/CONST.ts';
@@ -61,7 +60,7 @@ export class Pump extends Phaser.GameObjects.Container {
 
     this.physicsContainer = obj;
 
-    AudioManager.addSpatialSound(this.scene, 'fuel_pump_spatial', FuelPumpMp3, this.scene.player.getSprite(), {
+    AudioManager.addSpatialSound(this.scene, 'fuel_pump_spatial', 'fuel_pump_mp3', this.scene.player.getSprite(), {
       loop: true,
       volume: 0.25,
     }, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 400);

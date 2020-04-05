@@ -1,5 +1,7 @@
 import { SceneBase } from './SceneBase';
 
+import AwaitLoaderCallback from '../util/loader/AwaitLoaderCallback';
+
 import bigStarsBgPng from '../assets/big-stars-bg-sm.png';
 import cratersFgPng from '../assets/craters-lg.png';
 import cratersSmallFgPng from '../assets/craters-sm.png';
@@ -39,11 +41,15 @@ export class LoadScene extends SceneBase {
 
   constructor() {
     super({
-      key: 'LoadScene',
+      key: 'LoadScene'
     });
   }
 
   public preload() {
+    // Phaser 3 typings doesn't like this call :(
+    // @ts-ignore
+    this.sys.load['await'] = AwaitLoaderCallback;
+
     // Asset atlas.
     this.load.atlasXML('player', playerPng, playerJson);
 
@@ -55,25 +61,19 @@ export class LoadScene extends SceneBase {
     this.load.image('craters-lg', cratersFgPng);
     this.load.image('craters-sm', cratersSmallFgPng);
 
-    // Load something 1000 times to simulate a long load.
-    // This is obviously for debugging only.
-    // for (let i = 0; i < 1000; i++) {
-    //   this.load.image('craters-fg' + i, cratersFgPng);
-    // }
-
-    // Audio.
-    this.load.audio('audio_activate', ActivateMp3);
-    this.load.audio('audio_deactivate', DeactivateMp3);
-    this.load.audio('audio_music', Music1Mp3);
-    this.load.audio('audio_music_2', Music2Mp3);
-    this.load.audio('audio_music_3', Music3Mp3);
-    this.load.audio('audio_walk', WalkMp3);
-    this.load.audio('audio_crawl', CrawlMp3);
-    this.load.audio('audio_jump', JumpMp3);
-    this.load.audio('audio_rocket_nofuel', RocketNoFuelMp3);
-    this.load.audio('audio_beep', BeepMp3);
-    this.load.audio('audio_machine', MachineMp3);
-    this.load.audio('audio_fuel_pump', FuelPumpMp3);
+    // Add audio sources.
+    AudioManager.preloadSoundSource(this, 'activate_mp3', ActivateMp3);
+    AudioManager.preloadSoundSource(this, 'deactivate_mp3', DeactivateMp3);
+    AudioManager.preloadSoundSource(this, 'rocket_nofuel_mp3', RocketNoFuelMp3);
+    AudioManager.preloadSoundSource(this, 'player_walk_mp3', WalkMp3);
+    AudioManager.preloadSoundSource(this, 'player_crawl_mp3', CrawlMp3);
+    AudioManager.preloadSoundSource(this, 'player_jump_mp3', JumpMp3);
+    AudioManager.preloadSoundSource(this, 'music_1_mp3', Music1Mp3);
+    AudioManager.preloadSoundSource(this, 'music_2_mp3', Music2Mp3);
+    AudioManager.preloadSoundSource(this, 'music_3_mp3', Music3Mp3);
+    AudioManager.preloadSoundSource(this, 'beep_mp3', BeepMp3);
+    AudioManager.preloadSoundSource(this, 'machine_mp3', MachineMp3);
+    AudioManager.preloadSoundSource(this, 'fuel_pump_mp3', FuelPumpMp3);
 
     // Fonts.
     this.load.bitmapFont('font', fontPng, fontFnt);
@@ -290,48 +290,49 @@ export class LoadScene extends SceneBase {
       },
     });
 
-    AudioManager.addSound('activate', ActivateMp3, {
+    // Create playable sounds from audio sources.
+    AudioManager.addSound('activate', 'activate_mp3', {
       loop: false,
       volume: 0.5,
     });
-    AudioManager.addSound('deactivate', DeactivateMp3, {
+    AudioManager.addSound('deactivate', 'deactivate_mp3', {
       loop: false,
       volume: 0.5,
     });
-    AudioManager.addSound('rocket_nofuel', RocketNoFuelMp3);
-    AudioManager.addSound('player_walk', WalkMp3, {
+    AudioManager.addSound('rocket_nofuel', 'rocket_nofuel_mp3');
+    AudioManager.addSound('player_walk', 'player_walk_mp3', {
       loop: true,
       volume: 0.15,
     });
-    AudioManager.addSound('player_crawl', CrawlMp3, {
+    AudioManager.addSound('player_crawl', 'player_crawl_mp3', {
       loop: true,
       volume: 0.15,
     });
-    AudioManager.addSound('player_jump', JumpMp3, {
+    AudioManager.addSound('player_jump', 'player_jump_mp3', {
       loop: false,
       volume: 0.15,
     });
-    AudioManager.addSound('music_1', Music1Mp3, {
+    AudioManager.addSound('music_1', 'music_1_mp3', {
       loop: true,
       volume: 0.75,
     });
-    AudioManager.addSound('music_2', Music2Mp3, {
+    AudioManager.addSound('music_2', 'music_2_mp3', {
       loop: true,
       volume: 0.75,
     });
-    AudioManager.addSound('music_3', Music3Mp3, {
+    AudioManager.addSound('music_3', 'music_3_mp3', {
       loop: false,
       volume: 0.75,
     });
-    AudioManager.addSound('beep', BeepMp3, {
+    AudioManager.addSound('beep', 'beep_mp3', {
       loop: false,
       volume: 0.5,
     });
-    AudioManager.addSound('machine', MachineMp3, {
+    AudioManager.addSound('machine', 'machine_mp3', {
       loop: true,
       volume: 0.25,
     });
-    AudioManager.addSound('fuel_pump', FuelPumpMp3, {
+    AudioManager.addSound('fuel_pump', 'fuel_pump_mp3', {
       loop: true,
       volume: 0.25,
     });

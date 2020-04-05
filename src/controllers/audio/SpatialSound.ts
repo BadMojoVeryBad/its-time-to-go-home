@@ -53,8 +53,6 @@ export class SpatialSound extends Phaser.GameObjects.Container implements SoundI
     const volume = MathUtils.normalise(distance, 0, this.radius);
     this.sound.volume(volume);
 
-    // console.log(distance, volume);
-
     // Draw origin point for debugging.
     if (CONST.DEBUG && this.debugOrigin !== undefined) {
       this.debugOrigin.setPosition(this.x, this.y);
