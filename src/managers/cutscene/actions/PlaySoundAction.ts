@@ -1,5 +1,5 @@
-import { SceneBase } from '../../scenes/SceneBase';
-import { AudioManager } from '../audio/AudioManager.ts';
+import { SceneBase } from '../../../scenes/SceneBase';
+import { AudioManager } from '../../audio/AudioManager.ts';
 import { CutsceneAction } from './CutsceneAction';
 
 export class PlaySoundAction extends CutsceneAction {

@@ -1,6 +1,5 @@
-import { SceneBase } from '../../scenes/SceneBase.ts';
-import { AudioManager } from '../audio/AudioManager.ts';
-import { SoundController } from '../SoundController';
+import { SceneBase } from '../../../scenes/SceneBase.ts';
+import { AudioManager } from '../../audio/AudioManager.ts';
 import { CutsceneAction } from './CutsceneAction';
 
 export class SoundVolumeAction extends CutsceneAction {

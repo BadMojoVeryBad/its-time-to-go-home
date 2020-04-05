@@ -1,5 +1,5 @@
-import { SceneBase } from '../../scenes/SceneBase';
-import { CONST } from '../../util/CONST';
+import { SceneBase } from '../../../scenes/SceneBase';
+import { CONST } from '../../../util/CONST';
 import { CutsceneAction } from './CutsceneAction';
 
 export class CloseLetterboxAction extends CutsceneAction {
@@ -19,14 +19,14 @@ export class CloseLetterboxAction extends CutsceneAction {
         targets: topBar,
         duration: 1600,
         ease: 'Quad.easeInOut',
-        y: 0 - this.scene.gameHeight / 4,
+        y: 0 - this.scene.gameHeight / CONST.SCALE,
       });
 
       this.scene.tweens.add({
         targets: bottomBar,
         duration: 1600,
         ease: 'Quad.easeInOut',
-        y: this.scene.gameHeight / 4,
+        y: this.scene.gameHeight / CONST.SCALE,
         onComplete: () => {
           resolve();
         },

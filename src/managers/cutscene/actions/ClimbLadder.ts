@@ -1,6 +1,6 @@
-import { Ladder } from '../../sprites/Ladder';
-import { Player } from '../../sprites/Player';
-import { ActionFactory } from './ActionFactory';
+import { Ladder } from '../../../sprites/Ladder';
+import { Player } from '../../../sprites/Player';
+import { ActionFactory } from './../ActionFactory';
 import { CutsceneAction } from './CutsceneAction';
 
 export class ClimbLadder extends CutsceneAction {

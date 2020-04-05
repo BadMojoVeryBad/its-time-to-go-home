@@ -9,7 +9,7 @@ import { InputInterface } from './inputs/InputInterface';
  * preferably in its `create()` method.
  */
 export class InputManager {
-  private controlMap: { [index: number]: InputInterface[] } = {}
+  private controlMap: { [index: number]: InputInterface[] } = {};
 
   /**
    * Creates a map for the given control, which allows you to add inputs

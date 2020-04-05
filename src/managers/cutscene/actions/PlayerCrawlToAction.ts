@@ -1,7 +1,7 @@
-import { Player } from '../../sprites/Player';
+import { Player } from '../../../sprites/Player';
 import { CutsceneAction } from './CutsceneAction';
 
-export class PlayerRunToAction extends CutsceneAction {
+export class PlayerCrawlToAction extends CutsceneAction {
   private player!: Player;
   private xTarget: number = 0;
   private resolve!: any;
@@ -30,9 +30,9 @@ export class PlayerRunToAction extends CutsceneAction {
 
     // Move.
     if (this.direction === 'right') {
-      this.player.moveRight();
+      this.player.crawlRight();
     } else {
-      this.player.moveLeft();
+      this.player.crawlLeft();
     }
 
     // If we hit the target, stop moving.

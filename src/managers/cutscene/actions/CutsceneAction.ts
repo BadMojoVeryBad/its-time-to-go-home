@@ -1,5 +1,9 @@
-import { SceneBase } from '../../scenes/SceneBase';
+import { SceneBase } from '../../../scenes/SceneBase';
 
+/**
+ * A Phaser game container that holds an action a cutscene can run.
+ * The action can be modified by overriding the `do()` function.
+ */
 export abstract class CutsceneAction extends Phaser.GameObjects.Container {
   constructor(scene: SceneBase) {
     super(scene);

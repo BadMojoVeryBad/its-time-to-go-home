@@ -1,5 +1,5 @@
 import { AnimatedTilesManager } from '../managers/AnimatedTilesManager';
-import { CutsceneController } from '../managers/CutsceneController';
+import { CutsceneManager } from '../managers/cutscene/CutsceneManager';
 import { MarkerController } from '../managers/MarkerController';
 import { ParticleManager } from '../managers/ParticleManager';
 import { GameplayEvent } from '../sprites/GameplayEvent';
@@ -49,7 +49,7 @@ export abstract class GameplaySceneBase extends SceneBase {
       const startX = (this.sceneData.playerDir === 'left') ? -64 : 64;
       this.player.setPlayerPosition(this.sceneData.playerX, this.sceneData.playerY);
       this.player.setPlayerDirection(this.sceneData.playerDir);
-      const cutscene = new CutsceneController(this);
+      const cutscene = new CutsceneManager(this);
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: this.sceneData.playerX + startX });
       cutscene.play();
     }

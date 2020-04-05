@@ -1,4 +1,4 @@
-import { Player } from '../../sprites/Player';
+import { Player } from '../../../sprites/Player';
 import { CutsceneAction } from './CutsceneAction';
 
 export class PlayerJumpAction extends CutsceneAction {

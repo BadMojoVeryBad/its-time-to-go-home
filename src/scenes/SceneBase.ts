@@ -1,7 +1,7 @@
-import { InputManager } from '../managers/input/InputManager';
-import { GameBase } from '../util/GameBase';
 import { Controls } from '../managers/input/Controls.ts';
+import { InputManager } from '../managers/input/InputManager';
 import { KeyboardInput } from '../managers/input/inputs/KeyboardInput.ts';
+import { GameBase } from '../util/GameBase';
 const dat: any = require('dat.gui');
 
 export abstract class SceneBase extends Phaser.Scene {

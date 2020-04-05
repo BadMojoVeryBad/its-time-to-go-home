@@ -1,5 +1,5 @@
-import { SceneBase } from '../../scenes/SceneBase';
-import { CONST } from '../../util/CONST';
+import { SceneBase } from '../../../scenes/SceneBase';
+import { CONST } from '../../../util/CONST';
 import { CutsceneAction } from './CutsceneAction';
 
 export class OpenLetterboxAction extends CutsceneAction {

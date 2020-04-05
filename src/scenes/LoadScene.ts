@@ -312,7 +312,7 @@ export class LoadScene extends SceneBase {
     });
     AudioManager.addSound('music_2', 'music_2_mp3', {
       loop: true,
-      volume: 0.75,
+      volume: 0,
     });
     AudioManager.addSound('music_3', 'music_3_mp3', {
       loop: false,

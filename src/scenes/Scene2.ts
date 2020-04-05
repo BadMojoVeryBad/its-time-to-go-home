@@ -1,6 +1,6 @@
 import { GameplayCamera } from '../cameras/GameplayCamera';
 import { AudioManager } from '../managers/audio/AudioManager';
-import { CutsceneController } from '../managers/CutsceneController';
+import { CutsceneManager } from '../managers/cutscene/CutsceneManager';
 import { Button } from '../sprites/Button.ts';
 import { Pump } from '../sprites/Pump.ts';
 import { Rocks } from '../sprites/Rocks';
@@ -72,7 +72,7 @@ export class Scene2 extends GameplaySceneBase {
 
   private setupCutscenes() {
     this.events.on('change_scene_scene1', () => {
-      const cutscene = new CutsceneController(this);
+      const cutscene = new CutsceneManager(this);
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: -9999 });
       cutscene.play();
       this.events.removeListener('change_scene_scene1');
@@ -80,7 +80,7 @@ export class Scene2 extends GameplaySceneBase {
     });
 
     this.events.on('cutscene_rocks', () => {
-      const cutscene = new CutsceneController(this);
+      const cutscene = new CutsceneManager(this);
       cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.25 });
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 480 });
@@ -105,7 +105,7 @@ export class Scene2 extends GameplaySceneBase {
     });
 
     this.events.on('climb_ladder', () => {
-      const cutscene = new CutsceneController(this);
+      const cutscene = new CutsceneManager(this);
       cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.25 });
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('playerClimbLadder', { player: this.player, ladder: this.ladders[0] });
@@ -128,7 +128,7 @@ export class Scene2 extends GameplaySceneBase {
     });
 
     this.events.on('press_button', () => {
-      const cutscene = new CutsceneController(this);
+      const cutscene = new CutsceneManager(this);
       cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.25 });
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1665 });
@@ -168,7 +168,7 @@ export class Scene2 extends GameplaySceneBase {
 
     this.events.on('cutscene_stargaze', () => {
       this.game.flags.setFlag(GameFlag.STARGAZE_CUTSCENE_PLAYED);
-      const cutscene = new CutsceneController(this);
+      const cutscene = new CutsceneManager(this);
       cutscene.addAction('soundVolume', { key: 'music_2', volume: 0 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
         AudioManager.fadeOut('fuel_pump_spatial', 1600, 0);

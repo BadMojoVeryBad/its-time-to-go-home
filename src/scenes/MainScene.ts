@@ -1,6 +1,6 @@
 import { GameplayCamera } from '../cameras/GameplayCamera';
 import { AudioManager } from '../managers/audio/AudioManager.ts';
-import { CutsceneController } from '../managers/CutsceneController';
+import { CutsceneManager } from '../managers/cutscene/CutsceneManager';
 import { Rocket } from '../sprites/Rocket';
 import { CONST } from '../util/CONST';
 import { GameFlag } from '../util/GameFlags';
@@ -55,7 +55,7 @@ export class MainScene extends GameplaySceneBase {
       this.events.emit('cutscene_opening');
       this.time.delayedCall(500, () => {
         AudioManager.play('music_2');
-        AudioManager.fadeIn('music_2', 400, 0.75);
+        AudioManager.fadeIn('music_2', 1000, 0.75);
       });
     }
 
@@ -70,7 +70,7 @@ export class MainScene extends GameplaySceneBase {
   private setupCutscenes() {
     this.events.on('cutscene_opening', () => {
       this.game.flags.setFlag(GameFlag.OPENING_CUTSCENE_PLAYED);
-      const cutscene = new CutsceneController(this);
+      const cutscene = new CutsceneManager(this);
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 150, yTarget: 600, duration: 0 });
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('wait', { duration: 11000 });
@@ -96,7 +96,7 @@ export class MainScene extends GameplaySceneBase {
     this.events.on('change_scene_scene2', () => {
       this.game.flags.setFlag(GameFlag.SCENE_1_TRAVERSED);
       this.events.removeListener('change_scene_scene2');
-      const cutscene = new CutsceneController(this);
+      const cutscene = new CutsceneManager(this);
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 9999 });
       cutscene.play();
       this.changeScene('Scene2', 300, { playerX: 32, playerY: 1864, playerDir: 'right' });
@@ -105,7 +105,7 @@ export class MainScene extends GameplaySceneBase {
     this.events.on('cutscene_rocket_1', () => {
       if (!this.game.flags.flag(GameFlag.ROCKET_NOFUEL_CUTSCENE_PLAYED)) {
         this.game.flags.setFlag(GameFlag.ROCKET_NOFUEL_CUTSCENE_PLAYED);
-        const cutscene = new CutsceneController(this);
+        const cutscene = new CutsceneManager(this);
         cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.25 });
         cutscene.addAction('openLetterbox', {});
         cutscene.addAction('wait', { duration: 1000 });

@@ -1,7 +1,7 @@
-import { GameplaySceneBase } from '../../scenes/GameplaySceneBase';
+import { GameplaySceneBase } from '../../../scenes/GameplaySceneBase';
 import { CutsceneAction } from './CutsceneAction';
 
-export class FadeInLayerAction extends CutsceneAction {
+export class FadeOutLayerAction extends CutsceneAction {
   protected scene!: GameplaySceneBase;
   private key: string = '';
   private duration: number = 0;
@@ -24,7 +24,7 @@ export class FadeInLayerAction extends CutsceneAction {
 
       this.scene.tweens.add({
         targets: [ layer ],
-        alpha: { from: 0, to: 1 },
+        alpha: { from: 1, to: 0 },
         duration: this.duration,
         repeat: 0,
         onComplete: () => {
