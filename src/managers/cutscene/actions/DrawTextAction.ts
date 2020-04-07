@@ -1,4 +1,4 @@
-import { SceneBase } from '../../../scenes/SceneBase';
+import { SceneBase } from '../../../scenes/base/SceneBase';
 import { CutsceneAction } from './CutsceneAction';
 
 export class DrawTextAction extends CutsceneAction {

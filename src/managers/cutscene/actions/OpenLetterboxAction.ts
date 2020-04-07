@@ -1,4 +1,4 @@
-import { SceneBase } from '../../../scenes/SceneBase';
+import { SceneBase } from '../../../scenes/base/SceneBase';
 import { CONST } from '../../../util/CONST';
 import { CutsceneAction } from './CutsceneAction';
 

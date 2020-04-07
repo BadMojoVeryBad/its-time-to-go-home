@@ -11,7 +11,6 @@
     "build": "rimraf build && parcel build src/main.ts src/index.html --public-url ./ -d build --out-file=main --target=electron",
     "watch": "rimraf build && parcel watch src/main.ts src/index.html --public-url ./ -d build --out-file=main --target=electron",
     "app": "cross-env ELECTRON_DEBUG=true electron build/main.js",
-    "debug": "cross-env ELECTRON_DEBUG=vscode electron --remote-debugging-port=9223 build/main.js",
     "dist": "yarn build && electron-builder",
     "lint": "node_modules/tslint/bin/tslint --fix -c tslint.json 'src/**/*.ts'",
     "parse-atlas-file": "node ./atlas-parser/app.js './src/assets/spritesheet.atlas' './src/assets/spritesheet.xml'",

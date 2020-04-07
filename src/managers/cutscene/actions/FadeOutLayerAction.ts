@@ -1,4 +1,4 @@
-import { GameplaySceneBase } from '../../../scenes/GameplaySceneBase';
+import { GameplaySceneBase } from '../../../scenes/base/GameplaySceneBase';
 import { CutsceneAction } from './CutsceneAction';
 
 export class FadeOutLayerAction extends CutsceneAction {

@@ -2,7 +2,7 @@ import { AudioManager } from '../managers/audio/AudioManager.ts';
 import { Controls } from '../managers/input/Controls';
 import { ParticleManager } from '../managers/ParticleManager';
 import { CONST } from '../util/CONST';
-import { SceneBase } from './SceneBase';
+import { SceneBase } from './base/SceneBase';
 
 export class MenuScene extends SceneBase {
   public particleManager!: ParticleManager;
@@ -43,7 +43,7 @@ export class MenuScene extends SceneBase {
 
       this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
         if (progress === 1) {
-          this.scene.start('MainScene', {});
+          this.scene.start('Scene1', {});
         }
       });
     });

@@ -1,4 +1,4 @@
-import { SceneBase } from './SceneBase';
+import { SceneBase } from './base/SceneBase';
 
 import loaderPng from '../assets/loading-bar.png';
 import logoPng from '../assets/studio-logo.png';

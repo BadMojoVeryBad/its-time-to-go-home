@@ -1,13 +1,14 @@
-import { AnimatedTilesManager } from '../managers/AnimatedTilesManager';
-import { CutsceneManager } from '../managers/cutscene/CutsceneManager';
-import { MarkerController } from '../managers/MarkerController';
-import { ParticleManager } from '../managers/ParticleManager';
-import { GameplayEvent } from '../sprites/GameplayEvent';
-import { Ladder } from '../sprites/Ladder';
-import { Player } from '../sprites/Player';
-import { TileSprite } from '../sprites/TileSprite';
-import { CONST } from '../util/CONST';
-import { TiledUtils } from '../util/TiledUtils';
+import { AnimatedTilesManager } from '../../managers/AnimatedTilesManager';
+import { CutsceneManager } from '../../managers/cutscene/CutsceneManager';
+import { Gamepad, GamepadStick } from '../../managers/input/inputs/GamepadInput.ts';
+import { MarkerController } from '../../managers/MarkerController';
+import { ParticleManager } from '../../managers/ParticleManager';
+import { GameplayEvent } from '../../sprites/GameplayEvent';
+import { Ladder } from '../../sprites/Ladder';
+import { Player } from '../../sprites/Player';
+import { TileSprite } from '../../sprites/TileSprite';
+import { CONST } from '../../util/CONST';
+import { TiledUtils } from '../../util/TiledUtils';
 import { SceneBase } from './SceneBase';
 
 export abstract class GameplaySceneBase extends SceneBase {
@@ -60,7 +61,7 @@ export abstract class GameplaySceneBase extends SceneBase {
   }
 
   public update() {
-    // console.log(this.game.input.mousePointer.x, this.game.input.mousePointer.y);
+
   }
 
   public setupTiles(map: string = 'map') {
@@ -116,6 +117,11 @@ export abstract class GameplaySceneBase extends SceneBase {
       m.setMarkerId(marker.id);
       m.setEnabled(!disabled);
     });
+  }
+
+  public setupTiledObjectLayer(layer: string, fn: (object: Phaser.Types.Tilemaps.TiledObject) => void) {
+    const objects = this.map.getObjectLayer('pump').objects;
+    objects.forEach(fn);
   }
 
   public setupEvents() {

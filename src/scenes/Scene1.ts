@@ -4,13 +4,13 @@ import { CutsceneManager } from '../managers/cutscene/CutsceneManager';
 import { Rocket } from '../sprites/Rocket';
 import { CONST } from '../util/CONST';
 import { GameFlag } from '../util/GameFlags';
-import { GameplaySceneBase } from './GameplaySceneBase';
+import { GameplaySceneBase } from './base/GameplaySceneBase';
 
-export class MainScene extends GameplaySceneBase {
+export class Scene1 extends GameplaySceneBase {
   private rocket!: Rocket;
 
   constructor() {
-    super({ key: 'MainScene' });
+    super({ key: 'Scene1' });
   }
 
   public preload() {
@@ -47,8 +47,8 @@ export class MainScene extends GameplaySceneBase {
     });
 
     // Set up the opening cutscene.
-    if (this.game.flags.flag(GameFlag.OPENING_CUTSCENE_PLAYED)) {
-    // if (true) {
+    // if (this.game.flags.flag(GameFlag.OPENING_CUTSCENE_PLAYED)) {
+    if (true) {
       this.setupTransitionEvents();
     } else {
       this.setupTransitionEvents(6000, 4000);

@@ -1,4 +1,4 @@
-import { SceneBase } from '../../../scenes/SceneBase';
+import { SceneBase } from '../../../scenes/base/SceneBase';
 import { AudioManager } from '../../audio/AudioManager.ts';
 import { CutsceneAction } from './CutsceneAction';
 

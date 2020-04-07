@@ -1,4 +1,4 @@
-import { SceneBase } from '../scenes/SceneBase';
+import { SceneBase } from '../scenes/base/SceneBase';
 
 /**
  * A wrapper around Phaser's particle system to make things easier for me :P
@@ -24,6 +24,14 @@ export class ParticleManager {
   private particles: { [index: string]: Phaser.GameObjects.Particles.ParticleEmitterManager } = {};
   private playing: { [index: string]: number } = {};
 
+  /**
+   * A wrapper around Phaser's particle system to make things easier for me :P
+   *
+   * In this manager, an 'Emitter' can be created, which is used as a
+   * template to create 'Particle Emitters' in scenes.
+   *
+   * @param scene The scene to add this `ParticleManager` to.
+   */
   constructor(scene: SceneBase) {
     this.scene = scene;
   }

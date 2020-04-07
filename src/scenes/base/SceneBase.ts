@@ -1,7 +1,8 @@
-import { Controls } from '../managers/input/Controls.ts';
-import { InputManager } from '../managers/input/InputManager';
-import { KeyboardInput } from '../managers/input/inputs/KeyboardInput.ts';
-import { GameBase } from '../util/GameBase';
+import { Controls } from '../../managers/input/Controls.ts';
+import { InputManager } from '../../managers/input/InputManager';
+import { Gamepad, GamepadButton, GamepadInput } from '../../managers/input/inputs/GamepadInput.ts';
+import { KeyboardInput } from '../../managers/input/inputs/KeyboardInput.ts';
+import { GameBase } from '../../util/GameBase';
 const dat: any = require('dat.gui');
 
 export abstract class SceneBase extends Phaser.Scene {
@@ -94,6 +95,8 @@ export abstract class SceneBase extends Phaser.Scene {
     this.inputManager.registerInputs(Controls.Left, [
       new KeyboardInput(this, 65),
       new KeyboardInput(this, 37),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.LEFT),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.STICK_LEFT_LEFT),
     ]);
 
     // Right.
@@ -101,6 +104,8 @@ export abstract class SceneBase extends Phaser.Scene {
     this.inputManager.registerInputs(Controls.Right, [
       new KeyboardInput(this, 68),
       new KeyboardInput(this, 39),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.RIGHT),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.STICK_LEFT_RIGHT),
     ]);
 
     // Jump.
@@ -109,6 +114,7 @@ export abstract class SceneBase extends Phaser.Scene {
       new KeyboardInput(this, 87),
       new KeyboardInput(this, 38),
       new KeyboardInput(this, 32),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.A),
     ]);
 
     // Activate.
@@ -116,12 +122,13 @@ export abstract class SceneBase extends Phaser.Scene {
     this.inputManager.registerInputs(Controls.Activate, [
       new KeyboardInput(this, 90),
       new KeyboardInput(this, 70),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.X),
     ]);
   }
 
   protected setupDebug() {
     this.gui = new dat.GUI({ name: 'Debug Values' });
-    this.events.once('destroy', () => {
+    this.events.once('shutdown', () => {
         this.gui.destroy();
     });
   }

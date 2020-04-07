@@ -1,24 +1,24 @@
 import { AudioManager } from '../managers/audio/AudioManager.ts';
-import { GameplaySceneBase } from '../scenes/GameplaySceneBase.ts';
+import { GameplaySceneBase } from '../scenes/base/GameplaySceneBase.ts';
 import { CONST } from '../util/CONST.ts';
+import { ContainerBase } from './base/ContainerBase.ts';
+import { SpriteBase } from './base/SpriteBase.ts';
 
-export class Pump extends Phaser.GameObjects.Container {
+export class Pump extends ContainerBase {
   protected scene!: GameplaySceneBase;
 
-  private pumpBase: Phaser.GameObjects.Sprite;
-  private pumpTop: Phaser.GameObjects.Sprite;
-  private pumpMask: Phaser.GameObjects.Image;
+  private pumpBase: SpriteBase;
+  private pumpTop: SpriteBase;
   private physicsContainer: any;
 
   private initPosition: {};
 
   constructor(scene: GameplaySceneBase, x: number, y: number) {
     super(scene);
-    scene.add.existing(this);
 
     const widthHalf = this.scene.textures.get('player').get('fuel-pump-base').width * CONST.SCALE / 2;
-    this.pumpBase = new Phaser.GameObjects.Sprite(this.scene, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-base');
-    this.pumpTop = new Phaser.GameObjects.Sprite(this.scene, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf + 48, 'player', 'fuel-pump-top');
+    this.pumpBase = new SpriteBase(this.scene, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-base');
+    this.pumpTop = new SpriteBase(this.scene, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf + 48, 'player', 'fuel-pump-top');
 
     this.initPosition = {
       x: x * CONST.SCALE + widthHalf,
@@ -29,14 +29,11 @@ export class Pump extends Phaser.GameObjects.Container {
     this.add(this.pumpBase);
 
     this.pumpBase.setDepth(1);
-    this.pumpBase.setScale(CONST.SCALE);
     this.pumpTop.setDepth(2);
-    this.pumpTop.setScale(CONST.SCALE);
+    this.pumpBase.disablePhysics();
+    this.pumpTop.disablePhysics();
 
     this.setPosition(0, 0);
-
-    this.pumpMask = this.scene.add.image(x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-mask');
-    this.pumpMask.setScale(CONST.SCALE);
 
     const g = this.scene.add.graphics();
     g.setVisible(false);
@@ -45,17 +42,13 @@ export class Pump extends Phaser.GameObjects.Container {
     g.setDepth(999);
     this.setMask(g.createGeometryMask());
 
-    const obj = new Phaser.Physics.Matter.Sprite(this.scene.matter.world, x * CONST.SCALE + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-top').setVisible(false);
-    obj.setOrigin(0, 1);
+    const obj = new SpriteBase(this.scene, (x * CONST.SCALE) + widthHalf, y * CONST.SCALE - widthHalf, 'player', 'fuel-pump-top').setVisible(false);
     obj.setStatic(true);
     obj.setDepth(3);
     this.add(obj);
 
-    obj.setScale(4);
-    obj.body.position.x += 0;
-    obj.body.position.y += widthHalf;
-    obj.body.positionPrev.x += 0;
-    obj.body.positionPrev.y += widthHalf;
+    obj.setOrigin(0.5, 0.5);
+    obj.setBodyOrigin(0, 0.5);
     obj.setScale(4, 1);
 
     this.physicsContainer = obj;

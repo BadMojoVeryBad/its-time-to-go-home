@@ -1,7 +1,8 @@
 import { AudioManager } from '../managers/audio/AudioManager.ts';
 import { Controls } from '../managers/input/Controls';
+import { Gamepad, GamepadStick } from '../managers/input/inputs/GamepadInput.ts';
 import { ParticleManager } from '../managers/ParticleManager';
-import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
+import { GameplaySceneBase } from '../scenes/base/GameplaySceneBase';
 import { CONST } from '../util/CONST';
 
 export class Player extends Phaser.GameObjects.Container {

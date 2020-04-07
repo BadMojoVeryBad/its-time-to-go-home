@@ -1,5 +1,5 @@
 import { ParticleManager } from '../managers/ParticleManager';
-import { SceneBase } from '../scenes/SceneBase';
+import { SceneBase } from '../scenes/base/SceneBase';
 import { CONST } from '../util/CONST';
 
 export class Rocket {

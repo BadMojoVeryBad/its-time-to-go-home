@@ -1,4 +1,4 @@
-import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
+import { GameplaySceneBase } from '../scenes/base/GameplaySceneBase';
 import { CONST } from '../util/CONST';
 
 export class GameplayCamera extends Phaser.Cameras.Scene2D.Camera {
@@ -24,16 +24,16 @@ export class GameplayCamera extends Phaser.Cameras.Scene2D.Camera {
       this.scene.addDebugNumber(this.scene.cameras.main, 'scrollY', 0, this.scene.map.heightInPixels * CONST.SCALE);
 
       const obj = {
-        stopFollow: () => {
+        'Stop Follow': () => {
           this.scene.cameras.main.stopFollow();
         },
-        startFollow: () => {
+        'Start Follow': () => {
           this.scene.cameras.main.startFollow(this.follow, true, 0.1, 0.1, 0, 100);
         },
       };
 
-      this.scene.addDebugButton(obj, 'startFollow');
-      this.scene.addDebugButton(obj, 'stopFollow');
+      this.scene.addDebugButton(obj, 'Start Follow');
+      this.scene.addDebugButton(obj, 'Stop Follow');
     }
   }
 

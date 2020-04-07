@@ -1,4 +1,4 @@
-import { SceneBase } from '../../scenes/SceneBase';
+import { SceneBase } from '../../scenes/base/SceneBase';
 import { ActionFactory } from './ActionFactory';
 import { CutsceneAction } from './actions/CutsceneAction';
 
@@ -29,6 +29,20 @@ export class CutsceneManager extends Phaser.GameObjects.Container {
    */
   private queue: CutsceneAction[] = [];
 
+  /**
+   * This manager is responsible for a single cutscene in a scene.
+   *
+   * Use like this:
+   * ```
+   * const cutscene = new CutsceneManager(this);
+   * cutscene.addAction('openLetterbox', {});
+   * cutscene.addAction('wait', { duration: 1000 });
+   * cutscene.addAction('closeLetterbox', {});
+   * cutscene.play();
+   * ```
+   *
+   * @param scene The scene this cutscene shall run in.
+   */
   constructor(scene: SceneBase) {
     super(scene);
   }

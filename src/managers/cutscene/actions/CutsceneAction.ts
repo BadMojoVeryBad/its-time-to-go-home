@@ -1,4 +1,4 @@
-import { SceneBase } from '../../../scenes/SceneBase';
+import { SceneBase } from '../../../scenes/base/SceneBase';
 
 /**
  * A Phaser game container that holds an action a cutscene can run.

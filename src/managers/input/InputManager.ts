@@ -1,4 +1,6 @@
+import { SceneBase } from '../../scenes/base/SceneBase.ts';
 import { Controls } from './Controls';
+import { Gamepad, GamepadInput, GamepadStick } from './inputs/GamepadInput.ts';
 import { InputInterface } from './inputs/InputInterface';
 
 /**
@@ -10,6 +12,12 @@ import { InputInterface } from './inputs/InputInterface';
  */
 export class InputManager {
   private controlMap: { [index: number]: InputInterface[] } = {};
+  private scene: SceneBase;
+  private disabledCount: number = 0;
+
+  constructor(scene: SceneBase) {
+    this.scene = scene;
+  }
 
   /**
    * Creates a map for the given control, which allows you to add inputs
@@ -130,6 +138,8 @@ export class InputManager {
    * Disables all controls.
    */
   public disableAllControls() {
+    this.disabledCount++;
+
     for (const control in this.controlMap) {
       this.disableControl(+control);
     }
@@ -139,8 +149,31 @@ export class InputManager {
    * Enables all controls.
    */
   public enableAllControls() {
+    this.disabledCount--;
+
     for (const control in this.controlMap) {
       this.enableControl(+control);
+    }
+  }
+
+  /**
+   * Returns the x and y coordinates for the designated gamepad and stick.
+   * The gamepad sticks don't work like normal buttons, so they don't work
+   * with functions like `isPressed()` and `onPress()`. Instead, you can get
+   * The stick axis data here and do with it what you like.
+   *
+   * This is a convenience method for `GamepadInput.getGamepadStickVector()`.
+   * The only difference being that calling `this.disableAllControls()` will
+   * still disable this input.
+   *
+   * @param pad The gamepad.
+   * @param stick The stick to get the x and y coordinates for.
+   */
+  public getGamepadStickVector(pad: Gamepad, stick: GamepadStick): { x: number, y: number } {
+    if (this.disabledCount) {
+      return { x: 0, y: 0 };
+    } else {
+      return GamepadInput.getGamepadStickVector(this.scene, pad, stick);
     }
   }
 }

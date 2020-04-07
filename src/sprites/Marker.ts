@@ -1,6 +1,6 @@
 import { AudioManager } from '../managers/audio/AudioManager.ts';
 import { Controls } from '../managers/input/Controls';
-import { SceneBase } from '../scenes/SceneBase';
+import { SceneBase } from '../scenes/base/SceneBase';
 
 export class Marker {
   private scene: SceneBase;

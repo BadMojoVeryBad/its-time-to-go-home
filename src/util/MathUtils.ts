@@ -3,4 +3,8 @@ export abstract class MathUtils {
     const norm = (val - min) / (max - min);
     return Phaser.Math.Clamp(norm, 0, 1);
   }
+
+  public static valueOr(value: any, or: any): any {
+    return (value !== undefined) ? value : or;
+  }
 }

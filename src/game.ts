@@ -11,6 +11,9 @@ const config: Phaser.Types.Core.GameConfig = {
   pixelart: true,
   width: 800,
   height: 600,
+  input: {
+    gamepad: true,
+  },
   physics: {
     default: 'matter',
     matter: {

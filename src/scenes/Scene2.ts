@@ -7,7 +7,8 @@ import { Rocks } from '../sprites/Rocks';
 import { Tank } from '../sprites/Tank';
 import { CONST } from '../util/CONST.ts';
 import { GameFlag } from '../util/GameFlags';
-import { GameplaySceneBase } from './GameplaySceneBase';
+import { MathUtils } from '../util/MathUtils';
+import { GameplaySceneBase } from './base/GameplaySceneBase';
 
 export class Scene2 extends GameplaySceneBase {
   private rocks?: Rocks;
@@ -45,27 +46,26 @@ export class Scene2 extends GameplaySceneBase {
     // Rock.
     const rocks = this.map.getObjectLayer('rocks').objects;
     rocks.forEach((rock: Phaser.Types.Tilemaps.TiledObject) => {
-      this.rocks = new Rocks(this, rock.x, rock.y);
+      this.rocks = new Rocks(this, MathUtils.valueOr(rock.x, 0), MathUtils.valueOr(rock.y, 0));
     });
 
     // Pump.
-    const pumps = this.map.getObjectLayer('pump').objects;
-    pumps.forEach((pump: Phaser.Types.Tilemaps.TiledObject) => {
-      this.pump = new Pump(this, pump.x, pump.y);
+    this.setupTiledObjectLayer('pump', (object: Phaser.Types.Tilemaps.TiledObject) => {
+      this.pump = new Pump(this, MathUtils.valueOr(object.x, 0), MathUtils.valueOr(object.y, 0));
       this.pump.setDepth(60);
     });
 
     // Button.
     const buttons = this.map.getObjectLayer('button').objects;
     buttons.forEach((button: Phaser.Types.Tilemaps.TiledObject) => {
-      this.button = new Button(this, button.x * CONST.SCALE, button.y * CONST.SCALE);
+      this.button = new Button(this, MathUtils.valueOr(button.x, 0) * CONST.SCALE, MathUtils.valueOr(button.y, 0) * CONST.SCALE);
       this.button.setDepth(83);
     });
 
     // Tank.
     const tanks = this.map.getObjectLayer('tank').objects;
     tanks.forEach((tank: Phaser.Types.Tilemaps.TiledObject) => {
-      this.tank = new Tank(this, tank.x * CONST.SCALE, tank.y * CONST.SCALE);
+      this.tank = new Tank(this, MathUtils.valueOr(tank.x, 0) * CONST.SCALE, MathUtils.valueOr(tank.y, 0) * CONST.SCALE);
       this.tank.setDepth(84);
     });
   }
@@ -76,7 +76,7 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: -9999 });
       cutscene.play();
       this.events.removeListener('change_scene_scene1');
-      this.changeScene('MainScene', 300, { playerX: 1864, playerY: 1864, playerDir: 'left' });
+      this.changeScene('Scene1', 300, { playerX: 1864, playerY: 1864, playerDir: 'left' });
     });
 
     this.events.on('cutscene_rocks', () => {
@@ -87,7 +87,7 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 485 });
       cutscene.addAction('wait', { duration: 500 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
-        this.rocks.playAnimation();
+        this.rocks?.playAnimation();
         resolve();
       }});
       cutscene.addAction('wait', { duration: 3500 });
@@ -135,7 +135,7 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1670 });
       cutscene.addAction('wait', { duration: 500 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
-        this.button.pressButton();
+        this.button?.pressButton();
         resolve();
       }});
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {

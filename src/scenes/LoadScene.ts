@@ -1,4 +1,4 @@
-import { SceneBase } from './SceneBase';
+import { SceneBase } from './base/SceneBase';
 
 import bigStarsBgPng from '../assets/big-stars-bg-sm.png';
 import cratersFgPng from '../assets/craters-lg.png';

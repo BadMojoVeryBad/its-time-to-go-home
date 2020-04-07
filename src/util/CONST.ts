@@ -6,6 +6,11 @@ export abstract class CONST {
    * Wether or not the game is in debug mode.
    */
   public static readonly DEBUG = false;
+  public static readonly DEBUG_DEPTH = 9999;
+  public static readonly DEBUG_COLOR = {
+    SPRITE: 0x009dff,
+    PHYSICS: 0x00ff00,
+  };
 
   /**
    * The scale of the pixel art in the game. To be used

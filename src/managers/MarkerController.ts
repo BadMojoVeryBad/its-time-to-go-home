@@ -1,7 +1,10 @@
-import { SceneBase } from '../scenes/SceneBase';
+import { SceneBase } from '../scenes/base/SceneBase';
 import { Marker } from '../sprites/Marker';
 import { TextPlate } from '../sprites/TextPlate';
 
+/**
+ * The code in here is terrible please don't look at it.
+ */
 export class MarkerController {
   public markers: Marker[] = [];
   protected scene: SceneBase;

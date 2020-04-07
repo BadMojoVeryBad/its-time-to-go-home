@@ -1,4 +1,4 @@
-import { GameplaySceneBase } from '../scenes/GameplaySceneBase';
+import { GameplaySceneBase } from '../scenes/base/GameplaySceneBase';
 
 export class GameplayEvent {
   private scene: GameplaySceneBase;
