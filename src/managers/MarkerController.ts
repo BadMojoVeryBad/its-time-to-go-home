@@ -101,6 +101,14 @@ export class MarkerController {
     }
   }
 
+  public removeAllMarkers() {
+    for (let i = 0; i < this.markers.length; i++) {
+      this.markers[i].getSprite().destroy();
+    }
+
+    this.markers = [];
+  }
+
   private getMarkerBySprite(sprite: Phaser.Physics.Matter.Sprite): Marker | undefined {
     for (let i = 0; i < this.markers.length; i++) {
       if (this.markers[i].getSprite() === sprite) {

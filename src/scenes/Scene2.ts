@@ -6,8 +6,9 @@ import { Pump } from '../sprites/Pump.ts';
 import { Rocks } from '../sprites/Rocks';
 import { Tank } from '../sprites/Tank';
 import { CONST } from '../util/CONST.ts';
-import { GameFlag } from '../util/GameFlags';
+import { GameFlag, GameFlags } from '../util/GameFlags';
 import { MathUtils } from '../util/MathUtils';
+import { TiledUtils } from '../util/TiledUtils';
 import { GameplaySceneBase } from './base/GameplaySceneBase';
 
 export class Scene2 extends GameplaySceneBase {
@@ -68,6 +69,10 @@ export class Scene2 extends GameplaySceneBase {
       this.tank = new Tank(this, MathUtils.valueOr(tank.x, 0) * CONST.SCALE, MathUtils.valueOr(tank.y, 0) * CONST.SCALE);
       this.tank.setDepth(84);
     });
+
+    if (this.game.flags.flag(GameFlag.STARGAZE_CUTSCENE_PLAYED)) {
+      this.replaceMarkerTexts();
+    }
   }
 
   private setupCutscenes() {
@@ -186,6 +191,7 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('wait', { duration: 1200 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
         this.player.sit();
+        this.replaceMarkerTexts();
         resolve();
       }});
       cutscene.addAction('wait', { duration: 1800 });
@@ -215,6 +221,19 @@ export class Scene2 extends GameplaySceneBase {
       }});
       cutscene.addAction('closeLetterbox', {});
       cutscene.play();
+    });
+  }
+
+  private replaceMarkerTexts() {
+    this.mapLayers.pipes2.setDepth(86);
+
+    this.markerController.removeAllMarkers();
+
+    const markers = this.map.getObjectLayer('markers').objects;
+    markers.forEach((marker: Phaser.Types.Tilemaps.TiledObject) => {
+      const message = TiledUtils.getProperty(marker, 'alt_message');
+      const m = this.markerController.addMarkerWithTextPlate((marker.x * CONST.SCALE) + 32, (marker.y * CONST.SCALE) - 64, message, '');
+      m.setMarkerId(marker.id);
     });
   }
 }

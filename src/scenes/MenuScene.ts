@@ -1,9 +1,9 @@
 import { AudioManager } from '../managers/audio/AudioManager.ts';
 import { Controls } from '../managers/input/Controls';
 import { ParticleManager } from '../managers/ParticleManager';
+import { SpriteBase } from '../sprites/base/SpriteBase.ts';
 import { CONST } from '../util/CONST';
 import { SceneBase } from './base/SceneBase';
-import { SpriteBase } from '../sprites/base/SpriteBase.ts';
 
 export class MenuScene extends SceneBase {
   public particleManager!: ParticleManager;

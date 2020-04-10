@@ -11,8 +11,8 @@ import tilesheetPng from '../assets/tileset.png';
 
 import fontFnt from '../assets/haydnspixel.fnt';
 import fontPng from '../assets/haydnspixel.png';
-import fontRedPng from '../assets/haydnspixel_red.png';
 import fontGreyPng from '../assets/haydnspixel_grey.png';
+import fontRedPng from '../assets/haydnspixel_red.png';
 
 import Music3Mp3 from '../assets/stargazing.mp3';
 import ActivateMp3 from '../assets/ttgh_activate.mp3';

@@ -4,6 +4,7 @@ import { CutsceneManager } from '../managers/cutscene/CutsceneManager';
 import { Rocket } from '../sprites/Rocket';
 import { CONST } from '../util/CONST';
 import { GameFlag } from '../util/GameFlags';
+import { TiledUtils } from '../util/TiledUtils';
 import { GameplaySceneBase } from './base/GameplaySceneBase';
 
 export class Scene1 extends GameplaySceneBase {
@@ -64,6 +65,11 @@ export class Scene1 extends GameplaySceneBase {
     if (this.game.flags.flag(GameFlag.ROCKET_NOFUEL_CUTSCENE_PLAYED)) {
       this.markerController.removeMarkerById(11);
       this.markerController.addMarkerWithTextPlate((33 * CONST.SCALE) + 32, (462 * CONST.SCALE) - 64, 'This rocket needs to be\nrefueled. How annoying.', undefined);
+    }
+
+    // If the stargaze cutscene has played, replace all the marker texts.
+    if (this.game.flags.flag(GameFlag.STARGAZE_CUTSCENE_PLAYED)) {
+      this.replaceMarkerTexts();
     }
   }
 
@@ -166,6 +172,19 @@ export class Scene1 extends GameplaySceneBase {
         cutscene.addAction('closeLetterbox', {});
         cutscene.play();
       }
+    });
+  }
+
+  private replaceMarkerTexts() {
+    this.mapLayers.pipes2.setDepth(86);
+
+    this.markerController.removeAllMarkers();
+
+    const markers = this.map.getObjectLayer('markers').objects;
+    markers.forEach((marker: Phaser.Types.Tilemaps.TiledObject) => {
+      const message = TiledUtils.getProperty(marker, 'alt_message');
+      const m = this.markerController.addMarkerWithTextPlate((marker.x * CONST.SCALE) + 32, (marker.y * CONST.SCALE) - 64, message, '');
+      m.setMarkerId(marker.id);
     });
   }
 }

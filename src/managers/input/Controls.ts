@@ -5,4 +5,4 @@ export enum Controls {
   Activate,
   Up,
   Down,
-};
+}
