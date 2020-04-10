@@ -31,9 +31,9 @@ export class DrawTextAction extends CutsceneAction {
   public do(): Promise<void> {
     return new Promise((resolve) => {
       const font = (this.color) ? 'font_' + this.color : 'font';
-      const text = this.scene.add.bitmapText(this.x, this.y, font, this.text);
+      const text = this.scene.add.bitmapText(this.x, this.y - 60, font, this.text);
       text.setDepth(200);
-      text.setScale(0.5);
+      text.setScale(8);
       text.setAlpha(0);
 
       this.scene.tweens.add({

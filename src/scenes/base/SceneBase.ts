@@ -90,6 +90,24 @@ export abstract class SceneBase extends Phaser.Scene {
   protected setupInputs(): void {
     this.inputManager = new InputManager(this);
 
+    // Up.
+    this.inputManager.registerControl(Controls.Up);
+    this.inputManager.registerInputs(Controls.Up, [
+      new KeyboardInput(this, 87),
+      new KeyboardInput(this, 38),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.UP),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.STICK_LEFT_UP),
+    ]);
+
+    // Down.
+    this.inputManager.registerControl(Controls.Down);
+    this.inputManager.registerInputs(Controls.Down, [
+      new KeyboardInput(this, 83),
+      new KeyboardInput(this, 40),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.DOWN),
+      new GamepadInput(this, Gamepad.ONE, GamepadButton.STICK_LEFT_DOWN),
+    ]);
+
     // Left.
     this.inputManager.registerControl(Controls.Left);
     this.inputManager.registerInputs(Controls.Left, [
@@ -122,6 +140,7 @@ export abstract class SceneBase extends Phaser.Scene {
     this.inputManager.registerInputs(Controls.Activate, [
       new KeyboardInput(this, 90),
       new KeyboardInput(this, 70),
+      new KeyboardInput(this, 13),
       new GamepadInput(this, Gamepad.ONE, GamepadButton.X),
     ]);
   }

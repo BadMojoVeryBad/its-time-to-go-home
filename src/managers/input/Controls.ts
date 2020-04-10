@@ -3,4 +3,6 @@ export enum Controls {
   Right,
   Jump,
   Activate,
-}
+  Up,
+  Down,
+};

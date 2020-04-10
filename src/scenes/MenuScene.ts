@@ -3,9 +3,19 @@ import { Controls } from '../managers/input/Controls';
 import { ParticleManager } from '../managers/ParticleManager';
 import { CONST } from '../util/CONST';
 import { SceneBase } from './base/SceneBase';
+import { SpriteBase } from '../sprites/base/SpriteBase.ts';
 
 export class MenuScene extends SceneBase {
   public particleManager!: ParticleManager;
+  private verticalOffsetPercentage: number = 0.25;
+  private verticalOffsetPercentage2: number = 0;
+  private selected: number = 0;
+  private marker!: SpriteBase;
+  private texts: Phaser.GameObjects.BitmapText[] = [];
+  private currentScreen: string = 'menu';
+  private controls!: SpriteBase;
+  private back!: Phaser.GameObjects.BitmapText;
+  private credits!: SpriteBase;
 
   constructor() {
     super({
@@ -18,53 +28,196 @@ export class MenuScene extends SceneBase {
   }
 
   public create() {
-    this.setupTransitionEvents();
     this.setupInputs();
 
-    const spaceBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'stars1');
-    spaceBg.setScale(CONST.SCALE);
-    spaceBg.setScrollFactor(0.1);
+    const graphics = this.add.graphics();
+    graphics.fillStyle(0x292929, 1);
+    graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
 
-    const smallStarsBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'stars2');
-    smallStarsBg.setScale(CONST.SCALE);
-    smallStarsBg.setScrollFactor(0.125);
+    const logo = this.add.image(this.gameWidth * CONST.HALF, (this.gameHeight * CONST.HALF) - this.gameHeight * this.verticalOffsetPercentage, 'logo');
+    logo.setScrollFactor(0);
+    logo.setScale(4);
 
-    const bigStarsBg: Phaser.GameObjects.TileSprite = this.add.tileSprite(this.gameWidth / 2, this.gameHeight / 2, this.gameWidth * 4, this.gameHeight, 'stars3');
-    bigStarsBg.setScale(CONST.SCALE);
-    bigStarsBg.setScrollFactor(0.15);
+    this.texts.push(this.add.bitmapText(this.gameWidth * CONST.HALF, (this.gameHeight * CONST.HALF) + this.gameHeight * this.verticalOffsetPercentage2, 'font', 'Start Game.'));
+    this.texts[0].setOrigin(0.125, 0.125);
+    this.texts[0].setScale(4);
+    this.texts[0].setScrollFactor(0);
 
-    const text = this.add.bitmapText(this.gameWidth * CONST.HALF, this.gameHeight * CONST.HALF, 'font', 'Press Z to start.');
-    text.setOrigin(1, 1);
-    text.setScale(0.5);
-    text.setScrollFactor(0);
+    this.texts.push(this.add.bitmapText(this.gameWidth * CONST.HALF, ((this.gameHeight * CONST.HALF) + this.gameHeight * this.verticalOffsetPercentage2) + 48, 'font_grey', 'How to Play.'));
+    this.texts[1].setOrigin(0.125, 0.125);
+    this.texts[1].setScale(4);
+    this.texts[1].setScrollFactor(0);
+
+    this.texts.push(this.add.bitmapText(this.gameWidth * CONST.HALF, ((this.gameHeight * CONST.HALF) + this.gameHeight * this.verticalOffsetPercentage2) + 96, 'font_grey', 'Credits.'));
+    this.texts[2].setOrigin(0.125, 0.125);
+    this.texts[2].setScale(4);
+    this.texts[2].setScrollFactor(0);
+
+    this.controls = new SpriteBase(this, this.gameWidth * CONST.HALF, (this.gameHeight * CONST.HALF) + this.gameHeight * 0.075, 'player', 'controls');
+    this.controls.disablePhysics();
+    this.controls.alpha = 0;
+
+    this.credits = new SpriteBase(this, this.gameWidth * CONST.HALF, (this.gameHeight * CONST.HALF) + this.gameHeight * 0.075, 'player', 'credits');
+    this.credits.disablePhysics();
+    this.credits.alpha = 0;
+
+    this.back = this.add.bitmapText(this.gameWidth * CONST.HALF, ((this.gameHeight * CONST.HALF) + this.gameHeight * this.verticalOffsetPercentage2) + 180, 'font', 'Back.');
+    this.back.setOrigin(0.125, 0.125);
+    this.back.setScale(4);
+    this.back.setScrollFactor(0);
+    this.back.alpha = 0;
+
+    this.marker = new SpriteBase(this, 0, 0, 'player', 'arrow0000');
+    this.marker.disablePhysics();
+    this.marker.play('arrow');
+    this.marker.setOrigin(1, 0.5);
+    this.marker.setPosition(this.texts[0].x - 100, this.texts[0].y - 28);
+    this.marker.setScale(4);
+
+    this.inputManager.onPress(Controls.Down, () => {
+      if (this.currentScreen === 'menu') {
+        this.selected = (this.selected >= 2) ? 0 : this.selected + 1;
+      }
+    });
+
+    this.inputManager.onPress(Controls.Up, () => {
+      if (this.currentScreen === 'menu') {
+        this.selected = (this.selected <= 0) ? 2 : this.selected - 1;
+      }
+    });
 
     this.inputManager.onPress(Controls.Activate, () => {
       AudioManager.play('activate');
 
-      this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
-        if (progress === 1) {
-          this.scene.start('Scene1', {});
-        }
-      });
-    });
+      if (this.currentScreen === 'menu') {
+        if (this.selected === 0) {
+          this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
+            if (progress === 1) {
+              this.scene.start('Scene1', {});
+            }
+          });
+        } else if (this.selected === 1) {
+          // Hide marker.
+          this.tweens.add({
+            targets: this.marker,
+            alpha: 0,
+            duration: 400,
+          });
 
-    this.particleManager.createParticleEmitter('falling_stars', [ 'falling_stars' ], 31);
-    this.particleManager.start('falling_stars');
+          // Hide menu.
+          this.tweens.add({
+            targets: this.texts,
+            alpha: 0,
+            duration: 400,
+            onComplete: () => {
+              // Show controls.
+              this.marker.setPosition(this.back.x - 60, ((this.gameHeight * CONST.HALF) + this.gameHeight * this.verticalOffsetPercentage2) + 200);
+              this.currentScreen = 'controls';
+              this.tweens.add({
+                targets: [ this.controls, this.back, this.marker ],
+                alpha: 1,
+                duration: 400,
+              });
+            },
+          });
+        } else {
+          // Hide marker.
+          this.tweens.add({
+            targets: this.marker,
+            alpha: 0,
+            duration: 400,
+          });
+
+          // Hide menu.
+          this.tweens.add({
+            targets: this.texts,
+            alpha: 0,
+            duration: 400,
+            onComplete: () => {
+              // Show controls.
+              this.marker.setPosition(this.back.x - 60, ((this.gameHeight * CONST.HALF) + this.gameHeight * this.verticalOffsetPercentage2) + 200);
+              this.currentScreen = 'credits';
+              this.tweens.add({
+                targets: [ this.credits, this.back, this.marker ],
+                alpha: 1,
+                duration: 400,
+              });
+            },
+          });
+        }
+      } else if (this.currentScreen === 'controls') {
+        // Hide controls.
+        this.tweens.add({
+          targets: [ this.controls, this.marker, this.back ],
+          alpha: 0,
+          duration: 400,
+          onComplete: () => {
+            this.currentScreen = 'menu';
+            this.marker.setPosition(this.texts[1].x - 120, this.texts[1].y + 20);
+            this.selected = 1;
+
+            // Show controls.
+            this.tweens.add({
+              targets: this.texts,
+              alpha: 1,
+              duration: 400,
+            });
+
+            this.tweens.add({
+              targets: this.marker,
+              alpha: 1,
+              duration: 400,
+            });
+          },
+        });
+      } else if (this.currentScreen === 'credits') {
+        // Hide controls.
+        this.tweens.add({
+          targets: [ this.credits, this.marker, this.back ],
+          alpha: 0,
+          duration: 400,
+          onComplete: () => {
+            this.currentScreen = 'menu';
+            this.marker.setPosition(this.texts[2].x - 80, this.texts[2].y + 20);
+            this.selected = 2;
+
+            // Show controls.
+            this.tweens.add({
+              targets: this.texts,
+              alpha: 1,
+              duration: 400,
+            });
+
+            this.tweens.add({
+              targets: this.marker,
+              alpha: 1,
+              duration: 400,
+            });
+          },
+        });
+      }
+    });
   }
 
   public update() {
-    if (this.cameras.main.scrollX > this.gameWidth * 4) {
-      this.data.set('camera_direction', 'left');
-    }
-
-    if (this.cameras.main.scrollX < 0) {
-      this.data.set('camera_direction', 'right');
-    }
-
-    if (this.data.get('camera_direction') === 'left') {
-      this.cameras.main.scrollX--;
-    } else {
-      this.cameras.main.scrollX++;
+    // Update menu items.
+    if (this.currentScreen === 'menu') {
+      if (this.selected === 0) {
+        this.marker.setPosition(this.texts[0].x - 100, this.texts[0].y + 20);
+        this.texts[0].setFont('font');
+        this.texts[1].setFont('font_grey');
+        this.texts[2].setFont('font_grey');
+      } else if (this.selected === 1) {
+        this.marker.setPosition(this.texts[1].x - 120, this.texts[1].y + 20);
+        this.texts[0].setFont('font_grey');
+        this.texts[1].setFont('font');
+        this.texts[2].setFont('font_grey');
+      } else if (this.selected === 2) {
+        this.marker.setPosition(this.texts[2].x - 80, this.texts[2].y + 20);
+        this.texts[0].setFont('font_grey');
+        this.texts[1].setFont('font_grey');
+        this.texts[2].setFont('font');
+      }
     }
   }
 }

@@ -47,8 +47,8 @@ export class Scene1 extends GameplaySceneBase {
     });
 
     // Set up the opening cutscene.
-    // if (this.game.flags.flag(GameFlag.OPENING_CUTSCENE_PLAYED)) {
-    if (true) {
+    if (this.game.flags.flag(GameFlag.OPENING_CUTSCENE_PLAYED)) {
+    // if (true) {
       this.setupTransitionEvents();
     } else {
       this.setupTransitionEvents(6000, 4000);
@@ -76,11 +76,11 @@ export class Scene1 extends GameplaySceneBase {
       cutscene.addAction('wait', { duration: 11000 });
       cutscene.addAction('setDepth',  { object: this.mapLayers.background2, depth: 59 });
       cutscene.addAction('wait', { duration: 2000 });
-      cutscene.addAction('drawText', { text: 'It\'s Time', x: 150 + 200, y: 600 + 240 });
+      cutscene.addAction('drawText', { text: 'It\'s Time', x: 150 + 200, y: 570 + 240 });
       cutscene.addAction('wait', { duration: 400 });
-      cutscene.addAction('drawText', { text: 'To Go', x: 150 + 200, y: 600 + 280 });
+      cutscene.addAction('drawText', { text: 'To Go', x: 150 + 200, y: 570 + 300 });
       cutscene.addAction('wait', { duration: 1400 });
-      cutscene.addAction('drawText', { text: 'Home.', x: 150 + 200, y: 600 + 320 });
+      cutscene.addAction('drawText', { text: 'Home.', x: 150 + 200, y: 570 + 360 });
       cutscene.addAction('wait', { duration: 3000 });
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 0, yTarget: 0, follow: this.player.getSprite(), duration: 5000 });
       cutscene.addAction('wait', { duration: 2000 });

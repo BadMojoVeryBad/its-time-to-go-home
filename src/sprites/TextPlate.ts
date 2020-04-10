@@ -63,8 +63,8 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.backgroundImage.setDepth(200);
 
     // Create text using bitmap font.
-    this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 145, 'font', this.currentMessage);
-    this.text.setScale(0.5);
+    this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 195, 'font', this.currentMessage);
+    this.text.setScale(6);
     this.text.setScrollFactor(0);
     this.text.setDepth(200);
   }
@@ -85,9 +85,9 @@ export class TextPlate extends Phaser.GameObjects.Container {
         this.currentMessage += this.message[this.currentMessage.length];
         const suffix2 = '_';
         this.text.destroy();
-        this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 145, 'font', this.currentMessage + suffix2);
+        this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 195, 'font', this.currentMessage + suffix2);
         this.text.setDepth(200);
-        this.text.setScale(0.5);
+        this.text.setScale(6);
         this.text.setScrollFactor(0);
 
         // If the full message has been typed.
@@ -104,9 +104,9 @@ export class TextPlate extends Phaser.GameObjects.Container {
               // blinking effect for the cursor.
               const suffix = (!this.hasCursor) ? '_' : '';
               this.text.destroy();
-              this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 145, 'font', this.currentMessage + suffix);
+              this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 195, 'font', this.currentMessage + suffix);
               this.text.setDepth(200);
-              this.text.setScale(0.5);
+              this.text.setScale(6);
               this.text.setScrollFactor(0);
               this.hasCursor = !this.hasCursor;
             },

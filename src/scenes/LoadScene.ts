@@ -9,9 +9,10 @@ import spaceBgPng from '../assets/space-bg-sm.png';
 import playerPng from '../assets/spritesheet.png';
 import tilesheetPng from '../assets/tileset.png';
 
-import fontFnt from '../assets/font.fnt';
-import fontPng from '../assets/font.png';
-import fontRedPng from '../assets/font_red.png';
+import fontFnt from '../assets/haydnspixel.fnt';
+import fontPng from '../assets/haydnspixel.png';
+import fontRedPng from '../assets/haydnspixel_red.png';
+import fontGreyPng from '../assets/haydnspixel_grey.png';
 
 import Music3Mp3 from '../assets/stargazing.mp3';
 import ActivateMp3 from '../assets/ttgh_activate.mp3';
@@ -35,7 +36,7 @@ import { CONST } from '../util/CONST';
 
 export class LoadScene extends SceneBase {
   private loader: any;
-  private verticalOffsetPercentage: number = 0.125;
+  private verticalOffsetPercentage: number = 0.25;
 
   constructor() {
     super({
@@ -72,6 +73,7 @@ export class LoadScene extends SceneBase {
     // Fonts.
     this.load.bitmapFont('font', fontPng, fontFnt);
     this.load.bitmapFont('font_red', fontRedPng, fontFnt);
+    this.load.bitmapFont('font_grey', fontGreyPng, fontFnt);
 
     // Level map.
     this.load.tilemapTiledJSON('map', mapJson);
@@ -80,18 +82,18 @@ export class LoadScene extends SceneBase {
 
     // Basic graphics and loading bar.
     const graphics = this.add.graphics();
-    graphics.fillStyle(0x000000, 1);
+    graphics.fillStyle(0x292929, 1);
     graphics.fillRect(0, 0, this.gameWidth, this.gameHeight);
     graphics.fillStyle(0xffffff, 1);
 
-    this.loader = this.add.image(this.gameWidth * CONST.HALF, (this.gameHeight * CONST.HALF) + this.gameHeight * this.verticalOffsetPercentage, 'loader');
+    this.loader = this.add.image(this.gameWidth * CONST.HALF, (this.gameHeight * CONST.HALF) + this.gameHeight * 0.125, 'loader');
     this.loader.setScrollFactor(0);
     this.loader.setScale(8);
     this.loader.alpha = 1;
 
     const logo = this.add.image(this.gameWidth * CONST.HALF, (this.gameHeight * CONST.HALF) - this.gameHeight * this.verticalOffsetPercentage, 'logo');
     logo.setScrollFactor(0);
-    logo.setScale(8);
+    logo.setScale(4);
 
     // Progress bar.
     this.load.on('progress', (percent: number) => {
@@ -104,11 +106,11 @@ export class LoadScene extends SceneBase {
 
     // Go to next scene when loading is done.
     this.load.on('complete', () => {
-      this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
-        if (progress === 1) {
+      // this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
+        // if (progress === 1) {
           this.scene.start('MenuScene', {});
-        }
-      });
+        // }
+      // });
     });
   }
 
@@ -210,6 +212,12 @@ export class LoadScene extends SceneBase {
       repeat: 0,
       delay: 350,
       yoyo: true,
+    });
+    this.anims.create({
+      key: 'arrow',
+      frames: this.anims.generateFrameNames('player', { prefix: 'arrow', start: 0, end: 14, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: -1,
     });
 
     ParticleManager.addEmitter('rocket_smoke_1', {

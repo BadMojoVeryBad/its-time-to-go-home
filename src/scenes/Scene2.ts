@@ -191,11 +191,11 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('wait', { duration: 1800 });
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 550, yTarget: 1100, duration: 8000 });
       cutscene.addAction('wait', { duration: 1200 });
-      cutscene.addAction('drawText', { text: 'It\'s time', x: 700, y: 1300, fadeAfter: 8700 });
+      cutscene.addAction('drawText', { text: 'It\'s time', x: 700, y: 1290, fadeAfter: 8700 });
       cutscene.addAction('wait', { duration: 900 });
-      cutscene.addAction('drawText', { text: 'to go home.', x: 700, y: 1380, fadeAfter: 7500 });
+      cutscene.addAction('drawText', { text: 'to go home.', x: 700, y: 1370, fadeAfter: 7500 });
       cutscene.addAction('wait', { duration: 1800 });
-      cutscene.addAction('drawText', { text: 'Are you ready?', x: 700, y: 1460, duration: 1600, color: 'red', fadeAfter: 5500 });
+      cutscene.addAction('drawText', { text: 'Are you ready?', x: 700, y: 1450, duration: 1600, color: 'red', fadeAfter: 5500 });
       cutscene.addAction('wait', { duration: 5000 });
       cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 0, yTarget: 0, follow: this.player.getSprite(), duration: 4000 });
       cutscene.addAction('wait', { duration: 1000 });
