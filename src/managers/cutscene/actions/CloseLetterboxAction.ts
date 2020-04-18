@@ -32,6 +32,8 @@ export class CloseLetterboxAction extends CutsceneAction {
         },
       });
 
+      this.scene.data.remove([ 'cutscene_letterbox_top', 'cutscene_letterbox_bottom' ]);
+
       this.scene.cameras.main.zoomTo(1, 1600, 'Quad.easeInOut');
     });
   }

@@ -1,7 +1,4 @@
-import { Controls } from '../../managers/input/Controls.ts';
 import { InputManager } from '../../managers/input/InputManager';
-import { Gamepad, GamepadButton, GamepadInput } from '../../managers/input/inputs/GamepadInput.ts';
-import { KeyboardInput } from '../../managers/input/inputs/KeyboardInput.ts';
 import { GameBase } from '../../util/GameBase';
 const dat: any = require('dat.gui');
 
@@ -31,6 +28,11 @@ export abstract class SceneBase extends Phaser.Scene {
         this.events.removeListener('create', this.transitionEventFn);
       }
     });
+
+    this.inputManager = this.game.inputManager;
+    if (this.inputManager) {
+      this.inputManager.enableAllControls(true);
+    }
   }
 
   public addDebugNumber(obj: any, prop: string, min: number, max: number) {
@@ -71,6 +73,7 @@ export abstract class SceneBase extends Phaser.Scene {
 
   protected changeScene(scene: string, duration: number = 300, data: {} = {}) {
     // Fade out the scene.
+    this.inputManager.disableAllControls();
     const graphics = this.add.graphics();
     graphics.setDepth(9999);
     graphics.fillStyle(0x000000, 1);
@@ -82,67 +85,12 @@ export abstract class SceneBase extends Phaser.Scene {
       duration,
       alpha: 1,
       onComplete: () => {
+        this.inputManager.enableAllControls();
+        this.cleanEvents();
+
         this.scene.start(scene, data);
       },
     });
-  }
-
-  protected setupInputs(): void {
-    this.inputManager = new InputManager(this);
-
-    // Up.
-    this.inputManager.registerControl(Controls.Up);
-    this.inputManager.registerInputs(Controls.Up, [
-      new KeyboardInput(this, 87),
-      new KeyboardInput(this, 38),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.UP),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.STICK_LEFT_UP),
-    ]);
-
-    // Down.
-    this.inputManager.registerControl(Controls.Down);
-    this.inputManager.registerInputs(Controls.Down, [
-      new KeyboardInput(this, 83),
-      new KeyboardInput(this, 40),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.DOWN),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.STICK_LEFT_DOWN),
-    ]);
-
-    // Left.
-    this.inputManager.registerControl(Controls.Left);
-    this.inputManager.registerInputs(Controls.Left, [
-      new KeyboardInput(this, 65),
-      new KeyboardInput(this, 37),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.LEFT),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.STICK_LEFT_LEFT),
-    ]);
-
-    // Right.
-    this.inputManager.registerControl(Controls.Right);
-    this.inputManager.registerInputs(Controls.Right, [
-      new KeyboardInput(this, 68),
-      new KeyboardInput(this, 39),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.RIGHT),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.STICK_LEFT_RIGHT),
-    ]);
-
-    // Jump.
-    this.inputManager.registerControl(Controls.Jump);
-    this.inputManager.registerInputs(Controls.Jump, [
-      new KeyboardInput(this, 87),
-      new KeyboardInput(this, 38),
-      new KeyboardInput(this, 32),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.A),
-    ]);
-
-    // Activate.
-    this.inputManager.registerControl(Controls.Activate);
-    this.inputManager.registerInputs(Controls.Activate, [
-      new KeyboardInput(this, 90),
-      new KeyboardInput(this, 70),
-      new KeyboardInput(this, 13),
-      new GamepadInput(this, Gamepad.ONE, GamepadButton.X),
-    ]);
   }
 
   protected setupDebug() {
@@ -150,5 +98,18 @@ export abstract class SceneBase extends Phaser.Scene {
     this.events.once('shutdown', () => {
         this.gui.destroy();
     });
+  }
+
+  /**
+   * Removes all non-system event listeners.
+   */
+  private cleanEvents() {
+    const events = this.events.eventNames();
+    const whitelist = [ 'update', 'create', 'start', 'destroy', 'shutdown', 'preupdate', 'postupdate', 'boot' ];
+    for (const event of events) {
+      if (!whitelist.includes(event.toString())) {
+        this.events.removeAllListeners(event);
+      }
+    }
   }
 }

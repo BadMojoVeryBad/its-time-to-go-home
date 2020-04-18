@@ -82,7 +82,7 @@ export class Player extends Phaser.GameObjects.Container {
 
     this.scene.matter.world.on('afterupdate', (event: any) => {
       if (!this.isDoingAction('left') && !this.isDoingAction('right') && !this.isDoingAction('jump') && !this.isDoingAction('climb')) {
-        // this.player.setPosition(position.x, this.player.y);
+        this.player.setPosition(position.x, this.player.y);
         this.player.setVelocityX(CONST.ZERO);
         if (this.isGrounded) {
           this.player.setVelocityY(CONST.ZERO);
@@ -102,7 +102,7 @@ export class Player extends Phaser.GameObjects.Container {
       } else if (this.isDoingAction('climb')) {
         anim = 'climb';
         AudioManager.stop('player_walk');
-        AudioManager.stop('player_crawl');
+        AudioManager.play('player_crawl');
         this.particleManager.stop('walking');
         this.particleManager.stop('crawling');
         this.particleManager.stop('jumping');

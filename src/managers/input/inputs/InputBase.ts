@@ -22,8 +22,12 @@ export abstract class InputBase implements InputInterface {
     // ...
   }
 
-  public setEnabled(enabled: boolean) {
-    this.disabledCount = (enabled) ? this.disabledCount + 1 : this.disabledCount - 1;
+  public setEnabled(enabled: boolean, force: boolean = false) {
+    this.disabledCount = (enabled) ? this.disabledCount - 1 : this.disabledCount + 1;
+
+    if (force || this.disabledCount < 0) {
+      this.disabledCount = 0;
+    }
   }
 
   public isEnabled(): boolean {

@@ -24,7 +24,7 @@ export class Marker {
     const M = Phaser.Physics.Matter.Matter;
     const sensor = M.Bodies.rectangle(0, 0, 16, 64, { isSensor: true, label: 'marker' });
     this.marker.setExistingBody(sensor);
-    this.marker.setScale(4).setDepth(100);
+    this.marker.setScale(4).setDepth(300);
     this.marker.setIgnoreGravity(true);
     this.marker.play('info');
 

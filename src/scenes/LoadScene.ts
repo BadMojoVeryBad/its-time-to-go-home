@@ -19,11 +19,14 @@ import ActivateMp3 from '../assets/ttgh_activate.mp3';
 import BeepMp3 from '../assets/ttgh_beep.mp3';
 import CrawlMp3 from '../assets/ttgh_crawl.mp3';
 import DeactivateMp3 from '../assets/ttgh_deactivate.mp3';
+import DingMp3 from '../assets/ttgh_ding.mp3';
 import FuelPumpMp3 from '../assets/ttgh_fuel_pump.mp3';
 import JumpMp3 from '../assets/ttgh_jump.mp3';
 import MachineMp3 from '../assets/ttgh_machine.mp3';
 import Music1Mp3 from '../assets/ttgh_music.mp3';
 import Music2Mp3 from '../assets/ttgh_music_2.mp3';
+import RocketFuelMp3 from '../assets/ttgh_rocket_fuel.mp3';
+import RocketGoingMp3 from '../assets/ttgh_rocket_going.mp3';
 import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
 import WalkMp3 from '../assets/ttgh_walk.mp3';
 
@@ -60,6 +63,8 @@ export class LoadScene extends SceneBase {
     AudioManager.preloadSoundSource(this, 'activate_mp3', ActivateMp3);
     AudioManager.preloadSoundSource(this, 'deactivate_mp3', DeactivateMp3);
     AudioManager.preloadSoundSource(this, 'rocket_nofuel_mp3', RocketNoFuelMp3);
+    AudioManager.preloadSoundSource(this, 'rocket_fuel_mp3', RocketFuelMp3);
+    AudioManager.preloadSoundSource(this, 'rocket_going_mp3', RocketGoingMp3);
     AudioManager.preloadSoundSource(this, 'player_walk_mp3', WalkMp3);
     AudioManager.preloadSoundSource(this, 'player_crawl_mp3', CrawlMp3);
     AudioManager.preloadSoundSource(this, 'player_jump_mp3', JumpMp3);
@@ -67,6 +72,7 @@ export class LoadScene extends SceneBase {
     AudioManager.preloadSoundSource(this, 'music_2_mp3', Music2Mp3);
     AudioManager.preloadSoundSource(this, 'music_3_mp3', Music3Mp3);
     AudioManager.preloadSoundSource(this, 'beep_mp3', BeepMp3);
+    AudioManager.preloadSoundSource(this, 'ding_mp3', DingMp3);
     AudioManager.preloadSoundSource(this, 'machine_mp3', MachineMp3);
     AudioManager.preloadSoundSource(this, 'fuel_pump_mp3', FuelPumpMp3);
 
@@ -106,11 +112,7 @@ export class LoadScene extends SceneBase {
 
     // Go to next scene when loading is done.
     this.load.on('complete', () => {
-      // this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
-        // if (progress === 1) {
-          this.scene.start('MenuScene', {});
-        // }
-      // });
+      this.scene.start('MenuScene', {});
     });
   }
 
@@ -200,6 +202,18 @@ export class LoadScene extends SceneBase {
       repeat: 0,
     });
     this.anims.create({
+      key: 'rocks_end_start',
+      frames: this.anims.generateFrameNames('player', { prefix: 'rocks_end_start', start: 0, end: 16, zeroPad: 4 }),
+      frameRate: 6,
+      repeat: 0,
+    });
+    this.anims.create({
+      key: 'rocks_end_loop',
+      frames: this.anims.generateFrameNames('player', { prefix: 'rocks_end_loop', start: 0, end: 3, zeroPad: 4 }),
+      frameRate: 3,
+      repeat: -1,
+    });
+    this.anims.create({
       key: 'fuel-tank',
       frames: this.anims.generateFrameNames('player', { prefix: 'fuel-tank', start: 0, end: 2, zeroPad: 4 }),
       frameRate: 12,
@@ -218,6 +232,12 @@ export class LoadScene extends SceneBase {
       frames: this.anims.generateFrameNames('player', { prefix: 'arrow', start: 0, end: 14, zeroPad: 4 }),
       frameRate: 12,
       repeat: -1,
+    });
+    this.anims.create({
+      key: 'end',
+      frames: this.anims.generateFrameNames('player', { prefix: 'end', start: 0, end: 17, zeroPad: 4 }),
+      frameRate: 12,
+      repeat: 0,
     });
 
     ParticleManager.addEmitter('rocket_smoke_1', {
@@ -241,6 +261,17 @@ export class LoadScene extends SceneBase {
       scale: 4,
       maxParticles: 0,
       frequency: 500,
+    });
+    ParticleManager.addEmitter('rocket_fire', {
+      frame: 'rocket_flame',
+      angle: { min: 0, max: 180 },
+      speed: { min: 100, max: 200 },
+      gravityY: 100,
+      lifespan: 300,
+      quantity: 12,
+      scale: 4,
+      maxParticles: 0,
+      frequency: 100,
     });
     ParticleManager.addEmitter('walking', {
       frame: 'walking_particle',
@@ -302,6 +333,15 @@ export class LoadScene extends SceneBase {
       volume: 0.5,
     });
     AudioManager.addSound('rocket_nofuel', 'rocket_nofuel_mp3');
+    AudioManager.addSound('rocket_fuel', 'rocket_fuel_mp3');
+    AudioManager.addSound('rocket_going', 'rocket_going_mp3', {
+      loop: false,
+      volume: 0.075,
+    });
+    AudioManager.addSound('ding', 'ding_mp3', {
+      loop: false,
+      volume: 0.15,
+    });
     AudioManager.addSound('player_walk', 'player_walk_mp3', {
       loop: true,
       volume: 0.15,

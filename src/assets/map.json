@@ -353,7 +353,7 @@
                         {
                          "name":"alt_message",
                          "type":"string",
-                         "value":"  "
+                         "value":"It's time to go home..."
                         }, 
                         {
                          "name":"event",

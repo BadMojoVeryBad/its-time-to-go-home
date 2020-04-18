@@ -28,7 +28,7 @@ export class MenuScene extends SceneBase {
   }
 
   public create() {
-    this.setupInputs();
+    super.create();
 
     const graphics = this.add.graphics();
     graphics.fillStyle(0x292929, 1);
@@ -86,11 +86,12 @@ export class MenuScene extends SceneBase {
       }
     });
 
-    this.inputManager.onPress(Controls.Activate, () => {
+    const ref = this.inputManager.onPress(Controls.Activate, () => {
       AudioManager.play('activate');
 
       if (this.currentScreen === 'menu') {
         if (this.selected === 0) {
+          this.inputManager.removeOnPress(Controls.Activate, ref);
           this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
             if (progress === 1) {
               this.scene.start('Scene1', {});

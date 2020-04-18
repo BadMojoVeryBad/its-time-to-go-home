@@ -20,4 +20,11 @@ export class Rocks {
   public playAnimation() {
     this.sprite.play('rocks');
   }
+
+  public playEndAnimation() {
+    this.sprite.play('rocks_end_start');
+    this.scene.time.delayedCall(3000, () => {
+      this.sprite.play('rocks_end_loop');
+    });
+  }
 }

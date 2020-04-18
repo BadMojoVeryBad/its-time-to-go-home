@@ -1,4 +1,5 @@
 import { SceneBase } from '../../scenes/base/SceneBase.ts';
+import { GameBase } from '../../util/GameBase';
 import { Controls } from './Controls';
 import { Gamepad, GamepadInput, GamepadStick } from './inputs/GamepadInput.ts';
 import { InputInterface } from './inputs/InputInterface';
@@ -7,7 +8,7 @@ import { InputInterface } from './inputs/InputInterface';
  * Allows a control (e.g. 'Left' or 'Activate') to be mapped to
  * inputs (e.g. 'Left arrow key', 'A key').
  *
- * An instance of the manager should be created for each scene,
+ * An instance of the manager can be created for each scene,
  * preferably in its `create()` method.
  */
 export class InputManager {
@@ -123,19 +124,23 @@ export class InputManager {
    *
    * @param control The control to enable.
    */
-  public enableControl(control: Controls) {
+  public enableControl(control: Controls, force: boolean = false) {
     const inputs = this.controlMap[control.valueOf()];
 
     // For each input in this control.
     if (inputs) {
       for (let i = 0; i < inputs.length; i++) {
-        inputs[i].setEnabled(true);
+        inputs[i].setEnabled(true, force);
       }
     }
   }
 
   /**
    * Disables all controls.
+   *
+   * This function can be called multiple times. For example, if this function
+   * is called three times, then `InputManager.enableAllControls()` must be
+   * called three times to reenable them.
    */
   public disableAllControls() {
     this.disabledCount++;
@@ -147,12 +152,26 @@ export class InputManager {
 
   /**
    * Enables all controls.
+   *
+   * This function can be called multiple times. For example, if the
+   * `InputManager.disableAllControls()` function is called three
+   * times, then this function must be called three times to reenable them.
+   * The exception to this is by using the `force` flag.
+   *
+   * @param force If this flag is set, them no matter how many times the input
+   *              has been disabled, this will enable it.
    */
-  public enableAllControls() {
-    this.disabledCount--;
+  public enableAllControls(force: boolean = false) {
+    if (this.disabledCount !== 0) {
+      this.disabledCount--;
+    }
+
+    if (force) {
+      this.disabledCount = 0;
+    }
 
     for (const control in this.controlMap) {
-      this.enableControl(+control);
+      this.enableControl(+control, force);
     }
   }
 

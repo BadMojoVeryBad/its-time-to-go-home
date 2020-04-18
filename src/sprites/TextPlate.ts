@@ -60,13 +60,13 @@ export class TextPlate extends Phaser.GameObjects.Container {
     this.backgroundImage = this.scene.add.image(this.scene.gameWidth / 2, this.scene.gameHeight - 104, 'player', 'text-plate');
     this.backgroundImage.setScrollFactor(0);
     this.backgroundImage.setScale(4);
-    this.backgroundImage.setDepth(200);
+    this.backgroundImage.setDepth(310);
 
     // Create text using bitmap font.
     this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 195, 'font', this.currentMessage);
     this.text.setScale(6);
     this.text.setScrollFactor(0);
-    this.text.setDepth(200);
+    this.text.setDepth(310);
   }
 
   public destroy() {
@@ -86,7 +86,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
         const suffix2 = '_';
         this.text.destroy();
         this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 195, 'font', this.currentMessage + suffix2);
-        this.text.setDepth(200);
+        this.text.setDepth(310);
         this.text.setScale(6);
         this.text.setScrollFactor(0);
 
@@ -105,7 +105,7 @@ export class TextPlate extends Phaser.GameObjects.Container {
               const suffix = (!this.hasCursor) ? '_' : '';
               this.text.destroy();
               this.text = this.scene.add.bitmapText(70, this.scene.gameHeight - 195, 'font', this.currentMessage + suffix);
-              this.text.setDepth(200);
+              this.text.setDepth(310);
               this.text.setScale(6);
               this.text.setScrollFactor(0);
               this.hasCursor = !this.hasCursor;

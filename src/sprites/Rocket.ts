@@ -45,14 +45,27 @@ export class Rocket {
     ], 75);
     this.particleManager.getParticleEmitter('rocket_smoke').setPosition((x * CONST.SCALE) + (width * CONST.HALF), (y * CONST.SCALE));
     this.particleManager.start('rocket_smoke');
+
+    this.particleManager.createParticleEmitter('rocket_flame', [ 'rocket_fire' ], 70);
+    this.particleManager.getParticleEmitter('rocket_flame').setPosition((x * CONST.SCALE) + (width * CONST.HALF), (y * CONST.SCALE));
+    this.particleManager.getParticleEmitter('rocket_flame').createGravityWell({
+      x: 0,
+      y: 60,
+      power: 10,
+      gravity: 10,
+    });
   }
 
   public getRocketSprite() {
     return this.rocketSprite;
   }
 
-  public getSmokeParticles() {
+  public getSmokeParticles(): Phaser.GameObjects.Particles.ParticleEmitterManager {
     return this.particleManager.getParticleEmitter('rocket_smoke');
+  }
+
+  public getFlameParticles(): Phaser.GameObjects.Particles.ParticleEmitterManager {
+    return this.particleManager.getParticleEmitter('rocket_flame');
   }
 
   public getRocketBackSprite() {

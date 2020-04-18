@@ -4,10 +4,15 @@ import { CutsceneAction } from './CutsceneAction';
 
 export class OpenLetterboxAction extends CutsceneAction {
   private duration: number = 1000;
+  private zoom: number = 1.4;
 
   constructor(scene: SceneBase, data: any) {
     super(scene);
     this.duration = data.duration;
+
+    if (data.zoom !== undefined) {
+      this.zoom = data.zoom;
+    }
   }
 
   public do(): Promise<void> {
@@ -46,7 +51,7 @@ export class OpenLetterboxAction extends CutsceneAction {
         },
       });
 
-      cam.zoomTo(1.4, 1600, 'Quad.easeInOut');
+      cam.zoomTo(this.zoom, 1600, 'Quad.easeInOut');
     });
   }
 }

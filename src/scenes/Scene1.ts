@@ -9,6 +9,7 @@ import { GameplaySceneBase } from './base/GameplaySceneBase';
 
 export class Scene1 extends GameplaySceneBase {
   private rocket!: Rocket;
+  private earth!: Phaser.GameObjects.Sprite;
 
   constructor() {
     super({ key: 'Scene1' });
@@ -31,12 +32,12 @@ export class Scene1 extends GameplaySceneBase {
     this.setupCutscenes();
 
     // Earth.
-    const earth: Phaser.GameObjects.Sprite = this.add.sprite(150, 650, 'player', 'earth0001');
-    earth.setOrigin(0.5, 0.5);
-    earth.setPosition(150 + 550, 600 + 300);
-    earth.play('earth');
-    earth.setScale(CONST.SCALE);
-    earth.setDepth(31);
+    this.earth = this.add.sprite(150, 650, 'player', 'earth0001');
+    this.earth.setOrigin(0.5, 0.5);
+    this.earth.setPosition(150 + 550, 600 + 300);
+    this.earth.play('earth');
+    this.earth.setScale(CONST.SCALE);
+    this.earth.setDepth(31);
 
     // Create a new main camera that we can control.
     new GameplayCamera(this, this.player.getSprite(), 0, 0, this.gameWidth, this.gameHeight);
@@ -69,6 +70,7 @@ export class Scene1 extends GameplaySceneBase {
 
     // If the stargaze cutscene has played, replace all the marker texts.
     if (this.game.flags.flag(GameFlag.STARGAZE_CUTSCENE_PLAYED)) {
+    // if (true) {
       this.replaceMarkerTexts();
     }
   }
@@ -150,6 +152,7 @@ export class Scene1 extends GameplaySceneBase {
         }});
         cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
           this.rocket.getRocketSprite().anims.stop();
+          this.rocket.getRocketSprite().setFrame('rocket_front');
           this.rocket.getRocketBackSprite().visible = true;
           resolve();
         }});
@@ -173,6 +176,111 @@ export class Scene1 extends GameplaySceneBase {
         cutscene.play();
       }
     });
+
+    this.events.on('cutscene_rocket_2', () => {
+      this.game.flags.setFlag(GameFlag.END_CUTSCENE_PLAYED);
+      const cutscene = new CutsceneManager(this);
+      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.5 });
+      cutscene.addAction('openLetterbox', {});
+      cutscene.addAction('setDepth',  { object: this.rocket.getRocketBackSprite(), depth: 50 });
+      cutscene.addAction('wait', { duration: 1000 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 160 });
+      cutscene.addAction('wait', { duration: 800 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 160 });
+      cutscene.addAction('wait', { duration: 800 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 160 });
+      cutscene.addAction('wait', { duration: 800 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 160 });
+      cutscene.addAction('wait', { duration: 1200 });
+      cutscene.addAction('playerRunTo', { player: this.player, xTarget: 160 });
+      cutscene.addAction('wait', { duration: 800 });
+      cutscene.addAction('playerCrawlTo',  { player: this.player, xTarget: 100 });
+      cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: -400, yTarget: 2048 - 550, duration: 800 });
+      cutscene.addAction('wait', { duration: 800 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.earth.setPosition(450, 600 + 300);
+        this.rocket.getRocketSprite().anims.play('rocket_starting');
+        this.rocket.getRocketBackSprite().visible = false;
+        resolve();
+      }});
+      cutscene.addAction('wait', { duration: 500 });
+      cutscene.addAction('playSound', { key: 'rocket_fuel' });
+      cutscene.addAction('wait', { duration: 500 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.rocket.getSmokeParticles().emitters.each((emitter) => {
+          emitter.setSpeed({ min: 100, max: 200 });
+          emitter.setGravity(0, 500);
+          emitter.setFrequency(250);
+        });
+        resolve();
+      }});
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.rocket.getRocketSprite().anims.play('rocket_going');
+        resolve();
+      }});
+      cutscene.addAction('wait', { duration: 3000 });
+      cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: -400, yTarget: 600, duration: 12000, wait: false });
+      cutscene.addAction('playSound', { key: 'rocket_going' });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.player.getSprite().setDepth(0);
+        this.rocket.getFlameParticles().emitters.each((e) => {
+          e.start();
+        });
+
+        this.time.delayedCall(7000, () => {
+          AudioManager.fadeOut('rocket_going', 5000, 0);
+        });
+
+        this.add.tween({
+          targets: [ this.rocket.getRocketSprite(), this.rocket.getRocketSprite() ],
+          y: 0,
+          duration: 15000,
+          ease: 'Quad.easeInOut',
+          onComplete: () => {
+            resolve();
+          },
+        });
+
+        this.add.tween({
+          targets: [ this.rocket.getSmokeParticles(), this.rocket.getFlameParticles() ],
+          y: 128,
+          duration: 15000,
+          ease: 'Quad.easeInOut',
+          onComplete: () => {
+            const end = this.add.sprite(300, 840, 'player', 'end0000');
+            end.setScale(8);
+            end.setDepth(32);
+            end.play('end');
+
+            resolve();
+          },
+        });
+      }});
+      cutscene.addAction('wait', { duration: 800 });
+      cutscene.addAction('playSound', { key: 'ding' });
+      cutscene.addAction('wait', { duration: 4200 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        const black = this.add.graphics();
+        black.fillStyle(0x000000, 1);
+        black.setAlpha(0);
+        black.setScrollFactor(0);
+        black.fillRect(0, 0, this.gameWidth, this.gameHeight);
+        black.setDepth(200);
+        this.add.tween({
+          targets: black,
+          alpha: 1,
+          duration: 6000,
+          onComplete: () => {
+            resolve();
+          },
+        });
+      }});
+      cutscene.addAction('wait', { duration: 2000 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.changeScene('Scene2', 0, { });
+      }});
+      cutscene.play();
+    });
   }
 
   private replaceMarkerTexts() {
@@ -183,7 +291,8 @@ export class Scene1 extends GameplaySceneBase {
     const markers = this.map.getObjectLayer('markers').objects;
     markers.forEach((marker: Phaser.Types.Tilemaps.TiledObject) => {
       const message = TiledUtils.getProperty(marker, 'alt_message');
-      const m = this.markerController.addMarkerWithTextPlate((marker.x * CONST.SCALE) + 32, (marker.y * CONST.SCALE) - 64, message, '');
+      const event = (marker.id === 11) ? 'cutscene_rocket_2' : '';
+      const m = this.markerController.addMarkerWithTextPlate((marker.x * CONST.SCALE) + 32, (marker.y * CONST.SCALE) - 64, message, event);
       m.setMarkerId(marker.id);
     });
   }

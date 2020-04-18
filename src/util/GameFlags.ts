@@ -4,6 +4,7 @@ export enum GameFlag {
   SCENE_1_TRAVERSED,
   SCENE_2_TRAVERSED,
   STARGAZE_CUTSCENE_PLAYED,
+  END_CUTSCENE_PLAYED,
 }
 
 export class GameFlags {

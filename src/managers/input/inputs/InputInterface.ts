@@ -37,6 +37,9 @@ export interface InputInterface {
    * Sets whether to enable or disable the input.
    *
    * @param enabled Are we enabling or disabling the control?
+   * @param force If this flag is set, no matter what other factors are at
+   *              play, this function shall guarantee the controll will become
+   *              enabled.
    */
-  setEnabled(enabled: boolean): void;
+  setEnabled(enabled: boolean, force: boolean): void;
 }

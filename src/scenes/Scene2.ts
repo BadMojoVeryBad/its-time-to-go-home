@@ -28,9 +28,6 @@ export class Scene2 extends GameplaySceneBase {
   public create() {
     super.create();
 
-    // Set up some stuff the base scene gives us.
-    this.setupTransitionEvents();
-
     // Setup the map.
     this.setupTiles('map2');
     this.setupImages();
@@ -72,6 +69,14 @@ export class Scene2 extends GameplaySceneBase {
 
     if (this.game.flags.flag(GameFlag.STARGAZE_CUTSCENE_PLAYED)) {
       this.replaceMarkerTexts();
+    }
+
+    if (this.game.flags.flag(GameFlag.END_CUTSCENE_PLAYED)) {
+      this.markerController.removeAllMarkers();
+      this.events.emit('cutscene_end');
+      this.setupTransitionEvents(1600, 1600);
+    } else {
+      this.setupTransitionEvents();
     }
   }
 
@@ -172,7 +177,6 @@ export class Scene2 extends GameplaySceneBase {
     });
 
     this.events.on('cutscene_stargaze', () => {
-      this.game.flags.setFlag(GameFlag.STARGAZE_CUTSCENE_PLAYED);
       const cutscene = new CutsceneManager(this);
       cutscene.addAction('soundVolume', { key: 'music_2', volume: 0 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
@@ -217,9 +221,23 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
         AudioManager.fadeIn('fuel_pump_spatial', 0, 1600);
         AudioManager.fadeIn('machine_spatial', 0, 1600);
+        this.game.flags.setFlag(GameFlag.STARGAZE_CUTSCENE_PLAYED);
         resolve();
       }});
       cutscene.addAction('closeLetterbox', {});
+      cutscene.play();
+    });
+
+    this.events.on('cutscene_end', () => {
+      const cutscene = new CutsceneManager(this);
+      cutscene.addAction('moveCameraTo', { camera: this.cameras.main, xTarget: 135, yTarget: 1480, duration: 0 });
+      cutscene.addAction('openLetterbox', { zoom: 2 });
+      cutscene.addAction('drawText', { text: 'The end.', x: 125 + 295, y: 1480 + 200, color: 'grey' });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        this.rocks?.playEndAnimation();
+        resolve();
+      }});
+      cutscene.addAction('wait', { duration: 2700 });
       cutscene.play();
     });
   }

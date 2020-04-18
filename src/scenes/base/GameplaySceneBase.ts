@@ -43,8 +43,13 @@ export abstract class GameplaySceneBase extends SceneBase {
   public create() {
     super.create();
 
+    this.events.once('shutdown', () => {
+      this.ladders = [];
+      this.mapLayers = {};
+      this.sceneData = {};
+    });
+
     // Make the player object.
-    this.setupInputs();
     this.player = new Player(this);
     if (this.sceneData.playerX) {
       const startX = (this.sceneData.playerDir === 'left') ? -64 : 64;
@@ -152,7 +157,6 @@ export abstract class GameplaySceneBase extends SceneBase {
   }
 
   protected changeScene(scene: string, duration: number = 600, data: {} = {}) {
-    this.inputManager.disableAllControls();
     super.changeScene(scene, duration, data);
   }
 }
