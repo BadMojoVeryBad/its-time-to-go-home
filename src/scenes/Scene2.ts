@@ -217,10 +217,11 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('playerJump', { player: this.player });
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1000 });
       cutscene.addAction('wait', { duration: 800 });
-      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.75 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
         AudioManager.fadeIn('fuel_pump_spatial', 0, 1600);
         AudioManager.fadeIn('machine_spatial', 0, 1600);
+        AudioManager.play('music_4');
+        AudioManager.fadeIn('music_4', 1000, 0.75);
         this.game.flags.setFlag(GameFlag.STARGAZE_CUTSCENE_PLAYED);
         resolve();
       }});
@@ -235,6 +236,10 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('drawText', { text: 'The end.', x: 125 + 295, y: 1480 + 200, color: 'grey' });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
         this.rocks?.playEndAnimation();
+        this.time.delayedCall(28000, () => {
+          AudioManager.play('music_6');
+          AudioManager.fadeIn('music_6', 2000, 0.5);
+        });
         resolve();
       }});
       cutscene.addAction('wait', { duration: 2700 });

@@ -13,5 +13,7 @@ export class GameBase extends Phaser.Game {
     this.scene.start('InputScene', {});
 
     this.scene.start('PreloadScene', {});
+
+    this.scene.start('VignetteScene', {});
   }
 }

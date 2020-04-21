@@ -14,7 +14,6 @@ import fontPng from '../assets/haydnspixel.png';
 import fontGreyPng from '../assets/haydnspixel_grey.png';
 import fontRedPng from '../assets/haydnspixel_red.png';
 
-import Music3Mp3 from '../assets/stargazing.mp3';
 import ActivateMp3 from '../assets/ttgh_activate.mp3';
 import BeepMp3 from '../assets/ttgh_beep.mp3';
 import CrawlMp3 from '../assets/ttgh_crawl.mp3';
@@ -23,12 +22,17 @@ import DingMp3 from '../assets/ttgh_ding.mp3';
 import FuelPumpMp3 from '../assets/ttgh_fuel_pump.mp3';
 import JumpMp3 from '../assets/ttgh_jump.mp3';
 import MachineMp3 from '../assets/ttgh_machine.mp3';
-import Music1Mp3 from '../assets/ttgh_music.mp3';
-import Music2Mp3 from '../assets/ttgh_music_2.mp3';
 import RocketFuelMp3 from '../assets/ttgh_rocket_fuel.mp3';
 import RocketGoingMp3 from '../assets/ttgh_rocket_going.mp3';
 import RocketNoFuelMp3 from '../assets/ttgh_rocket_nofuel.mp3';
 import WalkMp3 from '../assets/ttgh_walk.mp3';
+
+import Music1Mp3 from '../assets/ttgh_music_intro.mp3';
+import Music2Mp3 from '../assets/ttgh_music_mainloop.ogg';
+import Music3Mp3 from '../assets/ttgh_music_stargazing.ogg';
+import Music4Mp3 from '../assets/ttgh_music_wayback.ogg';
+import Music5Mp3 from '../assets/ttgh_music_rocketlaunch.mp3';
+import Music6Mp3 from '../assets/ttgh_music_endloop.ogg';
 
 import mapJson from '../assets/map.json';
 import map2Json from '../assets/map2.json';
@@ -71,6 +75,9 @@ export class LoadScene extends SceneBase {
     AudioManager.preloadSoundSource(this, 'music_1_mp3', Music1Mp3);
     AudioManager.preloadSoundSource(this, 'music_2_mp3', Music2Mp3);
     AudioManager.preloadSoundSource(this, 'music_3_mp3', Music3Mp3);
+    AudioManager.preloadSoundSource(this, 'music_4_mp3', Music4Mp3);
+    AudioManager.preloadSoundSource(this, 'music_5_mp3', Music5Mp3);
+    AudioManager.preloadSoundSource(this, 'music_6_mp3', Music6Mp3);
     AudioManager.preloadSoundSource(this, 'beep_mp3', BeepMp3);
     AudioManager.preloadSoundSource(this, 'ding_mp3', DingMp3);
     AudioManager.preloadSoundSource(this, 'machine_mp3', MachineMp3);
@@ -354,17 +361,29 @@ export class LoadScene extends SceneBase {
       loop: false,
       volume: 0.15,
     });
-    AudioManager.addSound('music_1', 'music_1_mp3', {
+    AudioManager.addSound('music_1', 'music_1_mp3', { // intro
+      loop: false,
+      volume: 0,
+    });
+    AudioManager.addSound('music_2', 'music_2_mp3', { // main
       loop: true,
       volume: 0.75,
     });
-    AudioManager.addSound('music_2', 'music_2_mp3', {
+    AudioManager.addSound('music_3', 'music_3_mp3', { // stargazing
+      loop: false,
+      volume: 0.75,
+    });
+    AudioManager.addSound('music_4', 'music_4_mp3', { // wayback
       loop: true,
       volume: 0,
     });
-    AudioManager.addSound('music_3', 'music_3_mp3', {
+    AudioManager.addSound('music_5', 'music_5_mp3', { // rocketlaunch
       loop: false,
-      volume: 0.75,
+      volume: 0,
+    });
+    AudioManager.addSound('music_6', 'music_6_mp3', { // end
+      loop: true,
+      volume: 0,
     });
     AudioManager.addSound('beep', 'beep_mp3', {
       loop: false,

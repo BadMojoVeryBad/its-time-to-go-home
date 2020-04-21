@@ -56,8 +56,11 @@ export class Scene1 extends GameplaySceneBase {
       this.setupTransitionEvents(6000, 4000);
       this.events.emit('cutscene_opening');
       this.time.delayedCall(500, () => {
+        AudioManager.play('music_1')
+        AudioManager.fadeIn('music_1', 1000, 0.3);
+      });
+      this.time.delayedCall(38750, () => {
         AudioManager.play('music_2');
-        AudioManager.fadeIn('music_2', 1000, 0.75);
       });
     }
 
@@ -180,7 +183,14 @@ export class Scene1 extends GameplaySceneBase {
     this.events.on('cutscene_rocket_2', () => {
       this.game.flags.setFlag(GameFlag.END_CUTSCENE_PLAYED);
       const cutscene = new CutsceneManager(this);
-      cutscene.addAction('soundVolume', { key: 'music_2', volume: 0.5 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        AudioManager.fadeOut('music_4', 1000, 0);
+        this.time.delayedCall(10000, () => {
+          AudioManager.play('music_5');
+          AudioManager.fadeIn('music_5', 200, 0.75);
+        });
+        resolve();
+      }});
       cutscene.addAction('openLetterbox', {});
       cutscene.addAction('setDepth',  { object: this.rocket.getRocketBackSprite(), depth: 50 });
       cutscene.addAction('wait', { duration: 1000 });
