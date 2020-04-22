@@ -2,7 +2,7 @@
 
 
 # It's Time to Go Home
-A game about enjoying the journey.
+A game about enjoying the journey. [You can play it for free here!](https://badmojoverybad.itch.io/its-time-to-go-home)
 
 ## Synopsis
 Play as an astronaut stuck on the Moon, looking for a way back to Earth.
