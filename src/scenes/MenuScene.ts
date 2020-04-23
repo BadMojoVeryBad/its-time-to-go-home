@@ -85,7 +85,7 @@ export class MenuScene extends SceneBase {
           this.inputManager.removeOnPress(Controls.Activate, ref);
           this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
             if (progress === 1) {
-              this.scene.start('Scene2', {});
+              this.scene.start('Scene1', {});
             }
           });
         } else if (this.selected === 1) {
