@@ -17,6 +17,9 @@ export class MenuScene extends SceneBase {
   private back!: Phaser.GameObjects.BitmapText;
   private credits!: SpriteBase;
 
+  private upPressed = false;
+  private downPressed = false;
+
   constructor() {
     super({
       key: 'MenuScene',
@@ -74,18 +77,6 @@ export class MenuScene extends SceneBase {
     this.marker.setPosition(this.texts[0].x - 100, this.texts[0].y - 28);
     this.marker.setScale(4);
 
-    this.inputManager.onPress(Controls.Down, () => {
-      if (this.currentScreen === 'menu') {
-        this.selected = (this.selected >= 2) ? 0 : this.selected + 1;
-      }
-    });
-
-    this.inputManager.onPress(Controls.Up, () => {
-      if (this.currentScreen === 'menu') {
-        this.selected = (this.selected <= 0) ? 2 : this.selected - 1;
-      }
-    });
-
     const ref = this.inputManager.onPress(Controls.Activate, () => {
       AudioManager.play('activate');
 
@@ -94,7 +85,7 @@ export class MenuScene extends SceneBase {
           this.inputManager.removeOnPress(Controls.Activate, ref);
           this.cameras.main.fadeOut(600, 0, 0, 0, (camera: any, progress: number) => {
             if (progress === 1) {
-              this.scene.start('Scene1', {});
+              this.scene.start('Scene2', {});
             }
           });
         } else if (this.selected === 1) {
@@ -219,6 +210,27 @@ export class MenuScene extends SceneBase {
         this.texts[1].setFont('font_grey');
         this.texts[2].setFont('font');
       }
+    }
+
+    // Joystick menu support.
+    if (this.inputManager.isPressed(Controls.Up) && !this.upPressed) {
+      this.upPressed = true;
+      if (this.currentScreen === 'menu') {
+        this.selected = (this.selected <= 0) ? 2 : this.selected - 1;
+      }
+      this.time.delayedCall(200, () => {
+        this.upPressed = false;
+      });
+    }
+
+    if (this.inputManager.isPressed(Controls.Down) && !this.downPressed) {
+      this.downPressed = true;
+      if (this.currentScreen === 'menu') {
+        this.selected = (this.selected >= 2) ? 0 : this.selected + 1;
+      }
+      this.time.delayedCall(200, () => {
+        this.downPressed = false;
+      });
     }
   }
 }

@@ -73,10 +73,10 @@ export class GamepadInput extends InputBase {
     // Get the current stick vector.
     if (gamepad !== undefined && stick === GamepadStick.LEFT) {
       vector.x = gamepad.getAxisValue(GamepadStickAxis.LEFT_X);
-      vector.y = gamepad.getAxisValue(GamepadStickAxis.LEFT_X);
+      vector.y = gamepad.getAxisValue(GamepadStickAxis.LEFT_Y);
     } else if (gamepad !== undefined && stick === GamepadStick.RIGHT) {
       vector.x = gamepad.getAxisValue(GamepadStickAxis.RIGHT_X);
-      vector.y = gamepad.getAxisValue(GamepadStickAxis.RIGHT_X);
+      vector.y = gamepad.getAxisValue(GamepadStickAxis.RIGHT_Y);
     }
 
     // Return the values.
@@ -166,7 +166,8 @@ export class GamepadInput extends InputBase {
 
       // Is it the right button?
       const gamepad = GamepadInput.getGamepad(this.scene, this.pad);
-      if (gamepad === pad && button.index === this.button) {
+      const isRightButton = (gamepad === pad && button.index === this.button);
+      if (isRightButton) {
         // Run function.
         fn();
       }

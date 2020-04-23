@@ -2,22 +2,21 @@
 
 
 # It's Time to Go Home
-A game about enjoying the journey. [You can play it for free here!](https://badmojoverybad.itch.io/its-time-to-go-home)
+A game about enjoying the journey. [You can play it for free here.](https://badmojoverybad.itch.io/its-time-to-go-home)
 
 ## Synopsis
 Play as an astronaut stuck on the Moon, looking for a way back to Earth.
 
-The music is composed by John Oestmann. [Check out his work here!](https://www.youtube.com/channel/UC_i11eAdIZUMqPG3dKrhd7g)
-
-Finally, if you like the project and would like to connect with me, [I'm on Twitter as @BadMojoVeryBad](https://twitter.com/BadMojoVeryBad). Thanks for playing 😊
+The music is composed by John Oestmann. [Check out his work here.](https://www.youtube.com/channel/UC_i11eAdIZUMqPG3dKrhd7g)
 
 ## Overview
-This game is built using [Phaser 3](https://phaser.io) and [Typescript](https://www.typescriptlang.org/). Through my experience learning this framework, I found
-the examples created by the community an amazing resource to learn from. With this in mind,
-I've made the code open source here in the hopes that it helps someone else learn the
-framework also.
+This game is built using [Phaser 3](https://phaser.io) and
+[Typescript](https://www.typescriptlang.org/). Through my experience learning this framework,
+I found the examples created by the community an amazing resource to learn from. With
+this in mind, I've made the code open source here in the hopes that it helps someone else
+learn the framework also. It's not pretty, but maybe it'll help!
 
-This game is released and is not in active development.
+This game is finished/released and is not in active development.
 
 ## Prerequisites
 To run this game from source, you'll need:

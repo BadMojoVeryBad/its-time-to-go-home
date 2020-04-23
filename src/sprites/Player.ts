@@ -33,7 +33,7 @@ export class Player extends Phaser.GameObjects.Container {
 
     // Create the player's physics body.
     const floorSensor = M.Bodies.rectangle(0, 9, 4, 1, { isSensor: true, label: 'astronaut-floor' });
-    const playerBody = M.Bodies.rectangle(0, 0, 6, 16, { chamfer: { radius: 2 }, label: 'astronaut' });
+    const playerBody = M.Bodies.rectangle(0, 0, 6, 16, { chamfer: { radius: 1 }, label: 'astronaut' });
     const compoundBody =  M.Body.create({
       parts: [
         playerBody, floorSensor,
@@ -45,7 +45,8 @@ export class Player extends Phaser.GameObjects.Container {
     // Add physics to the player.
     this.player.setExistingBody(compoundBody);
     this.player.setOrigin(0.5, 0.75);
-    this.player.setPosition(551, 1889);
+    this.player.setPosition(1051, 1689);
+    // this.player.setPosition(551, 1889);
     this.player.flipX = true;
     this.player.setScale(CONST.SCALE);
     this.player.setFixedRotation();

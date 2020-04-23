@@ -216,10 +216,14 @@ export class Scene2 extends GameplaySceneBase {
       cutscene.addAction('wait', { duration: 2000 });
       cutscene.addAction('playerJump', { player: this.player });
       cutscene.addAction('playerRunTo', { player: this.player, xTarget: 1000 });
+      cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
+        AudioManager.fadeOut('music_3', 400, 0);
+        resolve();
+      }});
       cutscene.addAction('wait', { duration: 800 });
       cutscene.addAction('customFunction', { fn: (resolve: () => void) => {
-        AudioManager.fadeIn('fuel_pump_spatial', 0, 1600);
-        AudioManager.fadeIn('machine_spatial', 0, 1600);
+        AudioManager.fadeIn('fuel_pump_spatial', 0, 1);
+        AudioManager.fadeIn('machine_spatial', 0, 1);
         AudioManager.play('music_4');
         AudioManager.fadeIn('music_4', 1000, 0.75);
         this.game.flags.setFlag(GameFlag.STARGAZE_CUTSCENE_PLAYED);
@@ -244,6 +248,7 @@ export class Scene2 extends GameplaySceneBase {
       }});
       cutscene.addAction('wait', { duration: 2700 });
       cutscene.play();
+      this.inputManager.disableAllControls();
     });
   }
 
